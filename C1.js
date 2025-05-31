@@ -1,5 +1,5 @@
 document.getElementById('gameArea').innerHTML = `
-  <h1>Word Mining C2</h1>
+  <h1>WORPUZZ C2</h1>
   <p class="rule">click tiles, find words, win!</p>
   <div class="container">
     <div id="npcScore">COMPUTER<br></div>
