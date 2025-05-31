@@ -24,4 +24,4 @@ You can play in both Korean and English versions, and the game will continue to 
 	•	Created by Soosoo Han
 	•	Coded with ChatGPT
 	•	Web design & GitHub upload by family
-	•	❤️ Special thanks to Nature Lee, Juju, Coxon, and Mini for their support!
+	•	❤️ Special thanks to Juju, Coxon, and Mini for their support!
