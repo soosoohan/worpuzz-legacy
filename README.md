@@ -1,6 +1,7 @@
 🧩 Worpuzz
 
 Worpuzz is a word puzzle game inspired by Minesweeper, where you explore a grid to uncover hidden words!
+
 (The name “Worpuzz” is a combination of “Word” and “Puzzle.”)
 You can play in both Korean and English versions, and the game will continue to be upgraded.
 
