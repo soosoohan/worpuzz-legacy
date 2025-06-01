@@ -1,5 +1,5 @@
 document.getElementById('gameArea').innerHTML = `
-  <h1>워퍼즈1</h1>
+  
   <p class="rule">가로, 세로, 대각선으로 있는 사자성어와 고사성어를 찾으세요.</p>
 
   <div class="container">
