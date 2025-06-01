@@ -10,141 +10,78 @@
     text-align: center;
     padding: 30px;
   }
-  h1 {
-    font-size: 3em; text-align: center; margin-bottom:0;color: #EF0;
+  h1 { font-size: 3em; margin-bottom:0; color: #EF0; }
+  h2 { font-size:1.2em; color: #EF0; }
+  header>div { color:#fff; line-height: 140%; margin:30px auto; }
+  header { height:320px; }
+
+  .game_container { background-color: #0E756D; border-radius: 22px; color:#fff; width:70%; margin: auto; }
+  .game_section { width:50%; margin: 30px auto; }
+  .game-buttons button {
+    width:90%; margin:10px auto; padding: 16px 0;
+    font-size: 1.2em; cursor: pointer; border: none;
+    background-color: #CFF9FF; color: #0A6A79; border-radius: 12px;
   }
+  .game-buttons button:hover { background-color: #1baf8f; color:#fff; }
 
-  h2 {text-align:center; font-size:1.2em;color: #EF0;}
-
-  header>div {color:#fff; line-height: 140%; margin:30px auto;}
-  header {height:320px; display:block;}
-
-  .game_container {background-color: #0E756D; overflow:auto; border-radius: 22px; color:#fff; width:70%; margin:auto;}
-  .game_section {float:left; overflow:auto; width:50%; margin:30px auto;}
-  .game_section>p {font-size:0.8em; line-height:150%;}
-
-  button {
-    width:90%;
-    margin:10px auto;
-    padding: 16px 0px;
-    display:block;
-    font-size: 1.2em;
-    cursor: pointer;
-    border: none;
-    background-color: #CFF9FF;
-    color: ##0A6A79;
-    border-radius: 12px;
-  }
-  button:hover {
-    background-color: #1baf8f; color:#fff;
-  }
-  .credits {
-    clear:both;
-    font-size: 0.8em;
-    margin-top: 40px;
-    color: #e3e3e3;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.5;
-  }
-  #gameArea {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-    margin: 100px auto;
-    width: 80%;
-  }
-
-  .container {
-    display:flex; gap: 20px; justify-content:center;
-
-  }
-  .rule {color:white; font-size: 1.8em;margin-bottom: 60px;}
-  #npcScore {color:white;font-size: 1.5em;lign-height:200%;}
-  #userScore {color:white;font-size: 1.5em;lign-height:200%;}
-  #retryBtn {margin:40px auto;}
-  #game { display: grid; grid-template-columns: repeat(10, 50px); gap: 5px; margin:auto;}
-  .cell { width: 50px; height: 50px; background: #ddd; display: flex; justify-content: center; align-items: center; border: 1px solid #999; cursor: pointer; }
-  .revealed { background: #fff; }
-  .word-owned-user { background: #c6e2ff; }
-  .word-owned-npc { background: #f8c6c6; }
-
-  
+  .credits { font-size: 0.8em; margin-top: 40px; color: #e3e3e3; max-width: 800px; margin: 40px auto; line-height: 1.5; }
 </style>
-
-<script>
-function loadGameScript(file) {
-  document.getElementById('gameArea').style.display = 'inline-block';
-  const script = document.createElement('script');
-  script.src = file;
-  script.onload = () => console.log(`${file} 로드 완료!`);
-  document.body.appendChild(script);
-}
-
-</script>
 </head>
 <body>
 <header> 
   <h1>WORPUZZ</h1>
   <h2>워퍼즈</h2>
   <div>
-    워퍼즈(WORPUZZ)는 '워드(word)'와 '퍼즐(puzzle)'을 합성한 이름입니다. <br>
-    지뢰찾기에서 영감을 받아 만들었지만, 지뢰 대신 단어가 숨겨져 있어요.<br>
-    지뢰가 없으니 터질 염려 없이, 재미있게 학습하면서 어휘력을 키워보세요!
-    <br><br>
+    워퍼즈(WORPUZZ)는 '워드(word)'와 '퍼즐(puzzle)'을 합성한 이름입니다.<br>
+    지뢰찾기에서 영감을 받아 만들었지만, 지뢰 대신 네잎클로버가 숨겨져 있어요.<br>
+    가로, 세로, 대각선으로 숨겨진 단어를 찾으세요.  <br>
+🍀 네잎클로버를 찾으면 주변이 열리고, 한 번 더 기회를 얻습니다.<br>
+재미있게 학습하면서 어휘력을 키워보세요!<br>
     Worpuzz is a name combining "word" and "puzzle."<br>
-    Inspired by Minesweeper, but instead of mines, there are hidden words!<br>
-    With no mines to worry about, just enjoy learning and expanding your vocabulary!
+    Inspired by Minesweeper, but instead of mines, there are lucky four-leaf clovers!<br>
+Find hidden words in horizontal, vertical, and diagonal directions.<br>
+🍀 If you click on a clover, the surrounding tiles open and you get an extra click.<br>
+ Enjoy learning and expanding your vocabulary!
+
   </div>
 </header>
-
-<div id="gameArea"></div>
-  <!-- 여기에 실제 게임 화면을 넣으시면 됩니다 -->
-</div>
 
 <div class="game_container">
 
   <div class="game_section">
     <h3>영어 ENGLISH</h3>
-   
     <div class="game-buttons">
-      <button onclick="loadGameScript('A1.js')">A1 Oxford Beginner</button>
-      <button onclick="loadGameScript('A2.js')">A2 Oxford Elementary</button>
-      <button onclick="loadGameScript('B1.js')">B1 Oxford Intermediate</button>
-      <button onclick="loadGameScript('B2.js')">B2 Oxford Upper-Intermediate</button>
-      <button onclick="loadGameScript('C1.js')">C1 Oxford Advanced</button>
+      <button onclick="location.href='A1.html'">A1 Oxford Beginner</button>
+      <button onclick="location.href='A2.html'">A2 Oxford Elementary</button>
+      <button onclick="location.href='B1.html'">B1 Oxford Intermediate</button>
+      <button onclick="location.href='B2.html'">B2 Oxford Upper-Intermediate</button>
+      <button onclick="location.href='C1.html'">C1 Oxford Advanced</button>
+<button onclick="location.href='D1.html'"> Tour</button>
+<button onclick="location.href='D2.html'"> Organism</button>
     </div>
-    <p>This game uses words from the Oxford Dictionary, <br>
+    <p>This game uses words from the Oxford Dictionary,<br>
       Categorized by CEFR levels (A1 to C1)</p>
   </div>
 
   <div class="game_section">
     <h3>한국어 KOREAN</h3>
-  
     <div class="game-buttons">
-      <button onclick="loadGameScript('K1.js')">사자성어 / 고사성어</button>
-      <button onclick="loadGameScript('K2.js')">음성 상징어 (의성어 / 의태어)</button>
+      <button onclick="location.href='K1.html'">사자성어 / 고사성어</button>
+      <button onclick="location.href='K2.html'">음성 상징어 (의성어 / 의태어)</button>
+<button onclick="location.href='K3.html'">여행</button>
+<button onclick="location.href='K4.html'">생명</button>
     </div>
   </div>
-
-
 </div>
 
-
-
-
-
-
 <div class="credits">
-  이 게임은 계속 업그레이드될 예정이며, 일부 게임은 준비 중입니다.
-  앞으로 더 많은 주제와 모드를 추가할 계획입니다!  
+  이 게임은 계속 업그레이드될 예정이며, 앞으로 더 많은 주제와 모드를 추가할 계획입니다!  
   <br><br>
   <em>
-    Worpuzz will keep evolving, with more topics and modes coming soon! Created by Hansusu, with coding help from ChatGPT.<br>
+    Worpuzz will keep evolving, with more topics and modes coming soon! <br>
+Created by Hansusu, with coding help from ChatGPT.<br>
     Thanks to Juju, Nature Lee, Coxon, and Mini for their support and encouragement. Have fun playing!
   </em>
 </div>
-
 </body>
 </html>
