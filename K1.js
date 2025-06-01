@@ -212,17 +212,24 @@ function init() {
   fillEmptyCells();
   updateScore();
 
-  gameEl.innerHTML = '';
-  for (let i = 0; i < totalCells; i++) {
-    const cell = document.createElement('div');
-    cell.className = 'cell';
-    cell.addEventListener('click', () => {
-      if (currentPlayer === 'user') {
-        handleClick(i);
-      }
-    });
-    gameEl.appendChild(cell);
-  }
+gameEl.innerHTML = '';
+for (let i = 0; i < totalCells; i++) {
+  const cell = document.createElement('div');
+  cell.className = 'cell';
+  
+  // 👇 여기서 글씨 스타일을 직접 지정!
+  cell.style.fontSize = '18px';
+  cell.style.fontWeight = 'bold';
+  cell.style.color = '#333';
+
+  cell.addEventListener('click', () => {
+    if (currentPlayer === 'user') {
+      handleClick(i);
+    }
+  });
+  gameEl.appendChild(cell);
+}
+
 }
 
 retryBtn.addEventListener('click', init);
