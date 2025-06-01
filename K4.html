@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>워퍼즈</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #209087;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+  }
+  h1 {
+    font-size: 3em;
+    margin: 20px 0 10px;
+    color: #EF0;
+  }
+  p.rule {
+    margin: 0 0 10px;
+    font-size: 1em;
+    color: #EF0;
+    text-align: center;
+    line-height: 1.4;
+  }
+  .container {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 10px;
+  }
+  #npcScore, #userScore {
+    background-color: #209087;
+    color: #fff;
+    width: 180px;
+    min-height: 300px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 12px;
+  }
+  #npcScore h2, #userScore h2 {
+    font-size: 1.2em;
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  #npcScore p, #userScore p {
+    font-size: 1.1em;
+    margin: 5px 0;
+  }
+  #game {
+    display: grid;
+    grid-template-columns: repeat(10, 50px);
+    grid-gap: 5px;
+    padding: 10px;
+    background-color: #0E756D;
+    border-radius: 12px;
+  }
+  .cell {
+    width: 50px;
+    height: 50px;
+    background-color: #CFF9FF;
+    color: #0A6A79;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3em;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 4px;
+  }
+  .revealed {
+    background-color: #fff;
+  }
+  .revealed.clover {
+    background-color: #d0f5d0;
+    font-size: 1.5em;
+  }
+  .word-owned-user {
+    background-color: #fff9c4;
+  }
+  .word-owned-npc {
+    background-color: #ffe0e0;
+  }
+  .btn-container {
+    display: flex;
+    gap: 10px;
+    margin: 15px;
+  }
+  button {
+    font-size: 1.1em;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #CFF9FF;
+    color: #0A6A79;
+    border-radius: 12px;
+    border: none;
+  }
+  button:hover {
+    background-color: #1baf8f;
+    color: #fff;
+  }
+</style>
+</head>
+<body>
+
+<h1>워퍼즈 생명</h1>
+<p class="rule">
+  가로, 세로, 대각선으로 있는 생명체의 이름을 찾으세요.<br>
+  🍀 네잎클로버를 찾으면 주변이 열리고, 한 번 더 기회를 얻습니다.
+</p>
+
+<div class="container">
+  <div id="npcScore">
+    <h2>컴퓨터:</h2>
+  </div>
+  <div id="game"></div>
+  <div id="userScore">
+    <h2>나:</h2>
+  </div>
+</div>
+
+<div class="btn-container">
+  <button id="retryBtn">다시하기</button>
+  <button onclick="location.href='index.html'">처음으로</button>
+</div>
+
+<script>
+const two_letter_words = ["가재","가지","감자","감초","강황","개미","거미","거북","거위","계피","고둥","고래","고수","고추","고퍼","곰솔","공작","광어","국화","기린","까치","나방","나비","낙지","낙타","노새","농어","뉴트","늑대","담비","당근","대구","대파","대합","도미","동백","돼지","들소","들쥐","딩고","딸기","땅콩","라마","라임","라쿤","레몬","리치","마늘","마멋","말벌","망고","매미","멍게","메기","멜론","멸치","명태","목련","묘목","무스","문어","물개","물소","미역","민트","바질","배추","백조","백합","벌새","복어","부들","부추","붓꽃","붕어","비버","비트","사과","사슴","사자","산호","살구","상어","상추","새우","생강","생쥐","석류","성게","소라","송어","수국","수달","수련","수박","순록","순무","싱아","악어","야크","양파","에뮤","엘크","여우","연어","염소","오리","오이","우엉","울새","웜뱃","은어","이끼","인삼","잉어","자두","자칼","작약","장미","장어","전갈","전복","정향","제비","조개","주목","지네","쪽파","참새","참치","철쭉","체리","치타","케일","켈프","크릴","키위","타임","타조","토끼","투칸","튤립","판다","팬지","퍼핀","펜넬","펭귄","포도","표범","퓨마","피망","피칸","해달","해마","해면","해삼","해초","호두","호박","호저","홍학","홍합","황소","국화",
+];
+const three_letter_words = ["가리비","가자미","갈매기","감나무","개구리","개나리","개오동","거머리","거북이","고구마","고등어","고라니","고릴라","고양이","구아바","규조류","금붕어","금잔화","기러기","까마귀","꾀꼬리","나팔꽃","낙엽송","낙우송","남세균","너구리","노래기","노린재","눈꽃게","다람쥐","다시마","달팽이","담팔수","당나귀","대나무","데이지","도도새","도롱뇽","도마뱀","독수리","돌고래","동백꽃","두꺼비","두더지","두루미","따개비","딸나무","라벤더","라일락","레몬밤","마가렛","마가목","말미잘","맘모스","망아지","매너티","메뚜기","멧돼지","무궁화","무화과","물상추","미어캣","민들레","바나나","바지락","밤나무","방울꽃","방울뱀","백상어","백일홍","뱀장어","벚나무","병아리","복숭아","복자기","볼복스","봉선화","부들류","부엉이","북극곰","비둘기","뽕나무","사마귀","산토끼","살모사","삼나무","셀러리","선인장","세이지","소나무","송아지","수선화","스컹크","스킨크","시금치","아메바","아몬드","알로에","알리움","알파카","암염소","애벌레","애호박","앵무새","양귀비","양미리","양배추","얼룩말","오렌지","오징어","올리브","올빼미","올챙이","왈라비","우산새","원숭이","원앙새","유산균","자벌레","자스민","잠자리","재규어","전나무","정어리","제라늄","제비꽃","조랑말","족제비","종달새","지렁이","진달래","진드기","참나무","채송화","친칠라","칠면조","침팬지","캥거루","코끼리","코브라","코뿔소","코알라","코요테","코코넛","콩벌레","큰새우","키위새","토마토","파슬리","파파야","펠리컨","포플러","풍뎅이","피라냐","할미꽃","해파리","햄스터","향나무","헤이덕","호랑이","흰개미","흰고래","조롱박","금어초","조롱박","진달래","칠면조",
+];
+const four_letter_words = ["가래나무","가시나무","가죽나무","갈매나무","감탕나무","갑오징어","개구리밥","공모양말","쥐똥나무","개미핧기","개암나무","개옻나무","거위새끼","계수나무","고슴도치","구상나무","굴참나무","귀뚜라미","귀룽나무","꾸지나무","나무늘보","뉴트리아","느릅나무","느티나무","단풍나무","대추나무","대추야자","댕강나무","동백나무","돼지새끼","두릅나무","들메나무","딱따구리","떡갈나무","라즈베리","랑구스틴","레드우드","로즈마리","루피너스","리조비움","마호가니","말채나무","망그로브","매자나무","머드퍼피","메리골드","메추라기","무당벌레","미루나무","바다사자","바닷가재","바위새우","바이러스","박달나무","반얀나무","배롱나무","백상아리","버드나무","베고니아","북극여우","분비나무","불가사리","불도롱뇽","브로콜리","블랙베리","블루베리","비자나무","사막여우","사슴벌레","사시나무","산비둘기","생이가래","세쿼이아","소금쟁이","솔송나무","쇠돌고래","시실리언","실러캔스","아나콘다","아네모네","아보카도","악솔로틀","애플민트","앵무조개","야자나무","엔젤피쉬","오랑우탄","오레가노","유글레나","은방울꽃","은행나무","일각고래","자작나무","장구벌레","장수말벌","주머니쥐","짚신벌레","철갑상어","청개구리","측백나무","층층나무","카네이션","카멜레온","카피바라","캐모마일","코스모스","클로렐라","타란튤라","티크나무","파인애플","파프리카","패랭이꽃","페튜니아","페퍼민트","프리지아","플라밍고","플랑크톤","하이에나","해바라기","해오라기","호두나무","호랑나비","홀리바질","흑두루미","히아신스","청둥오리","고추나물","생이가래","겨우살이","가시고기","가시나무","감탕나무","구상나무","무당벌레","물수제비","팥배나무", "자주엽초", "버즘나무",
+];
+const five_letter_words = ["가문비나무","검은재나무","고로쇠나무","금강소나무","까치밥나무","나도밤나무","너도밤나무","노간주나무","담쟁이덩굴","레몬그라스","멀구슬나무","모감주나무","물푸레나무","바다코끼리","바오밥나무","방울양배추","배추흰나비","불배개구리","붉가시나무","스피로지라","알바트로스","얼룩도롱뇽","유럽두꺼비","유칼립투스","장수풍뎅이","전기뱀장어","천도복숭아","케인두꺼비","콜리플라워","플라나리아","플라타너스","황소개구리","히비스커스","히코리나무","고로쇠나무","금강소나무","노간주나무","마가목나무","물푸레나무","얼룩도롱뇽","여우원숭이","자주달개비","장수풍뎅이","털보도롱뇽","황소개구리",
+];
+const six_or_more_letter_words = ["골리앗개구리","글라디올러스","독화살개구리","워터히아신스","유럽산개구리","흑머리물떼새","대머리독수리","며느리밥풀꽃","골리앗개구리","긴꼬리도롱뇽","서양쥐오줌풀","중국큰도롱뇽","흰머리물떼새",
+"붉은눈청개구리","티라노사우루스","노루궁뎅이버섯","붉은여우원숭이","미국장수도롱뇽",];
+
+const num_two = 3;
+const num_three = 4;
+const num_four = 5;
+const num_five = 3;
+const num_six_or_more = 2;
+
+const gridSize = 10;
+const totalCells = gridSize * gridSize;
+let board, revealed, wordMap, foundWords, currentPlayer, foundBy, words, usedIndexes, resultShown;
+let clovers = new Set();
+
+const gameEl = document.getElementById('game');
+const userScoreEl = document.getElementById('userScore');
+const npcScoreEl = document.getElementById('npcScore');
+const retryBtn = document.getElementById('retryBtn');
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+}
+
+function getRandomSample(arr, n) {
+  const temp = [...arr];
+  shuffle(temp);
+  return temp.slice(0, n);
+}
+
+function getRandomWords() {
+  let selectedWords = []
+    .concat(getRandomSample(two_letter_words, num_two))
+    .concat(getRandomSample(three_letter_words, num_three))
+    .concat(getRandomSample(four_letter_words, num_four))
+    .concat(getRandomSample(five_letter_words, num_five))
+    .concat(getRandomSample(six_or_more_letter_words, num_six_or_more));
+  shuffle(selectedWords);
+  return selectedWords;
+}
+
+function getRandomDirection() {
+  const dirs = [
+    { x: 1, y: 0 },
+    { x: 0, y: 1 },
+    { x: 1, y: 1 },
+  ];
+  return dirs[Math.floor(Math.random() * dirs.length)];
+}
+
+function canPlaceWord(word, x, y, dx, dy) {
+  for (let i = 0; i < word.length; i++) {
+    let nx = x + dx * i;
+    let ny = y + dy * i;
+    if (nx < 0 || ny < 0 || nx >= gridSize || ny >= gridSize) return false;
+    let index = ny * gridSize + nx;
+    if (board[index] && board[index] !== word[i]) return false;
+    if (usedIndexes.has(index)) return false;
+  }
+  return true;
+}
+
+function placeWord(word) {
+  for (let attempt = 0; attempt < 100; attempt++) {
+    let dir = getRandomDirection();
+    let x = Math.floor(Math.random() * gridSize);
+    let y = Math.floor(Math.random() * gridSize);
+    if (canPlaceWord(word, x, y, dir.x, dir.y)) {
+      let positions = [];
+      for (let i = 0; i < word.length; i++) {
+        let nx = x + dir.x * i;
+        let ny = y + dir.y * i;
+        let idx = ny * gridSize + nx;
+        board[idx] = word[i];
+        usedIndexes.add(idx);
+        positions.push(idx);
+      }
+      wordMap[word] = positions;
+      return true;
+    }
+  }
+  return false;
+}
+
+function placeClovers(count) {
+  clovers.clear();
+  while (clovers.size < count) {
+    const idx = Math.floor(Math.random() * totalCells);
+    if (!usedIndexes.has(idx)) clovers.add(idx);
+  }
+}
+
+function fillEmptyCells() {
+  const filler = '가각간값같갛개거건걸검것게곁고골공괴교구국굴궁그근글금기긴길김까깜깨꺾껴꼼꽁꾸끔나난날낮낯내넘넣네년놀놈누눈뉴는니님다닥달담대댄더던덩데도동두드득든듣들등디딜딱때땡똑뚫뛰라락란람랐랑래랜러레려력렸로롭르른를리린림마막만말맘맛맞매맨머먹먼멀멋메멘며면모목몰무문묻물뭘미민밀바박반받발밤밥방뱅버벅번법벼별보복볼봐봤부북분불붙브블비빈빌빔빛빠빡빨빼뻥뿔사살상새색생서선섬섭섰세셋소속솜수숙순숲쉬슴시신실싶쌍쓰씌씻아악안알았앞애야양어얼엄업없었엉에여열영옛오온올옴옷옹와왔왜우운울원위유윤으은을음의이익인일잃임입있잊자작잖잘장재저적전정제져졸좀좋주줄중줬지진집짜짝찍차착참창채책척천청체쳤초촌출췄취치친카켜코콜크큰테토트튼파판폭폼핀필하학한할해햄했행현형호혼화환히힘'.split('');
+  shuffle(filler);
+  let iFiller = 0;
+  for (let i = 0; i < totalCells; i++) {
+    if (!board[i] && !clovers.has(i)) {
+      board[i] = filler[iFiller++ % filler.length];
+    }
+  }
+}
+
+function updateScore() {
+  userScoreEl.innerHTML = "<h2>나:</h2>" + foundBy.user.map(w => `<p>${w}</p>`).join("");
+  npcScoreEl.innerHTML = "<h2>컴퓨터:</h2>" + foundBy.npc.map(w => `<p>${w}</p>`).join("");
+}
+
+function reveal(index) {
+  if (revealed[index]) return;
+  revealed[index] = true;
+  const cell = gameEl.children[index];
+  cell.classList.add('revealed');
+  cell.textContent = board[index];
+}
+
+function checkWords() {
+  for (let word of words) {
+    if (foundWords.has(word)) continue;
+    const positions = wordMap[word];
+    if (positions.every(i => revealed[i])) {
+      foundWords.add(word);
+      let owner = currentPlayer === 'user' ? 'user' : 'npc';
+      foundBy[owner].push(word);
+      for (let i of positions) {
+        gameEl.children[i].classList.add(owner === 'user' ? 'word-owned-user' : 'word-owned-npc');
+      }
+      updateScore();
+    }
+  }
+
+  if (foundWords.size === words.length && !resultShown) {
+    resultShown = true;
+    let userCount = foundBy.user.length;
+    let npcCount = foundBy.npc.length;
+    if (userCount > npcCount) {
+      userScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>🎉 승리</p>";
+      npcScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>😢 패배</p>";
+    } else if (npcCount > userCount) {
+      npcScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>🎉 승리</p>";
+      userScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>😢 패배</p>";
+    }
+  }
+}
+
+function switchTurn() {
+  currentPlayer = currentPlayer === 'user' ? 'npc' : 'user';
+  if (currentPlayer === 'npc' && !resultShown) {
+    setTimeout(npcTurn, 800);
+  }
+}
+
+function npcTurn() {
+  let options = revealed.map((rev, idx) => !rev ? idx : null).filter(idx => idx !== null);
+  if (options.length === 0) return;
+  let choice = options[Math.floor(Math.random() * options.length)];
+  handleClick(choice);
+}
+
+function handleClick(index) {
+  if (revealed[index] || resultShown) return;
+
+  if (clovers.has(index)) {
+    const cell = gameEl.children[index];
+    cell.classList.add('revealed', 'clover');
+    cell.textContent = '🍀';
+    revealed[index] = true;
+
+    const dx = [0, 0, -1, 1, 0];
+    const dy = [-1, 1, 0, 0, 0];
+    for (let d = 0; d < dx.length; d++) {
+      const nx = index % gridSize + dx[d];
+      const ny = Math.floor(index / gridSize) + dy[d];
+      if (nx >= 0 && nx < gridSize && ny >= 0 && ny < gridSize) {
+        const nIdx = ny * gridSize + nx;
+        reveal(nIdx);
+      }
+    }
+    checkWords();
+    if (!resultShown && currentPlayer === 'npc') {
+      setTimeout(npcTurn, 800);
+    }
+    return;
+  }
+
+  reveal(index);
+  checkWords();
+  switchTurn();
+}
+
+function init() {
+  board = Array(totalCells).fill(null);
+  revealed = Array(totalCells).fill(false);
+  wordMap = {};
+  foundWords = new Set();
+  foundBy = { user: [], npc: [] };
+  currentPlayer = 'user';
+  usedIndexes = new Set();
+  words = getRandomWords();
+  resultShown = false;
+
+  for (let word of words) {
+    placeWord(word);
+  }
+  placeClovers(5);
+  fillEmptyCells();
+  updateScore();
+
+  gameEl.innerHTML = '';
+  for (let i = 0; i < totalCells; i++) {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.addEventListener('click', () => {
+      if (currentPlayer === 'user') {
+        handleClick(i);
+      }
+    });
+    gameEl.appendChild(cell);
+  }
+}
+
+retryBtn.addEventListener('click', init);
+init();
+</script>
+</body>
+</html>
