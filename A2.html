@@ -365,8 +365,8 @@ function checkWords() {
     
     let userCount = foundBy.user.length;
     let npcCount = foundBy.npc.length;
-    const winMessage = userCount > npcCount ? "WIN" : npcCount > userCount ? "LOSE" : 
-    const loseMessage = userCount > npcCount ? "LOSE" : npcCount > userCount ? "WIN" : 
+    const winMessage = userCount > npcCount ? "🎉 승리" : npcCount > userCount ? "😢 패배" : "🤝 무승부";
+    const loseMessage = userCount > npcCount ? "😢 패배" : npcCount > userCount ? "🎉 승리" : "🤝 무승부";
     
     userScoreEl.innerHTML += `<p style='font-size:1.3em; margin-top:10px;'>${winMessage}</p>`;
     npcScoreEl.innerHTML += `<p style='font-size:1.3em; margin-top:10px;'>${loseMessage}</p>`;
