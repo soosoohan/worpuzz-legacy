@@ -31,6 +31,12 @@
     gap: 20px;
     margin-bottom: 10px;
   }
+  .score-container {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    max-width: 600px;
+  }
   #npcScore, #userScore {
     background-color: #209087;
     color: #fff;
@@ -104,22 +110,60 @@
     color: #fff;
   }
 @media (max-width: 768px) {
+  h1 {
+    font-size: 2.5em;
+    margin: 15px 0 5px;
+  }
+  p.rule {
+    font-size: 0.9em;
+    margin: 0 10px 15px;
+  }
   .container {
     flex-direction: column;
-    align-items: stretch;
+    align-items: center;
+    width: 100%;
   }
   #game {
-    order: 0;
-    margin-bottom: 10px;
+    grid-template-columns: repeat(10, 30px);
+    grid-gap: 3px;
+    padding: 8px;
+    margin-bottom: 15px;
+  }
+  .cell {
+    width: 30px;
+    height: 30px;
+    font-size: 1em;
+  }
+  .score-container {
+    flex-direction: column;
+    gap: 10px;
+    width: 95%;
+    max-width: 400px;
   }
   #npcScore, #userScore {
-    order: 1;
     width: 100%;
-    min-height: initial;
-    margin-bottom: 10px;
+    min-height: auto;
+    padding: 15px;
+  }
+  #npcScore h2, #userScore h2 {
+    font-size: 1.1em;
+    margin-bottom: 8px;
+  }
+  #npcScore p, #userScore p {
+    font-size: 1em;
+    margin: 3px 0;
   }
   .btn-container {
-    order: 2;
+    margin: 10px;
+    width: 95%;
+    max-width: 400px;
+    justify-content: center;
+  }
+  button {
+    font-size: 1em;
+    padding: 12px 25px;
+    flex: 1;
+    max-width: 150px;
   }
 }
 </style>
@@ -134,12 +178,14 @@ Compete against the computer — whoever finds the most wins!
 </p>
 
 <div class="container">
-  <div id="npcScore">
-    <h2>computer:</h2>
-  </div>
   <div id="game"></div>
-  <div id="userScore">
-    <h2>user:</h2>
+  <div class="score-container">
+    <div id="npcScore">
+      <h2>computer:</h2>
+    </div>
+    <div id="userScore">
+      <h2>user:</h2>
+    </div>
   </div>
 </div>
 
@@ -150,8 +196,6 @@ Compete against the computer — whoever finds the most wins!
 
 <script>
 const wordList = [
-
-
 "ACT","ALL","ANY","APP","BAR","BIN","BIT","CAN","CRY","DRY","FAN","FAT","FIT","FIX","FLU","FLY","FUN","GAP","GAS","GOD","GUN","GUY","HIS","HIT","ILL","JAM","KID","LAB","LAW","LOW","MAY","NUT","OIL","OWN","PAY","PER","PET","POP","PUB","RUN","SIR","SKI","SKY","TIE","TIP","TOP","TOY","USE","VAN","WAR","WEB","WET","WOW","YET",
 "ABLE","ARMY","BACK","BEAN","BEAR","BEAT","BEEF","BELT","BEST","BLOW","BOIL","BONE","BOOK","BOSS","BOWL","BURN","CAMP","CARE","CASE","CASH","CENT","CHAT","CHEF","CHIP","CODE","COOK","COPY","DARK","DATA","DEAD","DEAL","DEAR","DEEP","DROP","DRUG","EARN","FAIL","FAIR","FALL","FARM","FEAR","FEED","FILM","FISH","FLAT","FORK","FREE","FROG","GATE","GIFT","GOAL","GOLD","GOLF","GOOD","HALF","HALL","HAVE","HEAT","HERO","HERS","HIDE","HIGH","HILL","HOLD","HOLE","HOME","HOPE","HUGE","HURT","ITEM","JAZZ","JOKE","JUMP","KILL","KING","KNEE","LADY","LAKE","LAMP","LAND","LAST","LAZY","LEAD","LEND","LESS","LIFT","LINK","LOCK","LOOK","LOST","LOUD","LUCK","MAIL","MALE","MARK","MIND","MINE","MOON","MORE","NECK","NEED","NONE","ONTO","OVEN","PACK","PAIN","PASS","PAST","PICK","PULL","PUSH","RACE","RATE","REST","RIDE","RING","RISE","ROCK","ROLE","ROOF","RUDE","SAFE","SAIL","SALE","SAVE","SEAT","SEEM","SHIP","SHUT","SIDE","SIGN","SITE","SIZE","SKIN","SOAP","SOCK","SOFT","SORT","STAR","STAY","STEP","SUCH","SUIT","SURE","TALK","TASK","TERM","TEXT","THIN","TIDY","TOOL","TOUR","TWIN","UNIT","USED","USER","VIEW","WAIT","WASH","WAVE","WEAK","WIDE","WILD","WIND","WISH","WOOD","ZERO",
 "ADULT","AFTER","ALIVE","ALLOW","ALONE","ALONG","AMONG","ANKLE","APPLY","ARGUE","AVOID","AWARD","AWFUL","BADLY","BASED","BIRTH","BLANK","BLOOD","BOARD","BRAIN","BRUSH","CATCH","CAUSE","CHECK","CLEAR","CLOSE","CLOUD","COACH","COAST","COUNT","COVER","CRAZY","CRIME","CROSS","CROWD","CURLY","CYCLE","DAILY","DEATH","DIARY","DRAMA","DREAM","DRIVE","EARTH","EMPTY","ENTER","ERROR","ESSAY","EXACT","EXIST","FIELD","FIGHT","FINAL","FIRST","FOCUS","FRESH","GRASS","GREET","GUEST","GUIDE","HABIT","HEART","HEAVY","HUMAN","IDEAL","IMAGE","KNIFE","KNOCK","LATER","LEAST","LEMON","LEVEL","LIGHT","LORRY","LUCKY","MAJOR","MARRY","MATHS","MEDIA","METAL","MIGHT","NOISE","NOISY","NOVEL","OCEAN","OFFER","OWNER","PANTS","PEACE","PENNY","PILOT","PLANT","PLATE","POWER","PRINT","PRIZE","QUEEN","RAISE","REACH","REACT","REFER","REPLY","RIGHT","ROUND","ROUTE","SADLY","SAUCE","SCARY","SCENE","SCORE","SENSE","SERVE","SHAKE","SHALL","SHAPE","SHEET","SHOUT","SINCE","SLEEP","SMELL","SMILE","SMOKE","SOLVE","SPEED","SPOON","STAGE","STAIR","STAMP","START","STATE","STEAL","STONE","STORE","STORM","SWEET","TASTE","THICK","THIEF","THIRD","THROW","TOUCH","TOWEL","TOWER","TRACK","TRAIN","TRUCK","USUAL","VIRUS","VOICE","WHEEL","WHILE","WHOLE","WHOSE","WORRY","WORSE","WORST","YOURS",
@@ -160,8 +204,6 @@ const wordList = [
 "ACCIDENT","ACTUALLY","ALTHOUGH","ANYWHERE","ARGUMENT","AUDIENCE","BASEBALL","CLOTHING","COMPLAIN","CONSIDER","CONTINUE","CREATIVE","CRIMINAL","CUPBOARD","DECISION","DESIGNER","DIRECTOR","DISAGREE","DISASTER","DISCOVER","DISTANCE","DIVORCED","DOCUMENT","DOWNLOAD","ELECTRIC","EMPLOYEE","EMPLOYER","ENGINEER","ENORMOUS","EVERYDAY","EVIDENCE","HEADACHE","IDENTIFY","INCLUDED","INCREASE","INDUSTRY","INFORMAL","LAUGHTER","LEARNING","LISTENER","MATERIAL","MEDICINE","MOVEMENT","MUSICIAN","NATIONAL","NORMALLY","ORDINARY","ORGANIZE","ORIGINAL","PHYSICAL","PLATFORM","POSITION","PROGRESS","QUANTITY","QUESTION","RECENTLY","REPORTER","RESEARCH","RESPONSE","SCHEDULE","SECONDLY","SEPARATE","SHOULDER","SOLUTION","SPECIFIC","STRAIGHT","STRATEGY","SUDDENLY","SURPRISE","TEACHING","THINKING","TRAINING","UPSTAIRS",
 "ACCORDING","ADVANTAGE","ADVENTURE","ADVERTISE","ARCHITECT","ASSISTANT","ATTENTION","AVAILABLE","BEHAVIOUR","BRILLIANT","CAREFULLY","CELEBRATE","CELEBRITY","CERTAINLY","CHARACTER","CHEMISTRY","CIGARETTE","CLASSICAL","COLLEAGUE","COMMUNITY","CONDITION","CONNECTED","CONTINENT","CORRECTLY","DETECTIVE","DIRECTION","DISAPPEAR","DISCOVERY","EDUCATION","EQUIPMENT","EXCELLENT","EXTREMELY","FOLLOWING","FURNITURE","INCLUDING","INVENTION","JEWELLERY","KNOWLEDGE","LIFESTYLE","NECESSARY","OURSELVES","PASSENGER","POLLUTION","PRESIDENT","PROFESSOR","PRONOUNCE","RECEPTION","RECOGNIZE","RECOMMEND","RECORDING","SECRETARY","SOMEWHERE","STRUCTURE","SURPRISED","TRADITION","TRANSPORT","TRAVELLER",
 "APPEARANCE","ATTRACTIVE","BACKGROUND","BASKETBALL","COMPLETELY","CONFERENCE","DEFINITELY","DEPARTMENT","DISCUSSION","DOWNSTAIRS","ELECTRICAL","ELECTRONIC","ESPECIALLY","EVERYWHERE","EXPERIENCE","EXPERIMENT","EXPRESSION","GOVERNMENT","IMPOSSIBLE","INCREDIBLE","INDIVIDUAL","INSTRUCTOR","INSTRUMENT","INVITATION","JOURNALIST","MOTORCYCLE","PARTICULAR","PERMISSION","PHOTOGRAPH","POPULATION","POSSESSION","RESEARCHER","SMARTPHONE","SUCCESSFUL","SUGGESTION","SURPRISING","TECHNOLOGY","THEMSELVES",
-
-
 
 
 ];
@@ -294,14 +336,11 @@ function checkWords() {
     let userCount = foundBy.user.length;
     let npcCount = foundBy.npc.length;
     if (userCount > npcCount) {
-      userScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>🎉 승리</p>";
-      npcScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>😢 패배</p>";
+      userScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>WIN</p>";
+      npcScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>LOSE</p>";
     } else if (npcCount > userCount) {
-      npcScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>🎉 승리</p>";
-      userScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>😢 패배</p>";
-    } else {
-      userScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>🤝 무승부</p>";
-      npcScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>🤝 무승부</p>";
+      npcScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>WIN</p>";
+      userScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>LOSE</p>";
     }
   }
 }
