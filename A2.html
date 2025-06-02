@@ -40,17 +40,25 @@
     width: 95%;
     max-width: 400px;
   }
-  
   .score-container #npcScore-mobile, 
   .score-container #userScore-mobile {
     background-color: #0E756D;
     color: #fff;
     width: 100%;
-    min-height: auto;
     padding: 15px;
     box-sizing: border-box;
-    border: none;
     border-radius: 12px;
+  }
+  .score-container #npcScore-mobile h2,
+  .score-container #userScore-mobile h2 {
+    font-size: 1em;
+    margin-top: 0;
+    margin-bottom: 8px;
+  }
+  .score-container #npcScore-mobile p,
+  .score-container #userScore-mobile p {
+    font-size: 0.9em;
+    margin: 3px 0;
   }
   #npcScore, #userScore {
     background-color: #0E756D;
@@ -59,7 +67,6 @@
     min-height: 300px;
     padding: 10px;
     box-sizing: border-box;
-    border: none;
     border-radius: 12px;
   }
   #npcScore h2, #userScore h2 {
@@ -124,7 +131,6 @@
     background-color: #1baf8f;
     color: #fff;
   }
-
   @media (max-width: 768px) {
     h1 {
       font-size: 2.5em;
@@ -152,21 +158,9 @@
     }
     .score-container {
       display: flex !important;
-      flex-direction: column;
-      gap: 10px;
-      width: 95%;
-      max-width: 400px;
     }
     #npcScore, #userScore {
       display: none !important;
-    }
-    #npcScore h2, #userScore h2 {
-      font-size: 1.1em;
-      margin-bottom: 8px;
-    }
-    #npcScore p, #userScore p {
-      font-size: 1em;
-      margin: 3px 0;
     }
     .btn-container {
       margin: 10px;
@@ -187,8 +181,8 @@
 
 <h1>WORPUZZ A2</h1>
 <p class="rule">
-Find the words hidden horizontally →,or vertically ↓<br>
-If you spot a four-leaf clover 🍀, you earn an extra turn! <br>
+Find the words hidden horizontally →, or vertically ↓<br>
+If you spot a four-leaf clover 🍀, you earn an extra turn!<br>
 Compete against the computer — whoever finds the most wins!
 </p>
 
@@ -213,7 +207,7 @@ Compete against the computer — whoever finds the most wins!
 
 <div class="btn-container">
   <button id="retryBtn">RETRY</button>
-  <button onclick="alert('HOME button clicked!')">HOME</button>
+  <button onclick="location.href='index.html'">HOME</button>
 </div>
 
 <script>
@@ -225,7 +219,13 @@ const wordList = [
 "ABILITY","ACHIEVE","AGAINST","AIRLINE","ALREADY","ANCIENT","ANYBODY","ARRANGE","ATHLETE","AVERAGE","BENEFIT","BETWEEN","BILLION","BIOLOGY","BISCUIT","CAMPING","CAREFUL","CARTOON","CERTAIN","CHARITY","CLEARLY","CLIMATE","COLLECT","COMMENT","COMPETE","CONNECT","CONTAIN","CONTEXT","CONTROL","CROWDED","DENTIST","DESTROY","DEVELOP","DIGITAL","DISEASE","DRAWING","DRIVING","EXACTLY","EXPRESS","EXTREME","FACTORY","FARMING","FASHION","FEATURE","FICTION","FINALLY","FIRSTLY","FISHING","FOREIGN","FORWARD","FURTHER","GALLERY","GENERAL","HAPPILY","HELPFUL","HERSELF","HIMSELF","ILLNESS","INSTEAD","INVOLVE","LECTURE","MANAGER","MEDICAL","MENTION","MISSING","MUSICAL","NEITHER","NERVOUS","NETWORK","NOWHERE","OFFICER","OUTSIDE","PAINTER","PARKING","PATIENT","PATTERN","PERFORM","PERHAPS","PHYSICS","PLASTIC","PLEASED","PREDICT","PRESENT","PREVENT","PRINTER","PROCESS","PRODUCE","PROFILE","PROGRAM","PROMISE","PROTECT","PROVIDE","PUBLISH","PURPOSE","QUALITY","QUIETLY","RAILWAY","REALIZE","RECEIVE","RECYCLE","REGULAR","REPLACE","REQUEST","RESPOND","RUBBISH","RUNNING","SAILING","SERIOUS","SERVICE","SEVERAL","SINGING","SMOKING","SOCIETY","SOLDIER","SPEAKER","STOMACH","STRANGE","SUCCEED","SUGGEST","SUPPORT","SUPPOSE","TEENAGE","THOUGHT","TOURISM","TOWARDS","TRAINER","TROUBLE","TYPICAL","UNHAPPY","UNIFORM","UNUSUAL","VARIETY","VEHICLE","WASHING","WEDDING","WELCOME","WORKING","WORRIED",
 "ACCIDENT","ACTUALLY","ALTHOUGH","ANYWHERE","ARGUMENT","AUDIENCE","BASEBALL","CLOTHING","COMPLAIN","CONSIDER","CONTINUE","CREATIVE","CRIMINAL","CUPBOARD","DECISION","DESIGNER","DIRECTOR","DISAGREE","DISASTER","DISCOVER","DISTANCE","DIVORCED","DOCUMENT","DOWNLOAD","ELECTRIC","EMPLOYEE","EMPLOYER","ENGINEER","ENORMOUS","EVERYDAY","EVIDENCE","HEADACHE","IDENTIFY","INCLUDED","INCREASE","INDUSTRY","INFORMAL","LAUGHTER","LEARNING","LISTENER","MATERIAL","MEDICINE","MOVEMENT","MUSICIAN","NATIONAL","NORMALLY","ORDINARY","ORGANIZE","ORIGINAL","PHYSICAL","PLATFORM","POSITION","PROGRESS","QUANTITY","QUESTION","RECENTLY","REPORTER","RESEARCH","RESPONSE","SCHEDULE","SECONDLY","SEPARATE","SHOULDER","SOLUTION","SPECIFIC","STRAIGHT","STRATEGY","SUDDENLY","SURPRISE","TEACHING","THINKING","TRAINING","UPSTAIRS",
 "ACCORDING","ADVANTAGE","ADVENTURE","ADVERTISE","ARCHITECT","ASSISTANT","ATTENTION","AVAILABLE","BEHAVIOUR","BRILLIANT","CAREFULLY","CELEBRATE","CELEBRITY","CERTAINLY","CHARACTER","CHEMISTRY","CIGARETTE","CLASSICAL","COLLEAGUE","COMMUNITY","CONDITION","CONNECTED","CONTINENT","CORRECTLY","DETECTIVE","DIRECTION","DISAPPEAR","DISCOVERY","EDUCATION","EQUIPMENT","EXCELLENT","EXTREMELY","FOLLOWING","FURNITURE","INCLUDING","INVENTION","JEWELLERY","KNOWLEDGE","LIFESTYLE","NECESSARY","OURSELVES","PASSENGER","POLLUTION","PRESIDENT","PROFESSOR","PRONOUNCE","RECEPTION","RECOGNIZE","RECOMMEND","RECORDING","SECRETARY","SOMEWHERE","STRUCTURE","SURPRISED","TRADITION","TRANSPORT","TRAVELLER",
-"APPEARANCE","ATTRACTIVE","BACKGROUND","BASKETBALL","COMPLETELY","CONFERENCE","DEFINITELY","DEPARTMENT","DISCUSSION","DOWNSTAIRS","ELECTRICAL","ELECTRONIC","ESPECIALLY","EVERYWHERE","EXPERIENCE","EXPERIMENT","EXPRESSION","GOVERNMENT","IMPOSSIBLE","INCREDIBLE","INDIVIDUAL","INSTRUCTOR","INSTRUMENT","INVITATION","JOURNALIST","MOTORCYCLE","PARTICULAR","PERMISSION","PHOTOGRAPH","POPULATION","POSSESSION","RESEARCHER","SMARTPHONE","SUCCESSFUL","SUGGESTION","SURPRISING","TECHNOLOGY","THEMSELVES"
+  "APPEARANCE","ATTRACTIVE","BACKGROUND","BASKETBALL","COMPLETELY","CONFERENCE",
+  "DEFINITELY","DEPARTMENT","DISCUSSION","DOWNSTAIRS","ELECTRICAL","ELECTRONIC",
+  "ESPECIALLY","EVERYWHERE","EXPERIENCE","EXPERIMENT","EXPRESSION","GOVERNMENT",
+  "IMPOSSIBLE","INCREDIBLE","INDIVIDUAL","INSTRUCTOR","INSTRUMENT","INVITATION",
+  "JOURNALIST","MOTORCYCLE","PARTICULAR","PERMISSION","PHOTOGRAPH","POPULATION",
+  "POSSESSION","RESEARCHER","SMARTPHONE","SUCCESSFUL","SUGGESTION","SURPRISING",
+  "TECHNOLOGY","THEMSELVES"
 ];
 
 const gridSize = 10;
@@ -256,10 +256,7 @@ function getRandomWords(n) {
 }
 
 function getRandomDirection() {
-  const dirs = [
-    { x: 1, y: 0 },
-    { x: 0, y: 1 }
-  ];
+  const dirs = [{ x: 1, y: 0 }, { x: 0, y: 1 }];
   return dirs[Math.floor(Math.random() * dirs.length)];
 }
 
@@ -290,7 +287,7 @@ function placeWord(word) {
         usedIndexes.add(idx);
         positions.push(idx);
       }
-      wordMap[word] = positions;
+      wordMap[word] = positions; // 👉 위치 좌표를 여기에 저장!
       return true;
     }
   }
@@ -306,19 +303,13 @@ function placeClovers(count) {
 }
 
 function fillEmptyCells() {
-  const alphabet = [];
-  for (let i = 0; i < 26; i++) {
-    alphabet.push(String.fromCharCode(65 + i));
-  }
-  for (let i = alphabet.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [alphabet[i], alphabet[j]] = [alphabet[j], alphabet[i]];
-  }
-  let alphabetIndex = 0;
+  const alphabet = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i));
+  shuffle(alphabet);
+  let index = 0;
   for (let i = 0; i < totalCells; i++) {
     if (!board[i]) {
-      board[i] = alphabet[alphabetIndex % 26];
-      alphabetIndex++;
+      board[i] = alphabet[index % 26];
+      index++;
     }
   }
 }
@@ -326,13 +317,53 @@ function fillEmptyCells() {
 function updateScore() {
   const userContent = "<h2>USER:</h2>" + foundBy.user.map(w => `<p>${w}</p>`).join("");
   const npcContent = "<h2>COMPUTER:</h2>" + foundBy.npc.map(w => `<p>${w}</p>`).join("");
-  
   userScoreEl.innerHTML = userContent;
   npcScoreEl.innerHTML = npcContent;
-  
   if (userScoreMobileEl && npcScoreMobileEl) {
     userScoreMobileEl.innerHTML = userContent;
     npcScoreMobileEl.innerHTML = npcContent;
+  }
+}
+
+function checkWords() {
+  for (let word of words) {
+    if (foundWords.has(word)) continue;
+    const positions = wordMap[word];
+    if (positions.every(i => revealed[i])) {
+      foundWords.add(word);
+      const owner = currentPlayer === 'user' ? 'user' : 'npc';
+      foundBy[owner].push(word);
+      positions.forEach(i => gameEl.children[i].classList.add(owner === 'user' ? 'word-owned-user' : 'word-owned-npc'));
+      updateScore();
+    }
+  }
+
+  if (foundWords.size === words.length && !resultShown) {
+    resultShown = true;
+    clearTimeout(npcTimeoutId);
+
+    const userCount = foundBy.user.length;
+    const npcCount = foundBy.npc.length;
+
+    let userMessage = '';
+    let npcMessage = '';
+
+    if (userCount > npcCount) {
+      userMessage = "🎉 You Win!";
+      npcMessage = "😢 You Lose!";
+    } else if (npcCount > userCount) {
+      userMessage = "😢 You Lose!";
+      npcMessage = "🎉 You Win!";
+    }
+
+    if (userMessage && npcMessage) {
+      userScoreEl.innerHTML += `<p style='font-size:1.3em; margin-top:10px;'>${userMessage}</p>`;
+      npcScoreEl.innerHTML += `<p style='font-size:1.3em; margin-top:10px;'>${npcMessage}</p>`;
+      if (userScoreMobileEl && npcScoreMobileEl) {
+        userScoreMobileEl.innerHTML += `<p style='font-size:1.3em; margin-top:10px;'>${userMessage}</p>`;
+        npcScoreMobileEl.innerHTML += `<p style='font-size:1.3em; margin-top:10px;'>${npcMessage}</p>`;
+      }
+    }
   }
 }
 
@@ -344,86 +375,31 @@ function reveal(index) {
   cell.textContent = board[index];
 }
 
-function checkWords() {
-  for (let word of words) {
-    if (foundWords.has(word)) continue;
-    const positions = wordMap[word];
-    if (positions.every(i => revealed[i])) {
-      foundWords.add(word);
-      let owner = currentPlayer === 'user' ? 'user' : 'npc';
-      foundBy[owner].push(word);
-      for (let i of positions) {
-        gameEl.children[i].classList.add(owner === 'user' ? 'word-owned-user' : 'word-owned-npc');
-      }
-      updateScore();
-    }
-  }
-
-  if (foundWords.size === words.length && !resultShown) {
-    resultShown = true;
-    clearTimeout(npcTimeoutId);
-    
-    let userCount = foundBy.user.length;
-    let npcCount = foundBy.npc.length;
-    const winMessage = userCount > npcCount ? "🎉 승리" : npcCount > userCount ? "😢 패배" : "🤝 무승부";
-    const loseMessage = userCount > npcCount ? "😢 패배" : npcCount > userCount ? "🎉 승리" : "🤝 무승부";
-    
-    userScoreEl.innerHTML += `<p style='font-size:1.3em; margin-top:10px;'>${winMessage}</p>`;
-    npcScoreEl.innerHTML += `<p style='font-size:1.3em; margin-top:10px;'>${loseMessage}</p>`;
-    
-    if (userScoreMobileEl && npcScoreMobileEl) {
-      userScoreMobileEl.innerHTML += `<p style='font-size:1.3em; margin-top:10px;'>${winMessage}</p>`;
-      npcScoreMobileEl.innerHTML += `<p style='font-size:1.3em; margin-top:10px;'>${loseMessage}</p>`;
-    }
-  }
-}
-
 function switchTurn() {
   if (resultShown) return;
-  
   currentPlayer = currentPlayer === 'user' ? 'npc' : 'user';
-  
   if (currentPlayer === 'npc') {
-    npcTimeoutId = setTimeout(() => {
-      npcTurn();
-    }, 800);
+    npcTimeoutId = setTimeout(npcTurn, 800);
   }
 }
 
 function npcTurn() {
-  if (resultShown || currentPlayer !== 'npc') {
-    return;
-  }
-  
-  let options = [];
-  for (let i = 0; i < revealed.length; i++) {
-    if (!revealed[i]) {
-      options.push(i);
-    }
-  }
-  
-  if (options.length === 0) {
-    return;
-  }
-  
-  let choice = options[Math.floor(Math.random() * options.length)];
+  if (resultShown || currentPlayer !== 'npc') return;
+  const options = revealed.reduce((acc, r, i) => (!r ? [...acc, i] : acc), []);
+  if (options.length === 0) return;
+  const choice = options[Math.floor(Math.random() * options.length)];
   handleClick(choice);
 }
 
 function handleClick(index) {
-  if (revealed[index] || resultShown) {
-    return;
-  }
-
+  if (revealed[index] || resultShown) return;
   let wasClover = false;
-
   if (clovers.has(index)) {
     wasClover = true;
     const cell = gameEl.children[index];
     cell.classList.add('revealed', 'clover');
     cell.textContent = '🍀';
     revealed[index] = true;
-
     const dx = [0, 0, -1, 1, 0];
     const dy = [-1, 1, 0, 0, 0];
     for (let d = 0; d < dx.length; d++) {
@@ -437,21 +413,16 @@ function handleClick(index) {
   } else {
     reveal(index);
   }
-
   checkWords();
-
   if (!wasClover && !resultShown) {
     switchTurn();
   } else if (wasClover && currentPlayer === 'npc' && !resultShown) {
-    npcTimeoutId = setTimeout(() => {
-      npcTurn();
-    }, 800);
+    npcTimeoutId = setTimeout(npcTurn, 800);
   }
 }
 
 function init() {
   clearTimeout(npcTimeoutId);
-  
   board = Array(totalCells).fill(null);
   revealed = Array(totalCells).fill(false);
   wordMap = {};
@@ -459,21 +430,18 @@ function init() {
   foundBy = { user: [], npc: [] };
   currentPlayer = 'user';
   usedIndexes = new Set();
-  words = getRandomWords(8);
+  words = getRandomWords(13);
   resultShown = false;
   clovers.clear();
 
   let placedWords = 0;
   let attempts = 0;
   while (placedWords < words.length && attempts < 50) {
-    if (placeWord(words[placedWords])) {
-      placedWords++;
-    }
+    if (placeWord(words[placedWords])) placedWords++;
     attempts++;
   }
-  
   words = words.slice(0, placedWords);
-  
+
   placeClovers(5);
   fillEmptyCells();
   updateScore();
@@ -483,20 +451,16 @@ function init() {
     const cell = document.createElement('div');
     cell.className = 'cell';
     cell.addEventListener('click', () => {
-      if (currentPlayer === 'user' && !resultShown) {
-        handleClick(i);
-      }
+      if (currentPlayer === 'user' && !resultShown) handleClick(i);
     });
     gameEl.appendChild(cell);
   }
 }
 
 retryBtn.addEventListener('click', init);
-
-// 화면 크기에 따라 점수판 표시/숨김
+window.addEventListener('resize', updateLayout);
 function updateLayout() {
   const isMobile = window.innerWidth <= 768;
-  
   if (isMobile) {
     npcScoreEl.style.display = 'none';
     userScoreEl.style.display = 'none';
@@ -507,8 +471,6 @@ function updateLayout() {
     document.querySelector('.score-container').style.display = 'none';
   }
 }
-
-window.addEventListener('resize', updateLayout);
 updateLayout();
 init();
 </script>
