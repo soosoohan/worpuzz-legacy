@@ -51,13 +51,13 @@
   }
   .score-container #npcScore-mobile h2,
   .score-container #userScore-mobile h2 {
-    font-size: 0.9em; /* 폰에서 작은 글씨 */
+    font-size: 0.9em;
     margin: 0 0 5px;
   }
   .score-container #npcScore-mobile p,
   .score-container #userScore-mobile p {
     font-size: 0.9em;
-    display: inline-block; /* 단어를 옆으로 나열 */
+    display: inline-block;
     margin: 2px 5px;
   }
   #npcScore, #userScore {
@@ -146,37 +146,39 @@
       width: 100%;
     }
 
-/* 격자 크기를 점수판 크기와 같게 키움 */
-#game {
-  grid-template-columns: repeat(10, 1fr); /* 셀 크기 자동으로 부모 폭에 맞춤 */
-  gap: 4px;
-  width: 95%; /* 점수판과 똑같이 95%로 맞춤 */
-  max-width: 400px;
-  padding: 8px;
-  margin-bottom: 15px;
-}
-.cell {
-  aspect-ratio: 1 / 1; /* 정사각형 유지 */
-  font-size: 1.1em;
-}
-.score-container {
-  display: flex !important;
-}
-#npcScore, #userScore {
-  display: none !important;
-}
-.btn-container {
-  margin: 10px;
-  width: 95%;
-  max-width: 400px;
-  justify-content: center;
-}
-button {
-  font-size: 1em;
-  padding: 12px 25px;
-  flex: 1;
-  max-width: 150px;
-}
+    /* 격자 크기를 점수판과 정확히 같게 맞춤 */
+    #game {
+      grid-template-columns: repeat(10, 1fr);
+      gap: 3px;
+      width: 95%;
+      max-width: 400px;
+      padding: 10px;
+      margin-bottom: 15px;
+      box-sizing: border-box; /* 패딩을 포함한 전체 크기 계산 */
+    }
+    .cell {
+      aspect-ratio: 1 / 1;
+      font-size: 1.1em;
+      min-width: 0; /* flexbox에서 최소 너비 제한 해제 */
+    }
+    .score-container {
+      display: flex !important;
+    }
+    #npcScore, #userScore {
+      display: none !important;
+    }
+    .btn-container {
+      margin: 10px;
+      width: 95%;
+      max-width: 400px;
+      justify-content: center;
+    }
+    button {
+      font-size: 1em;
+      padding: 12px 25px;
+      flex: 1;
+      max-width: 150px;
+    }
   }
 
 </style>
@@ -217,14 +219,6 @@ Compete against the computer — whoever finds the most wins!
 <script>
 const wordList = [
 "ACT","ALL","ANY","APP","BAR","BIN","BIT","CAN","CRY","DRY","FAN","FAT","FIT","FIX","FLU","FLY","FUN","GAP","GAS","GOD","GUN","GUY","HIS","HIT","ILL","JAM","KID","LAB","LAW","LOW","MAY","NUT","OIL","OWN","PAY","PER","PET","POP","PUB","RUN","SIR","SKI","SKY","TIE","TIP","TOP","TOY","USE","VAN","WAR","WEB","WET","WOW","YET",
-   
-"ABLE","ARMY","BACK","BEAN","BEAR","BEAT","BEEF","BELT","BEST","BLOW","BOIL","BONE","BOOK","BOSS","BOWL","BURN","CAMP","CARE","CASE","CASH","CENT","CHAT","CHEF","CHIP","CODE","COOK","COPY","DARK","DATA","DEAD","DEAL","DEAR","DEEP","DROP","DRUG","EARN","FAIL","FAIR","FALL","FARM","FEAR","FEED","FILM","FISH","FLAT","FORK","FREE","FROG","GATE","GIFT","GOAL","GOLD","GOLF","GOOD","HALF","HALL","HAVE","HEAT","HERO","HERS","HIDE","HIGH","HILL","HOLD","HOLE","HOME","HOPE","HUGE","HURT","ITEM","JAZZ","JOKE","JUMP","KILL","KING","KNEE","LADY","LAKE","LAMP","LAND","LAST","LAZY","LEAD","LEND","LESS","LIFT","LINK","LOCK","LOOK","LOST","LOUD","LUCK","MAIL","MALE","MARK","MIND","MINE","MOON","MORE","NECK","NEED","NONE","ONTO","OVEN","PACK","PAIN","PASS","PAST","PICK","PULL","PUSH","RACE","RATE","REST","RIDE","RING","RISE","ROCK","ROLE","ROOF","RUDE","SAFE","SAIL","SALE","SAVE","SEAT","SEEM","SHIP","SHUT","SIDE","SIGN","SITE","SIZE","SKIN","SOAP","SOCK","SOFT","SORT","STAR","STAY","STEP","SUCH","SUIT","SURE","TALK","TASK","TERM","TEXT","THIN","TIDY","TOOL","TOUR","TWIN","UNIT","USED","USER","VIEW","WAIT","WASH","WAVE","WEAK","WIDE","WILD","WIND","WISH","WOOD","ZERO",
-"ADULT","AFTER","ALIVE","ALLOW","ALONE","ALONG","AMONG","ANKLE","APPLY","ARGUE","AVOID","AWARD","AWFUL","BADLY","BASED","BIRTH","BLANK","BLOOD","BOARD","BRAIN","BRUSH","CATCH","CAUSE","CHECK","CLEAR","CLOSE","CLOUD","COACH","COAST","COUNT","COVER","CRAZY","CRIME","CROSS","CROWD","CURLY","CYCLE","DAILY","DEATH","DIARY","DRAMA","DREAM","DRIVE","EARTH","EMPTY","ENTER","ERROR","ESSAY","EXACT","EXIST","FIELD","FIGHT","FINAL","FIRST","FOCUS","FRESH","GRASS","GREET","GUEST","GUIDE","HABIT","HEART","HEAVY","HUMAN","IDEAL","IMAGE","KNIFE","KNOCK","LATER","LEAST","LEMON","LEVEL","LIGHT","LORRY","LUCKY","MAJOR","MARRY","MATHS","MEDIA","METAL","MIGHT","NOISE","NOISY","NOVEL","OCEAN","OFFER","OWNER","PANTS","PEACE","PENNY","PILOT","PLANT","PLATE","POWER","PRINT","PRIZE","QUEEN","RAISE","REACH","REACT","REFER","REPLY","RIGHT","ROUND","ROUTE","SADLY","SAUCE","SCARY","SCENE","SCORE","SENSE","SERVE","SHAKE","SHALL","SHAPE","SHEET","SHOUT","SINCE","SLEEP","SMELL","SMILE","SMOKE","SOLVE","SPEED","SPOON","STAGE","STAIR","STAMP","START","STATE","STEAL","STONE","STORE","STORM","SWEET","TASTE","THICK","THIEF","THIRD","THROW","TOUCH","TOWEL","TOWER","TRACK","TRAIN","TRUCK","USUAL","VIRUS","VOICE","WHEEL","WHILE","WHOLE","WHOSE","WORRY","WORSE","WORST","YOURS",
-"ABROAD","ACCEPT","ACTIVE","AFFECT","ALMOST","AMOUNT","ANYWAY","APPEAR","ASLEEP","ATTACK","ATTEND","AUTHOR","BEFORE","BEHAVE","BELONG","BETTER","BORROW","BOTTOM","BRIDGE","BRIGHT","BROKEN","BUTTON","CARPET","CASTLE","CHANCE","CHOICE","CHURCH","CIRCLE","CLEVER","CLOSED","COLUMN","COMEDY","COOKER","CORNER","COUPLE","CREDIT","DANGER","DEGREE","DEPEND","DESERT","DEVICE","DIRECT","DOUBLE","EASILY","EFFECT","EITHER","EMPLOY","ENDING","ENERGY","ENGINE","EXCEPT","EXPECT","EXPERT","FACTOR","FEMALE","FIGURE","FINGER","FINISH","FLYING","FOREST","FORMAL","FRIDGE","FUTURE","GROUND","HEIGHT","HOCKEY","INJURY","INSECT","INSIDE","INVENT","INVITE","ITSELF","LAPTOP","LAWYER","LEADER","LIKELY","LITTLE","LOUDLY","LOVELY","MANAGE","MANNER","MATTER","MEMORY","METHOD","MIDDLE","MIRROR","MOBILE","MONKEY","MOSTLY","MYSELF","NARROW","NATURE","NEARLY","NORMAL","NOTICE","NUMBER","OPTION","PALACE","PETROL","PLANET","PLEASE","POCKET","POLITE","POSTER","PRISON","PUBLIC","RATHER","RECENT","RECIPE","RECORD","REDUCE","REFUSE","REGION","REMOVE","REPAIR","REPORT","REVIEW","RUNNER","SALARY","SCARED","SCREEN","SEARCH","SEASON","SECOND","SECRET","SERIES","SILVER","SIMPLE","SINGLE","SKIING","SLOWLY","SOCCER","SOCIAL","SOURCE","SPEECH","SPIDER","SQUARE","STRESS","STUPID","SURVEY","SYMBOL","SYSTEM","TABLET","TARGET","UNITED","VALLEY","WEIGHT","WINNER","WOODEN",
-"ABILITY","ACHIEVE","AGAINST","AIRLINE","ALREADY","ANCIENT","ANYBODY","ARRANGE","ATHLETE","AVERAGE","BENEFIT","BETWEEN","BILLION","BIOLOGY","BISCUIT","CAMPING","CAREFUL","CARTOON","CERTAIN","CHARITY","CLEARLY","CLIMATE","COLLECT","COMMENT","COMPETE","CONNECT","CONTAIN","CONTEXT","CONTROL","CROWDED","DENTIST","DESTROY","DEVELOP","DIGITAL","DISEASE","DRAWING","DRIVING","EXACTLY","EXPRESS","EXTREME","FACTORY","FARMING","FASHION","FEATURE","FICTION","FINALLY","FIRSTLY","FISHING","FOREIGN","FORWARD","FURTHER","GALLERY","GENERAL","HAPPILY","HELPFUL","HERSELF","HIMSELF","ILLNESS","INSTEAD","INVOLVE","LECTURE","MANAGER","MEDICAL","MENTION","MISSING","MUSICAL","NEITHER","NERVOUS","NETWORK","NOWHERE","OFFICER","OUTSIDE","PAINTER","PARKING","PATIENT","PATTERN","PERFORM","PERHAPS","PHYSICS","PLASTIC","PLEASED","PREDICT","PRESENT","PREVENT","PRINTER","PROCESS","PRODUCE","PROFILE","PROGRAM","PROMISE","PROTECT","PROVIDE","PUBLISH","PURPOSE","QUALITY","QUIETLY","RAILWAY","REALIZE","RECEIVE","RECYCLE","REGULAR","REPLACE","REQUEST","RESPOND","RUBBISH","RUNNING","SAILING","SERIOUS","SERVICE","SEVERAL","SINGING","SMOKING","SOCIETY","SOLDIER","SPEAKER","STOMACH","STRANGE","SUCCEED","SUGGEST","SUPPORT","SUPPOSE","TEENAGE","THOUGHT","TOURISM","TOWARDS","TRAINER","TROUBLE","TYPICAL","UNHAPPY","UNIFORM","UNUSUAL","VARIETY","VEHICLE","WASHING","WEDDING","WELCOME","WORKING","WORRIED",
-"ACCIDENT","ACTUALLY","ALTHOUGH","ANYWHERE","ARGUMENT","AUDIENCE","BASEBALL","CLOTHING","COMPLAIN","CONSIDER","CONTINUE","CREATIVE","CRIMINAL","CUPBOARD","DECISION","DESIGNER","DIRECTOR","DISAGREE","DISASTER","DISCOVER","DISTANCE","DIVORCED","DOCUMENT","DOWNLOAD","ELECTRIC","EMPLOYEE","EMPLOYER","ENGINEER","ENORMOUS","EVERYDAY","EVIDENCE","HEADACHE","IDENTIFY","INCLUDED","INCREASE","INDUSTRY","INFORMAL","LAUGHTER","LEARNING","LISTENER","MATERIAL","MEDICINE","MOVEMENT","MUSICIAN","NATIONAL","NORMALLY","ORDINARY","ORGANIZE","ORIGINAL","PHYSICAL","PLATFORM","POSITION","PROGRESS","QUANTITY","QUESTION","RECENTLY","REPORTER","RESEARCH","RESPONSE","SCHEDULE","SECONDLY","SEPARATE","SHOULDER","SOLUTION","SPECIFIC","STRAIGHT","STRATEGY","SUDDENLY","SURPRISE","TEACHING","THINKING","TRAINING","UPSTAIRS",
-"ACCORDING","ADVANTAGE","ADVENTURE","ADVERTISE","ARCHITECT","ASSISTANT","ATTENTION","AVAILABLE","BEHAVIOUR","BRILLIANT","CAREFULLY","CELEBRATE","CELEBRITY","CERTAINLY","CHARACTER","CHEMISTRY","CIGARETTE","CLASSICAL","COLLEAGUE","COMMUNITY","CONDITION","CONNECTED","CONTINENT","CORRECTLY","DETECTIVE","DIRECTION","DISAPPEAR","DISCOVERY","EDUCATION","EQUIPMENT","EXCELLENT","EXTREMELY","FOLLOWING","FURNITURE","INCLUDING","INVENTION","JEWELLERY","KNOWLEDGE","LIFESTYLE","NECESSARY","OURSELVES","PASSENGER","POLLUTION","PRESIDENT","PROFESSOR","PRONOUNCE","RECEPTION","RECOGNIZE","RECOMMEND","RECORDING","SECRETARY","SOMEWHERE","STRUCTURE","SURPRISED","TRADITION","TRANSPORT","TRAVELLER",
-"APPEARANCE","ATTRACTIVE","BACKGROUND","BASKETBALL","COMPLETELY","CONFERENCE","DEFINITELY","DEPARTMENT","DISCUSSION","DOWNSTAIRS","ELECTRICAL","ELECTRONIC","ESPECIALLY","EVERYWHERE","EXPERIENCE","EXPERIMENT","EXPRESSION","GOVERNMENT","IMPOSSIBLE","INCREDIBLE","INDIVIDUAL","INSTRUCTOR","INSTRUMENT","INVITATION","JOURNALIST","MOTORCYCLE","PARTICULAR","PERMISSION","PHOTOGRAPH","POPULATION","POSSESSION","RESEARCHER","SMARTPHONE","SUCCESSFUL","SUGGESTION","SURPRISING","TECHNOLOGY","THEMSELVES",
 ];
 
 const gridSize = 10;
@@ -348,19 +342,20 @@ function checkWords() {
     let npcMessage = '';
 
     if (userCount > npcCount) {
-      userMessage = " 🏆WIN!!";
-      npcMessage = "🥈LOSE~";
+      // 깃허브에서도 보이도록 텍스트로 변경
+      userMessage = " [WIN!!]";
+      npcMessage = "[LOSE~]";
     } else if (npcCount > userCount) {
-      userMessage = "🥈LOSE~";
-      npcMessage = " 🏆WIN!!";
+      userMessage = "[LOSE~]";
+      npcMessage = " [WIN!!]";
     }
 
     if (userMessage && npcMessage) {
-      userScoreEl.innerHTML += `<p style='font-size:1.3em; margin-top:10px;'>${userMessage}</p>`;
-      npcScoreEl.innerHTML += `<p style='font-size:1.3em; margin-top:10px;'>${npcMessage}</p>`;
+      userScoreEl.innerHTML += `<p style='font-size:1.3em; margin-top:10px; color:#FFD700; font-weight:bold;'>${userMessage}</p>`;
+      npcScoreEl.innerHTML += `<p style='font-size:1.3em; margin-top:10px; color:#FFD700; font-weight:bold;'>${npcMessage}</p>`;
       if (userScoreMobileEl && npcScoreMobileEl) {
-        userScoreMobileEl.innerHTML += `<p style='font-size:1.1em; margin-top:10px;'>${userMessage}</p>`;
-        npcScoreMobileEl.innerHTML += `<p style='font-size:1.1em; margin-top:10px;'>${npcMessage}</p>`;
+        userScoreMobileEl.innerHTML += `<p style='font-size:1.1em; margin-top:10px; color:#FFD700; font-weight:bold;'>${userMessage}</p>`;
+        npcScoreMobileEl.innerHTML += `<p style='font-size:1.1em; margin-top:10px; color:#FFD700; font-weight:bold;'>${npcMessage}</p>`;
       }
     }
   }
