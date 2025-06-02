@@ -103,19 +103,28 @@
     background-color: #1baf8f;
     color: #fff;
   }
+
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
+    align-items: stretch;
   }
-  .scoreboard {
+  #npcScore, #userScore {
     order: 1;
-    flex: 0 0 auto;
     width: 100%;
+    min-height: initial;
+    margin-bottom: 10px;
   }
-  .board {
+  #game {
     order: 0;
+    margin-bottom: 10px;
+  }
+  .btn-container {
+    order: 2;
   }
 }
+
+
 </style>
 </head>
 <body>
