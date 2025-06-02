@@ -345,11 +345,11 @@ function checkWords() {
     let npcMessage = '';
 
     if (userCount > npcCount) {
-      userMessage = "🎉 You Win!";
-      npcMessage = "😢 You Lose!";
+      userMessage = "WIN!";
+      npcMessage = "LOSE!";
     } else if (npcCount > userCount) {
-      userMessage = "😢 You Lose!";
-      npcMessage = "🎉 You Win!";
+      userMessage = "LOSE!";
+      npcMessage = "WIN!";
     }
 
     if (userMessage && npcMessage) {
