@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8" />
-<title>워퍼즈</title>
+<title>워퍼즈 </title>
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -32,7 +32,7 @@
     margin-bottom: 10px;
   }
   #npcScore, #userScore {
-    background-color: #209087; /* 전체 화면 배경과 같게 */
+    background-color: #209087;
     color: #fff;
     width: 180px;
     min-height: 300px;
@@ -66,8 +66,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.3em; /* 더 크게 */
-    font-weight: bold; /* 굵게 */
+    font-size: 1.3em;
+    font-weight: bold;
     cursor: pointer;
     user-select: none;
     border-radius: 4px;
@@ -80,7 +80,7 @@
     font-size: 1.5em;
   }
   .word-owned-user {
-    background-color: #fff9c4; /* 연한 노랑 */
+    background-color: #fff9c4;
   }
   .word-owned-npc {
     background-color: #ffe0e0;
@@ -107,10 +107,13 @@
 </head>
 <body>
 
-<h1>WORPUZZ</h1>
+<h1>워퍼즈 </h1>
 <p class="rule">
-  가로, 세로, 대각선으로 있는 음성상징어(의성어/의태어)를 찾으세요.<br>
-  🍀 네잎클로버를 찾으면 주변이 열리고, 한 번 더 기회를 얻습니다.
+
+가로→, 세로↓, 대각선↘으로 있는 음성상징어(의성어/의태어)를 찾으세요.<br>
+🍀 네잎클로버를 찾으면 주변이 열리고, 한 번 더 기회를 얻습니다.<br>
+컴퓨터와 대결하여 더 많은 단어를 찾으면 이깁니다 !
+
 </p>
 
 <div class="container">
@@ -119,27 +122,30 @@
   </div>
   <div id="game"></div>
   <div id="userScore">
-    <h2>나:</h2>
+    <h2>사용자:</h2>
   </div>
 </div>
 
 <div class="btn-container">
   <button id="retryBtn">다시하기</button>
-  <button onclick="location.href='index.html'">처음으로</button>
+  <button onclick="location.href='index.html'">초기화면</button>
 </div>
 
 <script>
 const wordList = [
+
 "쏴아아","그르렁","길길이","까르륵","까무룩","깔깔깔","꼬꼬댁","꼬끼오","꼬르륵","늴리리","달그락","덜거덕","덜그럭","덜커덩","덩더꿍","드르렁","드르륵","딩동댕","따르릉","딸꾹질","또르르","똑똑똑","띠로리","바드득","바스락","보드득","부르릉","부우웅","뽀드득","삐리리","사르르","살포시","솔솔솔","송송송","스르륵","와르르","와장창","와지끈","우당탕","우두둑","우르르","우르릉","우지끈","우지직","우쭈쭈","으르렁","젱그렁","조르르","졸졸졸","좌르르","주르륵","짜르르","짝짝짝","짤까닥","쨍그랑","쨍그렁","쪼르르","찌르르","찌르륵","차르르","찰그랑","찰싸닥","찰카닥","철써덕","철커덕","촤라락","촤르르","콩콩콩","콰르르","콸콸콸","쿵더쿵","쿵쿵쿵","타다닥","투두둑","투르륵","툭툭툭","파르르","파스스","포드닥","포르르","푸드덕","푸드득","화르르","후다닥","후닥닥","후두두","후드득","후루룩",
 "덜렁덜렁","덜컹덜컹","살금살금","살랑살랑","쌔근쌔근","가닥가닥","가랑가랑","가릉가릉","가만가만","간들간들","간질간질","갈팡질팡","개굴개굴","갸웃갸웃","거뭇거뭇","겅중겅중","고래고래","고분고분","곤두박질","곱슬곱슬","구불구불","굴뚝굴뚝","굵직굵직","굼실굼실","굽실굽실","귀뚤귀뚤","그렁그렁","근질근질","글썽글썽","긁적긁적","기웃기웃","길쭉길쭉","까악까악","까옥까옥","깍둑깍둑","깜박깜박","깜빡깜빡","깜짝깜짝","깡총깡총","깡충깡충","껍죽껍죽","껑충껑충","꼬깃꼬깃","꼬물꼬물","꼬박꼬박","꼬불꼬불","꼬질꼬질","꼬치꼬치","꾀꼴꾀꼴","꾸물꾸물","꾸벅꾸벅","꾸역꾸역","꿀꺽꿀꺽","끄덕끄덕","끈적끈적","끼룩끼룩","나불나불","나풀나풀","너덜너덜","너울너울","널찍널찍","넘실넘실","노닥노닥","노릇노릇","누덕누덕","능글능글","다닥다닥","다독다독","달랑달랑","달싹달싹","달칵달칵","달캉달캉","당실당실","대굴대굴","대롱대롱","더듬더듬","더벅더벅","덕지덕지","덜렁덜렁","덜컥덜컥","덜컹덜컹","덥적덥적","덩실덩실","데구루루","데굴데굴","도란도란","도로로롱","동글동글","동실동실","두근두근","두런두런","두리둥실","둘레둘레","둥개둥개","둥실둥실","뒤뚱뒤뚱","뒤룩뒤룩","뒤적뒤적","뒤죽박죽","뒤척뒤척","뒹굴뒹굴","드문드문","들락날락","들썩들썩","들쑥날쑥","듬성듬성","따끈따끈","따끔따끔","딸깍딸깍","딸랑딸랑","떨렁떨렁","떼굴떼굴","또각또각","또랑또랑","또박또박","똑딱똑딱","뚜벅뚜벅","뚝딱뚝딱","띄엄띄엄","말똥말똥","말랑말랑","매끈매끈","매슥매슥","맨송맨송","머뭇머뭇","멀뚱멀뚱","멈칫멈칫","모락모락","몽실몽실","무럭무럭","밍숭맹숭","바글바글","바둥바둥","바득바득","바들바들","바리바리","바삭바삭","반들반들","반질반질","반짝반짝","발름발름","방글방글","방긋방긋","방실방실","뱅글뱅글","번지르르","번쩍번쩍","벌컥벌컥","벙긋벙긋","보글보글","보슬보슬","부들부들","부릉부릉","부슬부슬","불쑥불쑥","비실비실","비틀비틀","빙글빙글","빠끔빠끔","뻐꾹뻐꾹","뽀득뽀득","삐걱삐걱","삐까번쩍","삐악삐악","삐약삐약","사각사각","사박사박","사뿐사뿐","삭둑삭둑","산들산들","살그머니","살금살금","살랑살랑","살짝살짝","생글생글","설컹설컹","소곤소곤","소담소담","소복소복","소쩍소쩍","속닥속닥","속살속살","송알송알","수북수북","시끌버끌","시끌벅적","싹둑싹둑","쌔근쌔근","아롱다롱","아삭아삭","아작아작","아장아장","야옹야옹","어푸어푸","엉금엉금","와글와글","와들와들","와작와작","왁자지껄","왱알앵알","우당탕탕","울긋불긋","울먹울먹","웅성웅성","웅얼웅얼","으라차차","자장자장","재잘재잘","저벅저벅","절벅절벅","주렁주렁","주룩주룩","주섬주섬","중얼중얼","지글지글","지지배배","질겅질겅","짤깍짤깍","짤랑짤랑","째깍째깍","쩌렁쩌렁","쫑알쫑알","찰랑찰랑","찰칵찰칵","철떡철떡","철벅철벅","철썩철썩","촐랑촐랑","칙칙폭폭","콜록콜록","콩닥콩닥","쿰척쿰척","쿵덕쿵덕","쿵짝쿵짝","쿵쾅쿵쾅","키득키득","타닥타닥","터덜터덜","토닥토닥","투덜투덜","투둑투둑","파닥파닥","파딱파딱","팔랑팔랑","퍼덕퍼덕","퍼떡퍼떡","퐁당퐁당","하악하악","한들한들","할딱할딱","헐레벌떡","홀짝홀짝","후룩후룩","훌쩍훌쩍","훠이훠이","흔들흔들","히죽히죽",
 "거드럭거드럭","곤드레만드레","굼지럭굼지럭","꼼지락꼼지락","달그락달그락","덜그럭덜그럭","두리번두리번","드르렁드르렁","만지작만지작","부스럭부스럭","부시럭부시럭","붉으락푸르락","사부작사부작","어슬렁어슬렁","엎치락뒤치락","오도독오도독","쨍그랑쨍그랑","출렁출렁출렁","후루룩후루룩",
 
 ];
+
 const gridSize = 10;
 const totalCells = gridSize * gridSize;
 let board, revealed, wordMap, foundWords, currentPlayer, foundBy, words, usedIndexes;
 let resultShown = false;
 let clovers = new Set();
+let npcTimeoutId = null; // NPC 타이머 ID 추가
 
 const gameEl = document.getElementById('game');
 const userScoreEl = document.getElementById('userScore');
@@ -162,8 +168,6 @@ function getRandomWords(n) {
 function getRandomDirection() {
   const dirs = [
     { x: 1, y: 0 },
-    { x: 0, y: 1 },
-    { x: 1, y: 1 },
   ];
   return dirs[Math.floor(Math.random() * dirs.length)];
 }
@@ -210,6 +214,8 @@ function placeClovers(count) {
   }
 }
 
+
+
 function fillEmptyCells() {
   const filler = '가각간값같갛개거건걸검것게곁고골공괴교구국굴궁그근글금기긴길김까깜깨꺾껴꼼꽁꾸끔나난날낮낯내넘넣네년놀놈누눈뉴는니님다닥달담대댄더던덩데도동두드득든듣들등디딜딱때땡똑뚫뛰라락란람랐랑래랜러레려력렸로롭르른를리린림마막만말맘맛맞매맨머먹먼멀멋메멘며면모목몰무문묻물뭘미민밀바박반받발밤밥방뱅버벅번법벼별보복볼봐봤부북분불붙브블비빈빌빔빛빠빡빨빼뻥뿔사살상새색생서선섬섭섰세셋소속솜수숙순숲쉬슴시신실싶쌍쓰씌씻아악안알았앞애야양어얼엄업없었엉에여열영옛오온올옴옷옹와왔왜우운울원위유윤으은을음의이익인일잃임입있잊자작잖잘장재저적전정제져졸좀좋주줄중줬지진집짜짝찍차착참창채책척천청체쳤초촌출췄취치친카켜코콜크큰테토트튼파판폭폼핀필하학한할해햄했행현형호혼화환히힘'.split('')
   shuffle(filler);
@@ -222,7 +228,7 @@ function fillEmptyCells() {
 }
 
 function updateScore() {
-  userScoreEl.innerHTML = "<h2>나:</h2>" + foundBy.user.map(w => `<p>${w}</p>`).join("");
+  userScoreEl.innerHTML = "<h2>사용자:</h2>" + foundBy.user.map(w => `<p>${w}</p>`).join("");
   npcScoreEl.innerHTML = "<h2>컴퓨터:</h2>" + foundBy.npc.map(w => `<p>${w}</p>`).join("");
 }
 
@@ -249,8 +255,11 @@ function checkWords() {
     }
   }
 
+  // 게임 종료 조건 체크
   if (foundWords.size === words.length && !resultShown) {
     resultShown = true;
+    clearTimeout(npcTimeoutId); // NPC 타이머 정리
+    
     let userCount = foundBy.user.length;
     let npcCount = foundBy.npc.length;
     if (userCount > npcCount) {
@@ -259,33 +268,60 @@ function checkWords() {
     } else if (npcCount > userCount) {
       npcScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>🎉 승리</p>";
       userScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>😢 패배</p>";
+    } else {
+      userScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>🤝 무승부</p>";
+      npcScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>🤝 무승부</p>";
     }
   }
 }
 
 function switchTurn() {
+  if (resultShown) return; // 게임 종료시 턴 전환 방지
+  
   currentPlayer = currentPlayer === 'user' ? 'npc' : 'user';
-  if (currentPlayer === 'npc' && !resultShown) {
-    setTimeout(npcTurn, 800);
+  
+  if (currentPlayer === 'npc') {
+    npcTimeoutId = setTimeout(() => {
+      npcTurn();
+    }, 800);
   }
 }
 
 function npcTurn() {
-  let options = revealed.map((rev, idx) => !rev ? idx : null).filter(idx => idx !== null);
-  if (options.length === 0) return;
+  if (resultShown || currentPlayer !== 'npc') {
+    return;
+  }
+  
+  let options = [];
+  for (let i = 0; i < revealed.length; i++) {
+    if (!revealed[i]) {
+      options.push(i);
+    }
+  }
+  
+  if (options.length === 0) {
+    return;
+  }
+  
   let choice = options[Math.floor(Math.random() * options.length)];
   handleClick(choice);
 }
 
 function handleClick(index) {
-  if (revealed[index] || resultShown) return;
+  if (revealed[index] || resultShown) {
+    return;
+  }
+
+  let wasClover = false;
 
   if (clovers.has(index)) {
+    wasClover = true;
     const cell = gameEl.children[index];
     cell.classList.add('revealed', 'clover');
     cell.textContent = '🍀';
     revealed[index] = true;
 
+    // 클로버 주변 셀들도 공개
     const dx = [0, 0, -1, 1, 0];
     const dy = [-1, 1, 0, 0, 0];
     for (let d = 0; d < dx.length; d++) {
@@ -296,19 +332,27 @@ function handleClick(index) {
         reveal(nIdx);
       }
     }
-    checkWords();
-    if (!resultShown && currentPlayer === 'npc') {
-      setTimeout(npcTurn, 800);
-    }
-    return;
+  } else {
+    reveal(index);
   }
 
-  reveal(index);
   checkWords();
-  switchTurn();
+
+  // 클로버를 찾았으면 같은 플레이어가 계속, 아니면 턴 교체
+  if (!wasClover && !resultShown) {
+    switchTurn();
+  } else if (wasClover && currentPlayer === 'npc' && !resultShown) {
+    // 클로버 발견으로 NPC가 추가 턴을 얻었을 때
+    npcTimeoutId = setTimeout(() => {
+      npcTurn();
+    }, 800);
+  }
 }
 
 function init() {
+  // 기존 타이머 정리
+  clearTimeout(npcTimeoutId);
+  
   board = Array(totalCells).fill(null);
   revealed = Array(totalCells).fill(false);
   wordMap = {};
@@ -318,10 +362,21 @@ function init() {
   usedIndexes = new Set();
   words = getRandomWords(13);
   resultShown = false;
+  clovers.clear();
 
-  for (let word of words) {
-    placeWord(word);
+  // 단어 배치 시도
+  let placedWords = 0;
+  let attempts = 0;
+  while (placedWords < words.length && attempts < 50) {
+    if (placeWord(words[placedWords])) {
+      placedWords++;
+    }
+    attempts++;
   }
+  
+  // 실제로 배치된 단어들만 사용
+  words = words.slice(0, placedWords);
+  
   placeClovers(5);
   fillEmptyCells();
   updateScore();
@@ -331,7 +386,7 @@ function init() {
     const cell = document.createElement('div');
     cell.className = 'cell';
     cell.addEventListener('click', () => {
-      if (currentPlayer === 'user') {
+      if (currentPlayer === 'user' && !resultShown) {
         handleClick(i);
       }
     });
