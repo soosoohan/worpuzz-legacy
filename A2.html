@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WORPUZZ A2</title>
 <style>
   body {
@@ -12,6 +13,7 @@
     flex-direction: column;
     align-items: center;
     margin: 0;
+    padding: 10px;
   }
   h1 {
     font-size: 3em;
@@ -32,13 +34,26 @@
     margin-bottom: 10px;
   }
   .score-container {
-    display: flex;
-    gap: 20px;
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    width: 95%;
+    max-width: 400px;
+  }
+  
+  .score-container #npcScore-mobile, 
+  .score-container #userScore-mobile {
+    background-color: #0E756D;
+    color: #fff;
     width: 100%;
-    max-width: 600px;
+    min-height: auto;
+    padding: 15px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 12px;
   }
   #npcScore, #userScore {
-    background-color: #209087;
+    background-color: #0E756D;
     color: #fff;
     width: 180px;
     min-height: 300px;
@@ -109,63 +124,63 @@
     background-color: #1baf8f;
     color: #fff;
   }
-@media (max-width: 768px) {
-  h1 {
-    font-size: 2.5em;
-    margin: 15px 0 5px;
+
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2.5em;
+      margin: 15px 0 5px;
+    }
+    p.rule {
+      font-size: 0.9em;
+      margin: 0 10px 15px;
+    }
+    .container {
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+    #game {
+      grid-template-columns: repeat(10, 30px);
+      grid-gap: 3px;
+      padding: 8px;
+      margin-bottom: 15px;
+    }
+    .cell {
+      width: 30px;
+      height: 30px;
+      font-size: 1em;
+    }
+    .score-container {
+      display: flex !important;
+      flex-direction: column;
+      gap: 10px;
+      width: 95%;
+      max-width: 400px;
+    }
+    #npcScore, #userScore {
+      display: none !important;
+    }
+    #npcScore h2, #userScore h2 {
+      font-size: 1.1em;
+      margin-bottom: 8px;
+    }
+    #npcScore p, #userScore p {
+      font-size: 1em;
+      margin: 3px 0;
+    }
+    .btn-container {
+      margin: 10px;
+      width: 95%;
+      max-width: 400px;
+      justify-content: center;
+    }
+    button {
+      font-size: 1em;
+      padding: 12px 25px;
+      flex: 1;
+      max-width: 150px;
+    }
   }
-  p.rule {
-    font-size: 0.9em;
-    margin: 0 10px 15px;
-  }
-  .container {
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-  }
-  #game {
-    grid-template-columns: repeat(10, 30px);
-    grid-gap: 3px;
-    padding: 8px;
-    margin-bottom: 15px;
-  }
-  .cell {
-    width: 30px;
-    height: 30px;
-    font-size: 1em;
-  }
-  .score-container {
-    flex-direction: column;
-    gap: 10px;
-    width: 95%;
-    max-width: 400px;
-  }
-  #npcScore, #userScore {
-    width: 100%;
-    min-height: auto;
-    padding: 15px;
-  }
-  #npcScore h2, #userScore h2 {
-    font-size: 1.1em;
-    margin-bottom: 8px;
-  }
-  #npcScore p, #userScore p {
-    font-size: 1em;
-    margin: 3px 0;
-  }
-  .btn-container {
-    margin: 10px;
-    width: 95%;
-    max-width: 400px;
-    justify-content: center;
-  }
-  button {
-    font-size: 1em;
-    padding: 12px 25px;
-    flex: 1;
-    max-width: 150px;
-  }
-}
 </style>
 </head>
 <body>
@@ -178,20 +193,27 @@ Compete against the computer — whoever finds the most wins!
 </p>
 
 <div class="container">
+  <div id="npcScore">
+    <h2>COMPUTER:</h2>
+  </div>
   <div id="game"></div>
-  <div class="score-container">
-    <div id="npcScore">
-      <h2>computer:</h2>
-    </div>
-    <div id="userScore">
-      <h2>user:</h2>
-    </div>
+  <div id="userScore">
+    <h2>USER:</h2>
+  </div>
+</div>
+
+<div class="score-container">
+  <div id="npcScore-mobile">
+    <h2>COMPUTER:</h2>
+  </div>
+  <div id="userScore-mobile">
+    <h2>USER:</h2>
   </div>
 </div>
 
 <div class="btn-container">
   <button id="retryBtn">RETRY</button>
-  <button onclick="location.href='index.html'">HOME</button>
+  <button onclick="alert('HOME button clicked!')">HOME</button>
 </div>
 
 <script>
@@ -203,9 +225,7 @@ const wordList = [
 "ABILITY","ACHIEVE","AGAINST","AIRLINE","ALREADY","ANCIENT","ANYBODY","ARRANGE","ATHLETE","AVERAGE","BENEFIT","BETWEEN","BILLION","BIOLOGY","BISCUIT","CAMPING","CAREFUL","CARTOON","CERTAIN","CHARITY","CLEARLY","CLIMATE","COLLECT","COMMENT","COMPETE","CONNECT","CONTAIN","CONTEXT","CONTROL","CROWDED","DENTIST","DESTROY","DEVELOP","DIGITAL","DISEASE","DRAWING","DRIVING","EXACTLY","EXPRESS","EXTREME","FACTORY","FARMING","FASHION","FEATURE","FICTION","FINALLY","FIRSTLY","FISHING","FOREIGN","FORWARD","FURTHER","GALLERY","GENERAL","HAPPILY","HELPFUL","HERSELF","HIMSELF","ILLNESS","INSTEAD","INVOLVE","LECTURE","MANAGER","MEDICAL","MENTION","MISSING","MUSICAL","NEITHER","NERVOUS","NETWORK","NOWHERE","OFFICER","OUTSIDE","PAINTER","PARKING","PATIENT","PATTERN","PERFORM","PERHAPS","PHYSICS","PLASTIC","PLEASED","PREDICT","PRESENT","PREVENT","PRINTER","PROCESS","PRODUCE","PROFILE","PROGRAM","PROMISE","PROTECT","PROVIDE","PUBLISH","PURPOSE","QUALITY","QUIETLY","RAILWAY","REALIZE","RECEIVE","RECYCLE","REGULAR","REPLACE","REQUEST","RESPOND","RUBBISH","RUNNING","SAILING","SERIOUS","SERVICE","SEVERAL","SINGING","SMOKING","SOCIETY","SOLDIER","SPEAKER","STOMACH","STRANGE","SUCCEED","SUGGEST","SUPPORT","SUPPOSE","TEENAGE","THOUGHT","TOURISM","TOWARDS","TRAINER","TROUBLE","TYPICAL","UNHAPPY","UNIFORM","UNUSUAL","VARIETY","VEHICLE","WASHING","WEDDING","WELCOME","WORKING","WORRIED",
 "ACCIDENT","ACTUALLY","ALTHOUGH","ANYWHERE","ARGUMENT","AUDIENCE","BASEBALL","CLOTHING","COMPLAIN","CONSIDER","CONTINUE","CREATIVE","CRIMINAL","CUPBOARD","DECISION","DESIGNER","DIRECTOR","DISAGREE","DISASTER","DISCOVER","DISTANCE","DIVORCED","DOCUMENT","DOWNLOAD","ELECTRIC","EMPLOYEE","EMPLOYER","ENGINEER","ENORMOUS","EVERYDAY","EVIDENCE","HEADACHE","IDENTIFY","INCLUDED","INCREASE","INDUSTRY","INFORMAL","LAUGHTER","LEARNING","LISTENER","MATERIAL","MEDICINE","MOVEMENT","MUSICIAN","NATIONAL","NORMALLY","ORDINARY","ORGANIZE","ORIGINAL","PHYSICAL","PLATFORM","POSITION","PROGRESS","QUANTITY","QUESTION","RECENTLY","REPORTER","RESEARCH","RESPONSE","SCHEDULE","SECONDLY","SEPARATE","SHOULDER","SOLUTION","SPECIFIC","STRAIGHT","STRATEGY","SUDDENLY","SURPRISE","TEACHING","THINKING","TRAINING","UPSTAIRS",
 "ACCORDING","ADVANTAGE","ADVENTURE","ADVERTISE","ARCHITECT","ASSISTANT","ATTENTION","AVAILABLE","BEHAVIOUR","BRILLIANT","CAREFULLY","CELEBRATE","CELEBRITY","CERTAINLY","CHARACTER","CHEMISTRY","CIGARETTE","CLASSICAL","COLLEAGUE","COMMUNITY","CONDITION","CONNECTED","CONTINENT","CORRECTLY","DETECTIVE","DIRECTION","DISAPPEAR","DISCOVERY","EDUCATION","EQUIPMENT","EXCELLENT","EXTREMELY","FOLLOWING","FURNITURE","INCLUDING","INVENTION","JEWELLERY","KNOWLEDGE","LIFESTYLE","NECESSARY","OURSELVES","PASSENGER","POLLUTION","PRESIDENT","PROFESSOR","PRONOUNCE","RECEPTION","RECOGNIZE","RECOMMEND","RECORDING","SECRETARY","SOMEWHERE","STRUCTURE","SURPRISED","TRADITION","TRANSPORT","TRAVELLER",
-"APPEARANCE","ATTRACTIVE","BACKGROUND","BASKETBALL","COMPLETELY","CONFERENCE","DEFINITELY","DEPARTMENT","DISCUSSION","DOWNSTAIRS","ELECTRICAL","ELECTRONIC","ESPECIALLY","EVERYWHERE","EXPERIENCE","EXPERIMENT","EXPRESSION","GOVERNMENT","IMPOSSIBLE","INCREDIBLE","INDIVIDUAL","INSTRUCTOR","INSTRUMENT","INVITATION","JOURNALIST","MOTORCYCLE","PARTICULAR","PERMISSION","PHOTOGRAPH","POPULATION","POSSESSION","RESEARCHER","SMARTPHONE","SUCCESSFUL","SUGGESTION","SURPRISING","TECHNOLOGY","THEMSELVES",
-
-
+"APPEARANCE","ATTRACTIVE","BACKGROUND","BASKETBALL","COMPLETELY","CONFERENCE","DEFINITELY","DEPARTMENT","DISCUSSION","DOWNSTAIRS","ELECTRICAL","ELECTRONIC","ESPECIALLY","EVERYWHERE","EXPERIENCE","EXPERIMENT","EXPRESSION","GOVERNMENT","IMPOSSIBLE","INCREDIBLE","INDIVIDUAL","INSTRUCTOR","INSTRUMENT","INVITATION","JOURNALIST","MOTORCYCLE","PARTICULAR","PERMISSION","PHOTOGRAPH","POPULATION","POSSESSION","RESEARCHER","SMARTPHONE","SUCCESSFUL","SUGGESTION","SURPRISING","TECHNOLOGY","THEMSELVES"
 ];
 
 const gridSize = 10;
@@ -213,11 +233,13 @@ const totalCells = gridSize * gridSize;
 let board, revealed, wordMap, foundWords, currentPlayer, foundBy, words, usedIndexes;
 let resultShown = false;
 let clovers = new Set();
-let npcTimeoutId = null; // NPC 타이머 ID 추가
+let npcTimeoutId = null;
 
 const gameEl = document.getElementById('game');
 const userScoreEl = document.getElementById('userScore');
 const npcScoreEl = document.getElementById('npcScore');
+const userScoreMobileEl = document.getElementById('userScore-mobile');
+const npcScoreMobileEl = document.getElementById('npcScore-mobile');
 const retryBtn = document.getElementById('retryBtn');
 
 function shuffle(arr) {
@@ -236,6 +258,7 @@ function getRandomWords(n) {
 function getRandomDirection() {
   const dirs = [
     { x: 1, y: 0 },
+    { x: 0, y: 1 }
   ];
   return dirs[Math.floor(Math.random() * dirs.length)];
 }
@@ -301,8 +324,16 @@ function fillEmptyCells() {
 }
 
 function updateScore() {
-  userScoreEl.innerHTML = "<h2>USER:</h2>" + foundBy.user.map(w => `<p>${w}</p>`).join("");
-  npcScoreEl.innerHTML = "<h2>COMPUTER:</h2>" + foundBy.npc.map(w => `<p>${w}</p>`).join("");
+  const userContent = "<h2>USER:</h2>" + foundBy.user.map(w => `<p>${w}</p>`).join("");
+  const npcContent = "<h2>COMPUTER:</h2>" + foundBy.npc.map(w => `<p>${w}</p>`).join("");
+  
+  userScoreEl.innerHTML = userContent;
+  npcScoreEl.innerHTML = npcContent;
+  
+  if (userScoreMobileEl && npcScoreMobileEl) {
+    userScoreMobileEl.innerHTML = userContent;
+    npcScoreMobileEl.innerHTML = npcContent;
+  }
 }
 
 function reveal(index) {
@@ -328,25 +359,27 @@ function checkWords() {
     }
   }
 
-  // 게임 종료 조건 체크
   if (foundWords.size === words.length && !resultShown) {
     resultShown = true;
-    clearTimeout(npcTimeoutId); // NPC 타이머 정리
+    clearTimeout(npcTimeoutId);
     
     let userCount = foundBy.user.length;
     let npcCount = foundBy.npc.length;
-    if (userCount > npcCount) {
-      userScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>WIN</p>";
-      npcScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>LOSE</p>";
-    } else if (npcCount > userCount) {
-      npcScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>WIN</p>";
-      userScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>LOSE</p>";
+    const winMessage = userCount > npcCount ? "WIN" : npcCount > userCount ? "LOSE" : 
+    const loseMessage = userCount > npcCount ? "LOSE" : npcCount > userCount ? "WIN" : 
+    
+    userScoreEl.innerHTML += `<p style='font-size:1.3em; margin-top:10px;'>${winMessage}</p>`;
+    npcScoreEl.innerHTML += `<p style='font-size:1.3em; margin-top:10px;'>${loseMessage}</p>`;
+    
+    if (userScoreMobileEl && npcScoreMobileEl) {
+      userScoreMobileEl.innerHTML += `<p style='font-size:1.3em; margin-top:10px;'>${winMessage}</p>`;
+      npcScoreMobileEl.innerHTML += `<p style='font-size:1.3em; margin-top:10px;'>${loseMessage}</p>`;
     }
   }
 }
 
 function switchTurn() {
-  if (resultShown) return; // 게임 종료시 턴 전환 방지
+  if (resultShown) return;
   
   currentPlayer = currentPlayer === 'user' ? 'npc' : 'user';
   
@@ -391,7 +424,6 @@ function handleClick(index) {
     cell.textContent = '🍀';
     revealed[index] = true;
 
-    // 클로버 주변 셀들도 공개
     const dx = [0, 0, -1, 1, 0];
     const dy = [-1, 1, 0, 0, 0];
     for (let d = 0; d < dx.length; d++) {
@@ -408,11 +440,9 @@ function handleClick(index) {
 
   checkWords();
 
-  // 클로버를 찾았으면 같은 플레이어가 계속, 아니면 턴 교체
   if (!wasClover && !resultShown) {
     switchTurn();
   } else if (wasClover && currentPlayer === 'npc' && !resultShown) {
-    // 클로버 발견으로 NPC가 추가 턴을 얻었을 때
     npcTimeoutId = setTimeout(() => {
       npcTurn();
     }, 800);
@@ -420,7 +450,6 @@ function handleClick(index) {
 }
 
 function init() {
-  // 기존 타이머 정리
   clearTimeout(npcTimeoutId);
   
   board = Array(totalCells).fill(null);
@@ -430,11 +459,10 @@ function init() {
   foundBy = { user: [], npc: [] };
   currentPlayer = 'user';
   usedIndexes = new Set();
-  words = getRandomWords(13);
+  words = getRandomWords(8);
   resultShown = false;
   clovers.clear();
 
-  // 단어 배치 시도
   let placedWords = 0;
   let attempts = 0;
   while (placedWords < words.length && attempts < 50) {
@@ -444,7 +472,6 @@ function init() {
     attempts++;
   }
   
-  // 실제로 배치된 단어들만 사용
   words = words.slice(0, placedWords);
   
   placeClovers(5);
@@ -465,6 +492,24 @@ function init() {
 }
 
 retryBtn.addEventListener('click', init);
+
+// 화면 크기에 따라 점수판 표시/숨김
+function updateLayout() {
+  const isMobile = window.innerWidth <= 768;
+  
+  if (isMobile) {
+    npcScoreEl.style.display = 'none';
+    userScoreEl.style.display = 'none';
+    document.querySelector('.score-container').style.display = 'flex';
+  } else {
+    npcScoreEl.style.display = 'block';
+    userScoreEl.style.display = 'block';
+    document.querySelector('.score-container').style.display = 'none';
+  }
+}
+
+window.addEventListener('resize', updateLayout);
+updateLayout();
 init();
 </script>
 </body>
