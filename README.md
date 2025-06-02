@@ -24,6 +24,6 @@ The game will continue to be improved and upgraded.
 
 ### 👨‍💻 Credits  
 - **Created by** Soosoo Han  
-- **Coded with** ChatGPT and Claude  
+- **Coded with** Claude  
 - **Web design & GitHub upload by** Nature Lee  
 - ❤️ **Special thanks to** Juju, Coxon, and Mini for their support!  
