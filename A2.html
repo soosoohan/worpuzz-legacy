@@ -103,6 +103,19 @@
     background-color: #1baf8f;
     color: #fff;
   }
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+  .scoreboard {
+    order: 1;
+    flex: 0 0 auto;
+    width: 100%;
+  }
+  .board {
+    order: 0;
+  }
+}
 </style>
 </head>
 <body>
