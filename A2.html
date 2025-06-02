@@ -145,37 +145,40 @@
       align-items: center;
       width: 100%;
     }
-    /* 격자 크기를 점수판 크기와 같게 키움 */
-    #game {
-      grid-template-columns: repeat(10, 38px);
-      grid-gap: 4px;
-      padding: 8px;
-      margin-bottom: 15px;
-    }
-    .cell {
-      width: 38px;
-      height: 38px;
-      font-size: 1.1em;
-    }
-    .score-container {
-      display: flex !important;
-    }
-    #npcScore, #userScore {
-      display: none !important;
-    }
-    .btn-container {
-      margin: 10px;
-      width: 95%;
-      max-width: 400px;
-      justify-content: center;
-    }
-    button {
-      font-size: 1em;
-      padding: 12px 25px;
-      flex: 1;
-      max-width: 150px;
-    }
+
+/* 격자 크기를 점수판 크기와 같게 키움 */
+#game {
+  grid-template-columns: repeat(10, 1fr); /* 셀 크기 자동으로 부모 폭에 맞춤 */
+  gap: 4px;
+  width: 95%; /* 점수판과 똑같이 95%로 맞춤 */
+  max-width: 400px;
+  padding: 8px;
+  margin-bottom: 15px;
+}
+.cell {
+  aspect-ratio: 1 / 1; /* 정사각형 유지 */
+  font-size: 1.1em;
+}
+.score-container {
+  display: flex !important;
+}
+#npcScore, #userScore {
+  display: none !important;
+}
+.btn-container {
+  margin: 10px;
+  width: 95%;
+  max-width: 400px;
+  justify-content: center;
+}
+button {
+  font-size: 1em;
+  padding: 12px 25px;
+  flex: 1;
+  max-width: 150px;
+}
   }
+
 </style>
 </head>
 <body>
@@ -345,11 +348,11 @@ function checkWords() {
     let npcMessage = '';
 
     if (userCount > npcCount) {
-      userMessage = "WIN!";
-      npcMessage = "LOSE!";
+      userMessage = " 🏆WIN!";
+      npcMessage = "🥈LOSE!";
     } else if (npcCount > userCount) {
-      userMessage = "LOSE!";
-      npcMessage = "WIN!";
+      userMessage = "🥈LOSE!";
+      npcMessage = " 🏆WIN!";
     }
 
     if (userMessage && npcMessage) {
