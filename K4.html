@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>워퍼즈 생명</title>
 <style>
   body {
@@ -12,6 +13,7 @@
     flex-direction: column;
     align-items: center;
     margin: 0;
+    padding: 10px;
   }
   h1 {
     font-size: 3em;
@@ -30,16 +32,46 @@
     align-items: flex-start;
     gap: 20px;
     margin-bottom: 10px;
+    width: 100%;
+    max-width: 800px;
+    justify-content: center;
+  }
+  .score-container {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    width: 95%;
+    max-width: 400px;
+  }
+  .score-container #npcScore-mobile, 
+  .score-container #userScore-mobile {
+    background-color: #0E756D;
+    color: #fff;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 12px;
+  }
+  .score-container #npcScore-mobile h2,
+  .score-container #userScore-mobile h2 {
+    font-size: 0.9em;
+    margin: 0 0 5px;
+  }
+  .score-container #npcScore-mobile p,
+  .score-container #userScore-mobile p {
+    font-size: 0.9em;
+    display: inline-block;
+    margin: 2px 5px;
   }
   #npcScore, #userScore {
-    background-color: #209087;
+    background-color: #0E756D;
     color: #fff;
     width: 180px;
     min-height: 300px;
     padding: 10px;
     box-sizing: border-box;
-    border: none;
     border-radius: 12px;
+    flex-shrink: 0;
   }
   #npcScore h2, #userScore h2 {
     font-size: 1.2em;
@@ -52,15 +84,20 @@
   }
   #game {
     display: grid;
-    grid-template-columns: repeat(10, 50px);
+    grid-template-columns: repeat(10, 1fr);
     grid-gap: 5px;
     padding: 10px;
     background-color: #0E756D;
     border-radius: 12px;
+    width: 400px;
+    height: 400px;
+    box-sizing: border-box;
+    flex-shrink: 0;
   }
   .cell {
-    width: 50px;
-    height: 50px;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1 / 1;
     background-color: #CFF9FF;
     color: #0A6A79;
     display: flex;
@@ -78,6 +115,9 @@
   .revealed.clover {
     background-color: #d0f5d0;
     font-size: 1.5em;
+  }
+  .revealed.clover span {
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
   }
   .word-owned-user {
     background-color: #fff9c4;
@@ -103,66 +143,112 @@
     background-color: #1baf8f;
     color: #fff;
   }
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2.5em;
+      margin: 15px 0 5px;
+    }
+    p.rule {
+      font-size: 0.9em;
+      margin: 0 10px 15px;
+    }
+    .container {
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+    #game {
+      width: 95%;
+      max-width: 400px;
+      height: auto;
+      aspect-ratio: 1 / 1;
+    }
+    .btn-container {
+      margin: 10px;
+      width: 95%;
+      max-width: 400px;
+      justify-content: center;
+    }
+    button {
+      font-size: 1em;
+      padding: 12px 25px;
+      flex: 1;
+      max-width: 150px;
+    }
+    .score-container {
+      display: flex !important;
+    }
+    #npcScore, #userScore {
+      display: none !important;
+    }
+  }
 </style>
 </head>
 <body>
 
 <h1>워퍼즈 생명</h1>
 <p class="rule">
-
 가로→, 세로↓, 대각선↘으로 있는 생명체의 이름을 찾으세요.<br>
 🍀 네잎클로버를 찾으면 주변이 열리고, 한 번 더 기회를 얻습니다.<br>
 컴퓨터와 대결하여 더 많은 단어를 찾으면 이깁니다 !
-
 </p>
 
 <div class="container">
   <div id="npcScore">
-    <h2>컴퓨터:</h2>
+    <h2>COMPUTER:</h2>
   </div>
   <div id="game"></div>
   <div id="userScore">
-    <h2>사용자:</h2>
+    <h2>USER:</h2>
+  </div>
+</div>
+
+<div class="score-container">
+  <div id="npcScore-mobile">
+    <h2>COMPUTER:</h2>
+  </div>
+  <div id="userScore-mobile">
+    <h2>USER:</h2>
   </div>
 </div>
 
 <div class="btn-container">
-  <button id="retryBtn">다시하기</button>
-  <button onclick="location.href='index.html'">초기화면</button>
+  <button id="retryBtn">다시 하기</button>
+  <button onclick="location.href='index.html'">다른 게임</button>
 </div>
 
 <script>
-const two_letter_words = ["가재","가지","감자","감초","강황","개미","거미","거북","거위","계피","고둥","고래","고수","고추","고퍼","곰솔","공작","광어","국화","기린","까치","나방","나비","낙지","낙타","노새","농어","늑대","담비","당근","대구","대파","대합","도미","동백","돼지","들소","들쥐","딩고","딸기","땅콩","라마","라임","라쿤","레몬","리치","마늘","마멋","말벌","망고","매미","멍게","메기","멜론","멸치","명태","목련","묘목","무스","문어","물개","물소","미역","민트","바질","배추","백조","백합","벌새","복어","부들","부추","붓꽃","붕어","비버","비트","사과","사슴","사자","산호","살구","상어","상추","새우","생강","생쥐","샬롯","석류","성게","소라","송어","수국","수달","수련","수박","순록","순무","싱아","악어","야크","양파","에뮤","엘크","여우","연어","염소","오리","오이","우엉","울새","웜뱃","은어","이끼","인삼","잉어","자두","자칼","작약","장미","장어","전갈","전복","정향","제비","조개","주목","지네","쪽파","참새","참치","철쭉","체리","치타","케일","켈프","크릴","키위","타임","타조","토끼","투칸","튤립","판다","팬지","퍼핀","펜넬","펭귄","포도","표범","퓨마","피망","피칸","해달","해마","해면","해삼","해초","호두","호박","호저","홍학","홍합","황소","국화",
-];
-const three_letter_words = ["가리비","가자미","갈매기","감나무","개구리","개나리","개오동","거북이","고구마","고등어","고라니","고릴라","고양이","구아바","규조류","금붕어","금잔화","기러기","까마귀","꾀꼬리","나팔꽃","낙엽송","낙우송","너구리","눈꽃게","다람쥐","다시마","달팽이","담팔수","당나귀","대나무","데이지","도롱뇽","도마뱀","독수리","돌고래","동백꽃","두꺼비","두더지","두루미","따개비","딸나무","라벤더","라일락","레몬밤","마가렛","마가목","말미잘","망아지","매너티","메뚜기","멧돼지","무궁화","무화과","미어캣","민들레","바나나","바지락","밤나무","방울꽃","방울뱀","백상어","백일홍","뱀장어","벚나무","병아리","복숭아","복자기","볼복스","봉선화","부들류","부엉이","북극곰","비둘기","뽕나무","사마귀","산토끼","살모사","삼나무","셀러리","선인장","세이지","소나무","송아지","수선화","스컹크","스킨크","시금치","아메바","아몬드","알로에","알리움","알파카","애벌레","애호박","앵무새","양귀비","양미리","양배추","얼룩말","오렌지","오징어","올리브","올빼미","올챙이","왈라비","우산새","원숭이","원앙새","유산균","자벌레","자스민","잠자리","재규어","전나무","정어리","제라늄","제비꽃","조랑말","족제비","종달새","지렁이","진달래","참나무","채송화","친칠라","칠면조","침팬지","캥거루","코끼리","코브라","코뿔소","코알라","코요테","코코넛","콩벌레","키위새","토마토","파슬리","파파야","펠리컨","포플러","풍뎅이","피라냐","할미꽃","해파리","햄스터","향나무","호랑이","흰개미","흰고래","조롱박","금어초","조롱박","진달래","칠면조",
-];
-const four_letter_words = ["가래나무","가시나무","가죽나무","갈매나무","감탕나무","갑오징어","개구리밥","쥐똥나무","개미핧기","개암나무","개옻나무","계수나무","고슴도치","구상나무","굴참나무","귀뚜라미","귀룽나무","꾸지나무","나무늘보","뉴트리아","느릅나무","느티나무","단풍나무","대추나무","대추야자","댕강나무","동백나무","돼지새끼","두릅나무","들메나무","딱따구리","떡갈나무","라즈베리","랑구스틴","레드우드","로즈마리","루피너스","리조비움","마호가니","말채나무","망그로브","매자나무","머드퍼피","메리골드","메추라기","무당벌레","미루나무","바다사자","바닷가재","바위새우","바이러스","박달나무","반얀나무","배롱나무","백상아리","버드나무","베고니아","북극여우","분비나무","불가사리","불도롱뇽","브로콜리","블랙베리","블루베리","비자나무","사막여우","사슴벌레","사시나무","산비둘기","생이가래","세쿼이아","소금쟁이","솔송나무","쇠돌고래","시실리언","실러캔스","아나콘다","아네모네","아보카도","악솔로틀","애플민트","앵무조개","야자나무","엔젤피쉬","오랑우탄","오레가노","유글레나","은방울꽃","은행나무","일각고래","자작나무","장구벌레","장수말벌","주머니쥐","짚신벌레","철갑상어","청개구리","측백나무","층층나무","카네이션","카멜레온","카피바라","캐모마일","코스모스","클로렐라","타란튤라","티크나무","파인애플","파프리카","패랭이꽃","페튜니아","페퍼민트","프리지아","플라밍고","플랑크톤","하이에나","해바라기","해오라기","호두나무","호랑나비","홀리바질","흑두루미","히아신스","청둥오리","고추나물","생이가래","겨우살이","가시고기","가시나무","감탕나무","구상나무","무당벌레","팥배나무", "자주엽초","버즘나무",
-];
-const five_or_more_letter_words = [
 
-"가문비나무","검은재나무","고로쇠나무","금강소나무","까치밥나무","나도밤나무","너도밤나무","노간주나무","담쟁이덩굴","레몬그라스","멀구슬나무","모감주나무","물푸레나무","바다코끼리","바오밥나무","방울양배추","배추흰나비","불배개구리","붉가시나무","스피로지라","알바트로스","얼룩도롱뇽","유럽두꺼비","유칼립투스","장수풍뎅이","전기뱀장어","천도복숭아","케인두꺼비","콜리플라워","플라나리아","플라타너스","황소개구리","히비스커스","히코리나무","마가목나무","여우원숭이","자주달개비","털보도롱뇽","흰다리새우","글라디올러스","독화살개구리","워터히아신스","유럽산개구리","흑머리물떼새","대머리독수리","며느리밥풀꽃","골리앗개구리","긴꼬리도롱뇽","서양쥐오줌풀","중국큰도롱뇽","북극제비갈매기","붉은눈청개구리","노루궁뎅이버섯","붉은여우원숭이","미국장수도롱뇽"
 
+const two_letter_words = ["가재","가지","감자","감초","강황","거북","거위","계피","고둥","고래","고수","고추","곰솔","공작","광어","국화","기린","까치","낙지","낙타","노새","농어","뉴트","늑대","담비","당근","대구","대파","대합","도미","동백","돼지","들소","딩고","딸기","땅콩","라마","라임","라쿤","레몬","리치","마늘","마멋","말벌","망고","매미","메기","멜론","멸치","명태","목련","묘목","무스","문어","물개","물소","미역","민트","바질","배추","백조","백합","벌새","복어","부들","부추","붓꽃","붕어","비버","비트","사과","사슴","사자","산호","살구","상어","상추","새우","생강","생쥐","석류","성게","소라","송어","수국","수달","수련","수박","순록","순무","싱아","야크","양파","에뮤","엘크","여우","연어","염소","오리","오이","우엉","울새","웜뱃","은어","이끼","인삼","잉어","자두","자칼","작약","장미","장어","전복","정향","제비","조개","주목","쪽파","참새","참치","철쭉","체리","치타","케일","크릴","키위","타임","타조","토끼","투칸","튤립","판다","팬지","퍼핀","펜넬","펭귄","포도","표범","퓨마","피망","피칸","해달","해마","해면","해삼","해캄","해초","호두","호박","호저","홍학","홍합","황소"," 박하"," 회향","국화", "국화","백합","수국","작약","장미","튤립","냉이","망초","메꽃","여뀌","갈대","백합",];
+
+const three_letter_words = ["가리비","가자미","갈매기","감나무","개구리","개나리","거북이","고구마","고등어","고라니","고릴라","고양이","구아바","규조류","금붕어","금잔화","기러기","까마귀","꾀꼬리","나팔꽃","낙엽송","낙우송","너구리","눈꽃게","다람쥐","다시마","달팽이","담팔수","당나귀","대나무","데이지","도도새","도롱뇽","도마뱀","독수리","돌고래","동백꽃","두꺼비","두더지","두루미","따개비","딸나무","라벤더","라일락","레몬밤","마가렛","마가목","말미잘","맘모스","망아지","매너티","메뚜기","멧돼지","무궁화","무화과","물상추","미어캣","민들레","바나나","바지락","밤나무","방울꽃", "백리향","백상어","백일홍","뱀장어","벚나무","병아리","복숭아","복자기","볼복스","봉선화","부들류","부엉이","북극곰","비둘기","뽕나무","삼나무","셀러리","선인장","세이지","소나무","송아지","수선화","스컹크","스킨크","시금치","아메바","아몬드","알로에","알리움","알파카","애호박","앵무새","양귀비","양미리","양배추","얼룩말","오렌지","오징어","올리브","올빼미","올챙이","왈라비","우산새","원숭이","원앙새","유산균","자벌레","자스민","잠자리","재규어","전나무","정어리","제라늄","제비꽃","조랑말","족제비","종달새","진달래","참나무","채송화","친칠라","칠면조","침팬지","캥거루","코끼리","코브라","코뿔소","코알라","코요테","코코넛","키위새","토마토","파슬리","파파야","펠리컨","포플러","피라냐","할미꽃","해파리","햄스터","향나무","호랑이","흰고래","조롱박","금어초","진달래","칠면조",
+"참고래","거베라","라일락","안개꽃","개망초","개여뀌","고마리","돌나물","명아주","민들레","쇠비름","씀바귀","제비꽃","질경이","참나리","나리꽃","비비추","수세미","어리연",];
+
+const four_letter_words = ["가래나무","가시나무","가죽나무","갈매나무","감탕나무","갑오징어","개구리밥","개미핧기","개암나무","개옻나무","계수나무","고슴도치","구상나무","굴참나무","귀룽나무","꾸지나무","나무늘보","뉴트리아","느릅나무","느티나무","단풍나무","대추나무","대추야자","댕강나무","동백나무","두릅나무","들메나무","딱따구리","떡갈나무","라즈베리","랑구스틴","레드우드","로즈마리","루피너스","리조비움","마호가니","말채나무","망그로브","매자나무","머드퍼피","메리골드","메추라기","미루나무","바다사자","바닷가재","바위새우","박달나무","반얀나무","배롱나무","백상아리","버드나무","베고니아","북극여우","분비나무","불가사리","브로콜리","블랙베리","블루베리","비자나무","사막여우","사시나무","산비둘기","생이가래","세쿼이아","소금쟁이","솔송나무","쇠돌고래","시실리언","아나콘다","아네모네","아보카도","애플민트","앵무조개","야자나무","엔젤피쉬","오랑우탄","오레가노","은방울꽃","은행나무","일각고래","자작나무","주머니쥐","철갑상어","청개구리","측백나무","층층나무","카네이션","카멜레온","카피바라","캐모마일","코스모스","클로렐라","티크나무","파인애플","파프리카","패랭이꽃","페튜니아","페퍼민트","프리지아","플라밍고","플랑크톤","하이에나","해바라기","해오라기","호두나무","호랑나비","홀리바질","흑두루미","히아신스","청둥오리","고추나물","생이가래","겨우살이","가시고기","감탕나무","구상나무","팥배나무","자주엽초","버즘나무", "귀신고래","대왕고래","밍크고래","북극고래","향유고래","혹등고래","카네이션","프리지아","해바라기","히아신스","강아지풀","개갓냉이","개불알풀","광대나물","까치수염","달맞이꽃","물달개비","소리쟁이","애기땅풀","제비꿀풀","법수홍련","아라홍련", "무늬갈대","물수세미","애기부들","하늘나리",
 ];
 
+const five_or_more_letter_words = ["가문비나무", "개오동나무","검은재나무","고로쇠나무","금강소나무","까치밥나무","나도밤나무","너도밤나무","노간주나무","담쟁이덩굴","레몬그라스","멀구슬나무","모감주나무","물푸레나무","바다코끼리","바오밥나무","방울양배추","붉가시나무","알바트로스","얼룩도롱뇽","유칼립투스","천도복숭아","콜리플라워","플라타너스","히비스커스","히코리나무","고로쇠나무","금강소나무","노간주나무","마가목나무","물푸레나무","여우원숭이","자주달개비","글라디올러스","독화살개구리","워터히아신스","유럽산개구리","흑머리물떼새","대머리독수리","며느리밥풀꽃","북극제비갈매기","서양쥐오줌풀","흰머리물떼새","노루궁뎅이버섯","붉은여우원숭이",
+"혹부리고래","흰수염고래","라넌큘러스","리시안셔스","왕고들빼기", "노랑어리연","에키네시아","질경이택사",
+"남방참돌고래","큰머리돌고래",];
 
 const num_two = 3;
 const num_three = 4;
 const num_four = 4;
 const num_five_or_more = 4;
 
-
-
-
 const gridSize = 10;
 const totalCells = gridSize * gridSize;
 let board, revealed, wordMap, foundWords, currentPlayer, foundBy, words, usedIndexes;
 let resultShown = false;
 let clovers = new Set();
-let npcTimeoutId = null; // NPC 타이머 ID 추가
+let npcTimeoutId = null;
 
 const gameEl = document.getElementById('game');
 const userScoreEl = document.getElementById('userScore');
 const npcScoreEl = document.getElementById('npcScore');
+const userScoreMobileEl = document.getElementById('userScore-mobile');
+const npcScoreMobileEl = document.getElementById('npcScore-mobile');
 const retryBtn = document.getElementById('retryBtn');
 
 function shuffle(arr) {
@@ -172,11 +258,10 @@ function shuffle(arr) {
   }
 }
 
-
-function getRandomSample(arr, n) {
-  const temp = [...arr];
-  shuffle(temp);
-  return temp.slice(0, n);
+function getRandomSample(array, count) {
+  const shuffled = [...array];
+  shuffle(shuffled);
+  return shuffled.slice(0, count);
 }
 
 function getRandomWords() {
@@ -190,9 +275,7 @@ function getRandomWords() {
 }
 
 function getRandomDirection() {
-  const dirs = [
-    { x: 1, y: 0 },
-  ];
+  const dirs = [{ x: 1, y: 0 }, { x: 0, y: 1 }, { x: 1, y: 1 }];
   return dirs[Math.floor(Math.random() * dirs.length)];
 }
 
@@ -238,10 +321,8 @@ function placeClovers(count) {
   }
 }
 
-
-
 function fillEmptyCells() {
-  const filler = '가각간값같갛개거건걸검것게곁고골공괴교구국굴궁그근글금기긴길김까깜깨꺾껴꼼꽁꾸끔나난날낮낯내넘넣네년놀놈누눈뉴는니님다닥달담대댄더던덩데도동두드득든듣들등디딜딱때땡똑뚫뛰라락란람랐랑래랜러레려력렸로롭르른를리린림마막만말맘맛맞매맨머먹먼멀멋메멘며면모목몰무문묻물뭘미민밀바박반받발밤밥방뱅버벅번법벼별보복볼봐봤부북분불붙브블비빈빌빔빛빠빡빨빼뻥뿔사살상새색생서선섬섭섰세셋소속솜수숙순숲쉬슴시신실싶쌍쓰씌씻아악안알았앞애야양어얼엄업없었엉에여열영옛오온올옴옷옹와왔왜우운울원위유윤으은을음의이익인일잃임입있잊자작잖잘장재저적전정제져졸좀좋주줄중줬지진집짜짝찍차착참창채책척천청체쳤초촌출췄취치친카켜코콜크큰테토트튼파판폭폼핀필하학한할해햄했행현형호혼화환히힘'.split('')
+  const filler = '가각간값같갛개거건걸검것게곁고골공괴교구국궁그근글금기긴길까깜깨꺾껴꼼꽁꾸끔나난날낮낯내넘넣네년놀놈누눈뉴는니님다닥달담대댄더던덩데도동두드득든듣들등디딜딱때땡똑뚫뛰라락란람랐랑래랜러레려력렸로롭르른를리린림마막만말맘맛맞매맨머먹먼멀멋메멘며면모목몰무문묻물뭘미민밀바박반받발밤밥방뱅버벅번법벼별보복볼봐봤부북분불붙브블비빈빌빔빛빠빡빨빼뻥뿔사살상새색생서선섬섭섰세셋소속솜수숙순숲쉬슴시신실싶쌍쓰씌씻아악안알았앞애야양어얼엄업없었엉에여열영옛오온올옴옷옹와왔왜우운울원위유윤으은을음의이익인일잃임입있잊자작잖잘장재저적전정제져졸좀좋주줄중줬지진집짜짝찍차착참창채책척천청체쳤초촌출췄취치친카켜코콜크큰테토트튼파판폭폼핀필하학한할해햄했행현형호혼화환히힘'.split('');
   shuffle(filler);
   let iFiller = 0;
   for (let i = 0; i < totalCells; i++) {
@@ -252,8 +333,51 @@ function fillEmptyCells() {
 }
 
 function updateScore() {
-  userScoreEl.innerHTML = "<h2>사용자:</h2>" + foundBy.user.map(w => `<p>${w}</p>`).join("");
-  npcScoreEl.innerHTML = "<h2>컴퓨터:</h2>" + foundBy.npc.map(w => `<p>${w}</p>`).join("");
+  const userContent = "<h2>사용자:</h2>" + foundBy.user.map(w => `<p>${w}</p>`).join("");
+  const npcContent = "<h2>컴퓨터:</h2>" + foundBy.npc.map(w => `<p>${w}</p>`).join("");
+  userScoreEl.innerHTML = userContent;
+  npcScoreEl.innerHTML = npcContent;
+  if (userScoreMobileEl && npcScoreMobileEl) {
+    userScoreMobileEl.innerHTML = userContent;
+    npcScoreMobileEl.innerHTML = npcContent;
+  }
+}
+
+function checkWords() {
+  for (let word of words) {
+    if (foundWords.has(word)) continue;
+    const positions = wordMap[word];
+    if (positions.every(i => revealed[i])) {
+      foundWords.add(word);
+      const owner = currentPlayer === 'user' ? 'user' : 'npc';
+      foundBy[owner].push(word);
+      positions.forEach(i => gameEl.children[i].classList.add(owner === 'user' ? 'word-owned-user' : 'word-owned-npc'));
+      updateScore();
+    }
+  }
+  if (foundWords.size === words.length && !resultShown) {
+    resultShown = true;
+    clearTimeout(npcTimeoutId);
+    const userCount = foundBy.user.length;
+    const npcCount = foundBy.npc.length;
+    let userMessage = '';
+    let npcMessage = '';
+    if (userCount > npcCount) {
+      userMessage = "<span style='font-family:\"Apple Color Emoji\", \"Segoe UI Emoji\", sans-serif;'>🏆</span> [승리!!]";
+      npcMessage = "<span style='font-family:\"Apple Color Emoji\", \"Segoe UI Emoji\", sans-serif;'>🥈</span> [패배~]";
+    } else if (npcCount > userCount) {
+      userMessage = "<span style='font-family:\"Apple Color Emoji\", \"Segoe UI Emoji\", sans-serif;'>🥈</span> [패배~]";
+      npcMessage = "<span style='font-family:\"Apple Color Emoji\", \"Segoe UI Emoji\", sans-serif;'>🏆</span> [승리!!]";
+    }
+    if (userMessage && npcMessage) {
+      userScoreEl.innerHTML += `<p style='font-size:1.3em; margin-top:10px; color:#FFD700; font-weight:bold;'>${userMessage}</p>`;
+      npcScoreEl.innerHTML += `<p style='font-size:1.3em; margin-top:10px; color:#FFD700; font-weight:bold;'>${npcMessage}</p>`;
+      if (userScoreMobileEl && npcScoreMobileEl) {
+        userScoreMobileEl.innerHTML += `<p style='font-size:1.1em; margin-top:10px; color:#FFD700; font-weight:bold;'>${userMessage}</p>`;
+        npcScoreMobileEl.innerHTML += `<p style='font-size:1.1em; margin-top:10px; color:#FFD700; font-weight:bold;'>${npcMessage}</p>`;
+      }
+    }
+  }
 }
 
 function reveal(index) {
@@ -264,88 +388,31 @@ function reveal(index) {
   cell.textContent = board[index];
 }
 
-function checkWords() {
-  for (let word of words) {
-    if (foundWords.has(word)) continue;
-    const positions = wordMap[word];
-    if (positions.every(i => revealed[i])) {
-      foundWords.add(word);
-      let owner = currentPlayer === 'user' ? 'user' : 'npc';
-      foundBy[owner].push(word);
-      for (let i of positions) {
-        gameEl.children[i].classList.add(owner === 'user' ? 'word-owned-user' : 'word-owned-npc');
-      }
-      updateScore();
-    }
-  }
-
-  // 게임 종료 조건 체크
-  if (foundWords.size === words.length && !resultShown) {
-    resultShown = true;
-    clearTimeout(npcTimeoutId); // NPC 타이머 정리
-    
-    let userCount = foundBy.user.length;
-    let npcCount = foundBy.npc.length;
-    if (userCount > npcCount) {
-      userScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>🎉 승리</p>";
-      npcScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>😢 패배</p>";
-    } else if (npcCount > userCount) {
-      npcScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>🎉 승리</p>";
-      userScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>😢 패배</p>";
-    } else {
-      userScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>🤝 무승부</p>";
-      npcScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>🤝 무승부</p>";
-    }
-  }
-}
-
 function switchTurn() {
-  if (resultShown) return; // 게임 종료시 턴 전환 방지
-  
+  if (resultShown) return;
   currentPlayer = currentPlayer === 'user' ? 'npc' : 'user';
-  
   if (currentPlayer === 'npc') {
-    npcTimeoutId = setTimeout(() => {
-      npcTurn();
-    }, 800);
+    npcTimeoutId = setTimeout(npcTurn, 800);
   }
 }
 
 function npcTurn() {
-  if (resultShown || currentPlayer !== 'npc') {
-    return;
-  }
-  
-  let options = [];
-  for (let i = 0; i < revealed.length; i++) {
-    if (!revealed[i]) {
-      options.push(i);
-    }
-  }
-  
-  if (options.length === 0) {
-    return;
-  }
-  
-  let choice = options[Math.floor(Math.random() * options.length)];
+  if (resultShown || currentPlayer !== 'npc') return;
+  const options = revealed.reduce((acc, r, i) => (!r ? [...acc, i] : acc), []);
+  if (options.length === 0) return;
+  const choice = options[Math.floor(Math.random() * options.length)];
   handleClick(choice);
 }
 
 function handleClick(index) {
-  if (revealed[index] || resultShown) {
-    return;
-  }
-
+  if (revealed[index] || resultShown) return;
   let wasClover = false;
-
   if (clovers.has(index)) {
     wasClover = true;
     const cell = gameEl.children[index];
     cell.classList.add('revealed', 'clover');
     cell.textContent = '🍀';
     revealed[index] = true;
-
-    // 클로버 주변 셀들도 공개
     const dx = [0, 0, -1, 1, 0];
     const dy = [-1, 1, 0, 0, 0];
     for (let d = 0; d < dx.length; d++) {
@@ -359,24 +426,16 @@ function handleClick(index) {
   } else {
     reveal(index);
   }
-
   checkWords();
-
-  // 클로버를 찾았으면 같은 플레이어가 계속, 아니면 턴 교체
   if (!wasClover && !resultShown) {
     switchTurn();
   } else if (wasClover && currentPlayer === 'npc' && !resultShown) {
-    // 클로버 발견으로 NPC가 추가 턴을 얻었을 때
-    npcTimeoutId = setTimeout(() => {
-      npcTurn();
-    }, 800);
+    npcTimeoutId = setTimeout(npcTurn, 800);
   }
 }
 
 function init() {
-  // 기존 타이머 정리
   clearTimeout(npcTimeoutId);
-  
   board = Array(totalCells).fill(null);
   revealed = Array(totalCells).fill(false);
   wordMap = {};
@@ -384,23 +443,18 @@ function init() {
   foundBy = { user: [], npc: [] };
   currentPlayer = 'user';
   usedIndexes = new Set();
-  words = getRandomWords(13);
+  words = getRandomWords();
   resultShown = false;
   clovers.clear();
 
-  // 단어 배치 시도
   let placedWords = 0;
   let attempts = 0;
   while (placedWords < words.length && attempts < 50) {
-    if (placeWord(words[placedWords])) {
-      placedWords++;
-    }
+    if (placeWord(words[placedWords])) placedWords++;
     attempts++;
   }
-  
-  // 실제로 배치된 단어들만 사용
   words = words.slice(0, placedWords);
-  
+
   placeClovers(5);
   fillEmptyCells();
   updateScore();
@@ -410,15 +464,29 @@ function init() {
     const cell = document.createElement('div');
     cell.className = 'cell';
     cell.addEventListener('click', () => {
-      if (currentPlayer === 'user' && !resultShown) {
-        handleClick(i);
-      }
+      if (currentPlayer === 'user' && !resultShown) handleClick(i);
     });
     gameEl.appendChild(cell);
   }
 }
 
 retryBtn.addEventListener('click', init);
+window.addEventListener('resize', updateLayout);
+
+function updateLayout() {
+  const isMobile = window.innerWidth <= 768;
+  if (isMobile) {
+    npcScoreEl.style.display = 'none';
+    userScoreEl.style.display = 'none';
+    document.querySelector('.score-container').style.display = 'flex';
+  } else {
+    npcScoreEl.style.display = 'block';
+    userScoreEl.style.display = 'block';
+    document.querySelector('.score-container').style.display = 'none';
+  }
+}
+
+updateLayout();
 init();
 </script>
 </body>
