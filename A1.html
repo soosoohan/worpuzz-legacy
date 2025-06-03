@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WORPUZZ A1</title>
 <style>
-
   body {
     font-family: Arial, sans-serif;
     background: #209087;
@@ -14,78 +14,100 @@
     align-items: center;
     margin: 0;
     padding: 10px;
-    min-height: 100vh;
-    box-sizing: border-box;
   }
   h1 {
-    font-size: clamp(2em, 8vw, 3em);
-    margin: 10px 0 5px;
+    font-size: 3em;
+    margin: 20px 0 10px;
     color: #EF0;
-    text-align: center;
   }
   p.rule {
-    margin: 0 0 15px;
-    font-size: clamp(0.8em, 3vw, 1em);
+    margin: 0 0 10px;
+    font-size: 1em;
     color: #EF0;
     text-align: center;
     line-height: 1.4;
-    max-width: 90vw;
   }
   .container {
     display: flex;
     align-items: flex-start;
-    gap: clamp(10px, 3vw, 20px);
+    gap: 20px;
     margin-bottom: 10px;
     width: 100%;
-    max-width: 1200px;
+    max-width: 800px;
     justify-content: center;
   }
-  #npcScore, #userScore {
-    background-color: #209087;
+  .score-container {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    width: 95%;
+    max-width: 400px;
+  }
+  .score-container #npcScore-mobile, 
+  .score-container #userScore-mobile {
+    background-color: #0E756D;
     color: #fff;
-    width: clamp(120px, 20vw, 180px);
-    min-height: clamp(200px, 40vh, 300px);
-    padding: clamp(8px, 2vw, 10px);
+    width: 100%;
+    padding: 10px;
     box-sizing: border-box;
-    border: none;
+    border-radius: 12px;
+  }
+  .score-container #npcScore-mobile h2,
+  .score-container #userScore-mobile h2 {
+    font-size: 0.9em;
+    margin: 0 0 5px;
+  }
+  .score-container #npcScore-mobile p,
+  .score-container #userScore-mobile p {
+    font-size: 0.9em;
+    display: inline-block;
+    margin: 2px 5px;
+  }
+  #npcScore, #userScore {
+    background-color: #0E756D;
+    color: #fff;
+    width: 180px;
+    min-height: 300px;
+    padding: 10px;
+    box-sizing: border-box;
     border-radius: 12px;
     flex-shrink: 0;
   }
   #npcScore h2, #userScore h2 {
-    font-size: clamp(1em, 3vw, 1.2em);
+    font-size: 1.2em;
     margin-top: 0;
-    margin-bottom: clamp(5px, 2vw, 10px);
+    margin-bottom: 10px;
   }
   #npcScore p, #userScore p {
-    font-size: clamp(0.9em, 2.5vw, 1.1em);
-    margin: 3px 0;
+    font-size: 1.1em;
+    margin: 5px 0;
   }
   #game {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
-    grid-gap: clamp(2px, 1vw, 5px);
-    padding: clamp(5px, 2vw, 10px);
+    grid-gap: 5px;
+    padding: 10px;
     background-color: #0E756D;
     border-radius: 12px;
-    width: clamp(300px, 60vw, 520px);
-    height: clamp(300px, 60vw, 520px);
-    max-width: 90vw;
-    max-height: 60vh;
-    aspect-ratio: 1;
+    width: 400px;
+    height: 400px;
+    box-sizing: border-box;
+    flex-shrink: 0;
   }
   .cell {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1 / 1;
     background-color: #CFF9FF;
     color: #0A6A79;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: clamp(0.8em, 3vw, 1.3em);
+    font-size: 1.3em;
     font-weight: bold;
     cursor: pointer;
     user-select: none;
     border-radius: 4px;
-    aspect-ratio: 1;
-    min-height: 0;
   }
   .revealed {
     background-color: #fff;
@@ -93,6 +115,9 @@
   .revealed.clover {
     background-color: #d0f5d0;
     font-size: 1.5em;
+  }
+  .revealed.clover span {
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
   }
   .word-owned-user {
     background-color: #fff9c4;
@@ -102,79 +127,59 @@
   }
   .btn-container {
     display: flex;
-    gap: clamp(8px, 3vw, 10px);
+    gap: 10px;
     margin: 15px;
-    flex-wrap: wrap;
-    justify-content: center;
   }
   button {
-    font-size: clamp(0.9em, 3vw, 1.1em);
-    padding: clamp(8px, 2vw, 10px) clamp(15px, 4vw, 20px);
+    font-size: 1.1em;
+    padding: 10px 20px;
     cursor: pointer;
     background-color: #CFF9FF;
     color: #0A6A79;
     border-radius: 12px;
     border: none;
-    min-width: 80px;
   }
   button:hover {
     background-color: #1baf8f;
     color: #fff;
   }
-
-  /* 작은 화면 (모바일) */
   @media (max-width: 768px) {
+    h1 {
+      font-size: 2.5em;
+      margin: 15px 0 5px;
+    }
+    p.rule {
+      font-size: 0.9em;
+      margin: 0 10px 15px;
+    }
     .container {
       flex-direction: column;
       align-items: center;
-      gap: 15px;
+      width: 100%;
     }
-    
-    #npcScore, #userScore {
-      width: 90vw;
-      max-width: 300px;
-      min-height: 80px;
-      order: 0;
-    }
-    
     #game {
-      order: 1;
-      width: min(90vw, 400px);
-      height: min(90vw, 400px);
-      max-height: 50vh;
+      width: 95%;
+      max-width: 400px;
+      height: auto;
+      aspect-ratio: 1 / 1;
     }
-    
-    #userScore {
-      order: 2;
+    .btn-container {
+      margin: 10px;
+      width: 95%;
+      max-width: 400px;
+      justify-content: center;
     }
-    
-    .cell {
-      font-size: clamp(0.7em, 4vw, 1.1em);
+    button {
+      font-size: 1em;
+      padding: 12px 25px;
+      flex: 1;
+      max-width: 150px;
     }
-    
-    h1 {
-      font-size: clamp(1.8em, 10vw, 2.5em);
+    .score-container {
+      display: flex !important;
     }
-    
-    p.rule {
-      font-size: clamp(0.75em, 4vw, 0.9em);
-      padding: 0 10px;
-    }
-  }
-
-  /* 중간 화면 (태블릿) */
-  @media (min-width: 769px) and (max-width: 1024px) {
-    .container {
-      gap: 15px;
-    }
-    
-    #game {
-      width: clamp(350px, 50vw, 450px);
-      height: clamp(350px, 50vw, 450px);
-    }
-    
     #npcScore, #userScore {
-      width: clamp(140px, 18vw, 160px);
+      display: none !important;
     }
   }
 </style>
@@ -184,17 +189,26 @@
 <h1>WORPUZZ A1</h1>
 <p class="rule">
 Find the words hidden horizontally →<br>
-If you spot a four-leaf clover 🍀, you earn an extra turn! <br>
+If you spot a four-leaf clover <span style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;">🍀</span>, you earn an extra turn!<br>
 Compete against the computer — whoever finds the most wins!
 </p>
 
 <div class="container">
   <div id="npcScore">
-    <h2>computer:</h2>
+    <h2>COMPUTER:</h2>
   </div>
   <div id="game"></div>
   <div id="userScore">
-    <h2>user:</h2>
+    <h2>USER:</h2>
+  </div>
+</div>
+
+<div class="score-container">
+  <div id="npcScore-mobile">
+    <h2>COMPUTER:</h2>
+  </div>
+  <div id="userScore-mobile">
+    <h2>USER:</h2>
   </div>
 </div>
 
@@ -205,6 +219,7 @@ Compete against the computer — whoever finds the most wins!
 
 <script>
 const wordList = [
+
 "ADD","AGE","AGO","AIR","ALL","AND","ANY","ARM","ART","ASK","BAD","BAG","BED","BIG","BOX","BOY","BUS","BUT","BUY","BYE","CAN","CAR","CAT","COW","CUP","CUT","DAD","DAY","DIE","DOG","DVD","EAR","EAT","EGG","END","EYE","FAR","FAT","FEW","FLY","FOR","FUN","GET","GYM","HAT","HER","HEY","HIM","HIS","HOT","HOW","ICE","ITS","JOB","KEY","LEG","LET","LIE","LOT","MAN","MAP","MAY","MUM","NEW","NOT","NOW","OFF","OLD","ONE","OUR","OUT","OWN","PAY","PEN","PIG","PUT","RED","RUN","SAD","SAY","SEA","SEE","SHE","SIT","SIX","SON","SUN","TEA","TEN","THE","TOO","TRY","TWO","USE","WAY","WHO","WHY","WIN","YES","YOU",
 "ALSO","AREA","AUNT","AWAY","BABY","BACK","BALL","BAND","BANK","BATH","BEER","BEST","BIKE","BILL","BIRD","BLOG","BLUE","BOAT","BODY","BOOK","BOOT","BORN","BOTH","BUSY","CAFE","CAKE","CALL","CARD","CENT","CITY","CLUB","COAT","COLD","COME","COOK","COOL","COST","DARK","DATE","DEAR","DESK","DIET","DISH","DOOR","DOWN","DRAW","EACH","EAST","EASY","ELSE","EURO","EVEN","EVER","EXAM","FACE","FACT","FALL","FARM","FAST","FEEL","FILL","FILM","FIND","FINE","FIRE","FISH","FIVE","FLAT","FOOD","FOOT","FORM","FOUR","FREE","FROM","FULL","GAME","GIRL","GIVE","GOOD","GREY","GROW","HAIR","HALF","HAND","HARD","HATE","HAVE","HEAD","HEAR","HELP","HERE","HIGH","HOME","HOPE","HOUR","IDEA","INTO","JOIN","JULY","JUNE","JUST","KEEP","KIND","KNOW","LAND","LAST","LATE","LEFT","LIFE","LIKE","LINE","LION","LIST","LIVE","LONG","LOOK","LOSE","LOVE","MAIN","MAKE","MANY","MEAL","MEAN","MEAT","MEET","MENU","MILE","MILK","MISS","MORE","MOST","MOVE","MUCH","MUST","NAME","NEAR","NEED","NEWS","NEXT","NICE","NINE","NOSE","NOTE","ONCE","ONLY","OPEN","OVER","PAGE","PAIR","PARK","PART","PAST","PINK","PLAN","PLAY","POOL","POOR","POST","RAIN","READ","REAL","RICE","RICH","RIDE","ROAD","ROOM","RULE","SALT","SAME","SELL","SEND","SHOE","SHOP","SHOW","SICK","SING","SLOW","SNOW","SOME","SONG","SOON","SOUP","STAR","STAY","STOP","SURE","SWIM","TAKE","TALK","TALL","TAXI","TEAM","TELL","TEST","TEXT","THAN","THAT","THEM","THEN","THEY","THIS","TIME","TOWN","TREE","TRIP","TRUE","TURN","TYPE","VERY","WAIT","WAKE","WALK","WALL","WANT","WARM","WASH","WEAR","WEEK","WELL","WEST","WHAT","WHEN","WIFE","WILL","WINE","WITH","WORD","WORK","YEAH","YEAR","YOUR",
 "ABOUT","ABOVE","ACTOR","ADULT","AFTER","AGAIN","AGREE","ANGRY","APPLE","APRIL","BEACH","BEGIN","BELOW","BLACK","BORED","BREAD","BREAK","BRING","BROWN","BUILD","CARRY","CHAIR","CHART","CHEAP","CHECK","CHILD","CLASS","CLEAN","CLIMB","CLOCK","CLOSE","COULD","CREAM","DANCE","DIRTY","DRESS","DRINK","DRIVE","EARLY","EIGHT","EMAIL","ENJOY","EVENT","EVERY","EXTRA","FALSE","FIFTH","FIFTY","FINAL","FIRST","FLOOR","FORTY","FRONT","FRUIT","FUNNY","GLASS","GREAT","GREEN","GROUP","GUESS","HAPPY","HELLO","HOBBY","HORSE","HOTEL","HOUSE","JEANS","JUICE","LARGE","LATER","LAUGH","LEARN","LEAVE","LIGHT","LOCAL","LUNCH","MARCH","MATCH","MAYBE","METRE","MODEL","MONEY","MONTH","MOUSE","MOUTH","MOVIE","MUSIC","NEVER","NIGHT","NORTH","NURSE","OFTEN","ONION","ORDER","OTHER","PAINT","PAPER","PARTY","PHONE","PHOTO","PIANO","PIECE","PLACE","PLANE","PLANT","POINT","POUND","PRICE","QUICK","QUIET","QUITE","RADIO","READY","RELAX","RIGHT","RIVER","SALAD","SEVEN","SHARE","SHEEP","SHIRT","SHORT","SIXTY","SKILL","SKIRT","SLEEP","SMALL","SNAKE","SORRY","SOUND","SOUTH","SPACE","SPEAK","SPELL","SPEND","SPORT","STAND","START","STILL","STORY","STUDY","STYLE","SUGAR","TABLE","TEACH","THANK","THEIR","THERE","THING","THINK","THIRD","THREE","TIRED","TITLE","TODAY","TOOTH","TOPIC","TRAIN","TWICE","UNCLE","UNDER","UNTIL","VIDEO","VISIT","WATCH","WATER","WHERE","WHICH","WHITE","WOMAN","WORLD","WOULD","WRITE","WRONG","YOUNG",
@@ -213,6 +228,8 @@ const wordList = [
 "ACTIVITY","ANYTHING","BATHROOM","BIRTHDAY","BUILDING","BUSINESS","COMPLETE","COMPUTER","CUSTOMER","DAUGHTER","DECEMBER","DESCRIBE","DIALOGUE","EIGHTEEN","ELEPHANT","EVERYONE","EXCITING","EXERCISE","FEBRUARY","FESTIVAL","FOOTBALL","FOURTEEN","FRIENDLY","HOMEWORK","HOSPITAL","INTEREST","INTERNET","LANGUAGE","MAGAZINE","MIDNIGHT","MOUNTAIN","NEGATIVE","NINETEEN","NOVEMBER","OPPOSITE","PAINTING","PASSPORT","PERSONAL","POSITIVE","POSSIBLE","PRACTICE","PRACTISE","PROBABLY","QUESTION","REMEMBER","SANDWICH","SATURDAY","SENTENCE","SHOPPING","SOMEBODY","SPELLING","SWIMMING","TEENAGER","TERRIBLE","THIRTEEN","THOUSAND","THURSDAY","TOGETHER","TOMORROW","TROUSERS","UMBRELLA","UPSTAIRS","VACATION","YOURSELF",
 "AFTERNOON","APARTMENT","BEAUTIFUL","BEGINNING","BOYFRIEND","BREAKFAST","CHOCOLATE","CLASSROOM","DANGEROUS","DELICIOUS","DIFFERENT","DIFFICULT","EVERYBODY","EXPENSIVE","FANTASTIC","FAVOURITE","GEOGRAPHY","IMPORTANT","INTERVIEW","INTRODUCE","KILOMETRE","NEIGHBOUR","NEWSPAPER","PARAGRAPH","POLICEMAN","PROGRAMME","SCIENTIST","SEPTEMBER","SEVENTEEN","SITUATION","SOMETHING","SOMETIMES","STATEMENT","TELEPHONE","VEGETABLE","WEDNESDAY","WONDERFUL","YESTERDAY",
 "DICTIONARY","DIFFERENCE","DOWNSTAIRS","EVERYTHING","GIRLFRIEND","INTERESTED","PHOTOGRAPH","RESTAURANT","TELEVISION","UNDERSTAND","UNIVERSITY",
+
+
 ];
 
 const gridSize = 10;
@@ -220,11 +237,13 @@ const totalCells = gridSize * gridSize;
 let board, revealed, wordMap, foundWords, currentPlayer, foundBy, words, usedIndexes;
 let resultShown = false;
 let clovers = new Set();
-let npcTimeoutId = null; // NPC 타이머 ID 추가
+let npcTimeoutId = null;
 
 const gameEl = document.getElementById('game');
 const userScoreEl = document.getElementById('userScore');
 const npcScoreEl = document.getElementById('npcScore');
+const userScoreMobileEl = document.getElementById('userScore-mobile');
+const npcScoreMobileEl = document.getElementById('npcScore-mobile');
 const retryBtn = document.getElementById('retryBtn');
 
 function shuffle(arr) {
@@ -241,9 +260,7 @@ function getRandomWords(n) {
 }
 
 function getRandomDirection() {
-  const dirs = [
-    { x: 1, y: 0 },
-  ];
+  const dirs = [{ x: 1, y: 0 }];
   return dirs[Math.floor(Math.random() * dirs.length)];
 }
 
@@ -290,26 +307,63 @@ function placeClovers(count) {
 }
 
 function fillEmptyCells() {
-  const alphabet = [];
-  for (let i = 0; i < 26; i++) {
-    alphabet.push(String.fromCharCode(65 + i));
-  }
-  for (let i = alphabet.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [alphabet[i], alphabet[j]] = [alphabet[j], alphabet[i]];
-  }
-  let alphabetIndex = 0;
+  const alphabet = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i));
+  shuffle(alphabet);
+  let index = 0;
   for (let i = 0; i < totalCells; i++) {
     if (!board[i]) {
-      board[i] = alphabet[alphabetIndex % 26];
-      alphabetIndex++;
+      board[i] = alphabet[index % 26];
+      index++;
     }
   }
 }
 
 function updateScore() {
-  userScoreEl.innerHTML = "<h2>USER:</h2>" + foundBy.user.map(w => `<p>${w}</p>`).join("");
-  npcScoreEl.innerHTML = "<h2>COMPUTER:</h2>" + foundBy.npc.map(w => `<p>${w}</p>`).join("");
+  const userContent = "<h2>USER:</h2>" + foundBy.user.map(w => `<p>${w}</p>`).join("");
+  const npcContent = "<h2>COMPUTER:</h2>" + foundBy.npc.map(w => `<p>${w}</p>`).join("");
+  userScoreEl.innerHTML = userContent;
+  npcScoreEl.innerHTML = npcContent;
+  if (userScoreMobileEl && npcScoreMobileEl) {
+    userScoreMobileEl.innerHTML = userContent;
+    npcScoreMobileEl.innerHTML = npcContent;
+  }
+}
+
+function checkWords() {
+  for (let word of words) {
+    if (foundWords.has(word)) continue;
+    const positions = wordMap[word];
+    if (positions.every(i => revealed[i])) {
+      foundWords.add(word);
+      const owner = currentPlayer === 'user' ? 'user' : 'npc';
+      foundBy[owner].push(word);
+      positions.forEach(i => gameEl.children[i].classList.add(owner === 'user' ? 'word-owned-user' : 'word-owned-npc'));
+      updateScore();
+    }
+  }
+  if (foundWords.size === words.length && !resultShown) {
+    resultShown = true;
+    clearTimeout(npcTimeoutId);
+    const userCount = foundBy.user.length;
+    const npcCount = foundBy.npc.length;
+    let userMessage = '';
+    let npcMessage = '';
+    if (userCount > npcCount) {
+      userMessage = "<span style='font-family:\"Apple Color Emoji\", \"Segoe UI Emoji\", sans-serif;'>🏆</span> [WIN!!]";
+      npcMessage = "<span style='font-family:\"Apple Color Emoji\", \"Segoe UI Emoji\", sans-serif;'>🥈</span> [LOSE~]";
+    } else if (npcCount > userCount) {
+      userMessage = "<span style='font-family:\"Apple Color Emoji\", \"Segoe UI Emoji\", sans-serif;'>🥈</span> [LOSE~]";
+      npcMessage = "<span style='font-family:\"Apple Color Emoji\", \"Segoe UI Emoji\", sans-serif;'>🏆</span> [WIN!!]";
+    }
+    if (userMessage && npcMessage) {
+      userScoreEl.innerHTML += `<p style='font-size:1.3em; margin-top:10px; color:#FFD700; font-weight:bold;'>${userMessage}</p>`;
+      npcScoreEl.innerHTML += `<p style='font-size:1.3em; margin-top:10px; color:#FFD700; font-weight:bold;'>${npcMessage}</p>`;
+      if (userScoreMobileEl && npcScoreMobileEl) {
+        userScoreMobileEl.innerHTML += `<p style='font-size:1.1em; margin-top:10px; color:#FFD700; font-weight:bold;'>${userMessage}</p>`;
+        npcScoreMobileEl.innerHTML += `<p style='font-size:1.1em; margin-top:10px; color:#FFD700; font-weight:bold;'>${npcMessage}</p>`;
+      }
+    }
+  }
 }
 
 function reveal(index) {
@@ -320,88 +374,31 @@ function reveal(index) {
   cell.textContent = board[index];
 }
 
-function checkWords() {
-  for (let word of words) {
-    if (foundWords.has(word)) continue;
-    const positions = wordMap[word];
-    if (positions.every(i => revealed[i])) {
-      foundWords.add(word);
-      let owner = currentPlayer === 'user' ? 'user' : 'npc';
-      foundBy[owner].push(word);
-      for (let i of positions) {
-        gameEl.children[i].classList.add(owner === 'user' ? 'word-owned-user' : 'word-owned-npc');
-      }
-      updateScore();
-    }
-  }
-
-  // 게임 종료 조건 체크
-  if (foundWords.size === words.length && !resultShown) {
-    resultShown = true;
-    clearTimeout(npcTimeoutId); // NPC 타이머 정리
-    
-    let userCount = foundBy.user.length;
-    let npcCount = foundBy.npc.length;
-    if (userCount > npcCount) {
-      userScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>🎉 승리</p>";
-      npcScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>😢 패배</p>";
-    } else if (npcCount > userCount) {
-      npcScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>🎉 승리</p>";
-      userScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>😢 패배</p>";
-    } else {
-      userScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>🤝 무승부</p>";
-      npcScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>🤝 무승부</p>";
-    }
-  }
-}
-
 function switchTurn() {
-  if (resultShown) return; // 게임 종료시 턴 전환 방지
-  
+  if (resultShown) return;
   currentPlayer = currentPlayer === 'user' ? 'npc' : 'user';
-  
   if (currentPlayer === 'npc') {
-    npcTimeoutId = setTimeout(() => {
-      npcTurn();
-    }, 800);
+    npcTimeoutId = setTimeout(npcTurn, 800);
   }
 }
 
 function npcTurn() {
-  if (resultShown || currentPlayer !== 'npc') {
-    return;
-  }
-  
-  let options = [];
-  for (let i = 0; i < revealed.length; i++) {
-    if (!revealed[i]) {
-      options.push(i);
-    }
-  }
-  
-  if (options.length === 0) {
-    return;
-  }
-  
-  let choice = options[Math.floor(Math.random() * options.length)];
+  if (resultShown || currentPlayer !== 'npc') return;
+  const options = revealed.reduce((acc, r, i) => (!r ? [...acc, i] : acc), []);
+  if (options.length === 0) return;
+  const choice = options[Math.floor(Math.random() * options.length)];
   handleClick(choice);
 }
 
 function handleClick(index) {
-  if (revealed[index] || resultShown) {
-    return;
-  }
-
+  if (revealed[index] || resultShown) return;
   let wasClover = false;
-
   if (clovers.has(index)) {
     wasClover = true;
     const cell = gameEl.children[index];
     cell.classList.add('revealed', 'clover');
     cell.textContent = '🍀';
     revealed[index] = true;
-
-    // 클로버 주변 셀들도 공개
     const dx = [0, 0, -1, 1, 0];
     const dy = [-1, 1, 0, 0, 0];
     for (let d = 0; d < dx.length; d++) {
@@ -415,24 +412,16 @@ function handleClick(index) {
   } else {
     reveal(index);
   }
-
   checkWords();
-
-  // 클로버를 찾았으면 같은 플레이어가 계속, 아니면 턴 교체
   if (!wasClover && !resultShown) {
     switchTurn();
   } else if (wasClover && currentPlayer === 'npc' && !resultShown) {
-    // 클로버 발견으로 NPC가 추가 턴을 얻었을 때
-    npcTimeoutId = setTimeout(() => {
-      npcTurn();
-    }, 800);
+    npcTimeoutId = setTimeout(npcTurn, 800);
   }
 }
 
 function init() {
-  // 기존 타이머 정리
   clearTimeout(npcTimeoutId);
-  
   board = Array(totalCells).fill(null);
   revealed = Array(totalCells).fill(false);
   wordMap = {};
@@ -444,19 +433,14 @@ function init() {
   resultShown = false;
   clovers.clear();
 
-  // 단어 배치 시도
   let placedWords = 0;
   let attempts = 0;
   while (placedWords < words.length && attempts < 50) {
-    if (placeWord(words[placedWords])) {
-      placedWords++;
-    }
+    if (placeWord(words[placedWords])) placedWords++;
     attempts++;
   }
-  
-  // 실제로 배치된 단어들만 사용
   words = words.slice(0, placedWords);
-  
+
   placeClovers(5);
   fillEmptyCells();
   updateScore();
@@ -466,15 +450,27 @@ function init() {
     const cell = document.createElement('div');
     cell.className = 'cell';
     cell.addEventListener('click', () => {
-      if (currentPlayer === 'user' && !resultShown) {
-        handleClick(i);
-      }
+      if (currentPlayer === 'user' && !resultShown) handleClick(i);
     });
     gameEl.appendChild(cell);
   }
 }
 
 retryBtn.addEventListener('click', init);
+window.addEventListener('resize', updateLayout);
+function updateLayout() {
+  const isMobile = window.innerWidth <= 768;
+  if (isMobile) {
+    npcScoreEl.style.display = 'none';
+    userScoreEl.style.display = 'none';
+    document.querySelector('.score-container').style.display = 'flex';
+  } else {
+    npcScoreEl.style.display = 'block';
+    userScoreEl.style.display = 'block';
+    document.querySelector('.score-container').style.display = 'none';
+  }
+}
+updateLayout();
 init();
 </script>
 </body>
