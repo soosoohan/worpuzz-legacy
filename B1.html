@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WORPUZZ B1</title>
 <style>
   body {
@@ -12,6 +13,7 @@
     flex-direction: column;
     align-items: center;
     margin: 0;
+    padding: 10px;
   }
   h1 {
     font-size: 3em;
@@ -30,16 +32,46 @@
     align-items: flex-start;
     gap: 20px;
     margin-bottom: 10px;
+    width: 100%;
+    max-width: 800px;
+    justify-content: center;
+  }
+  .score-container {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    width: 95%;
+    max-width: 400px;
+  }
+  .score-container #npcScore-mobile, 
+  .score-container #userScore-mobile {
+    background-color: #0E756D;
+    color: #fff;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 12px;
+  }
+  .score-container #npcScore-mobile h2,
+  .score-container #userScore-mobile h2 {
+    font-size: 0.9em;
+    margin: 0 0 5px;
+  }
+  .score-container #npcScore-mobile p,
+  .score-container #userScore-mobile p {
+    font-size: 0.9em;
+    display: inline-block;
+    margin: 2px 5px;
   }
   #npcScore, #userScore {
-    background-color: #209087;
+    background-color: #0E756D;
     color: #fff;
     width: 180px;
     min-height: 300px;
     padding: 10px;
     box-sizing: border-box;
-    border: none;
     border-radius: 12px;
+    flex-shrink: 0;
   }
   #npcScore h2, #userScore h2 {
     font-size: 1.2em;
@@ -52,15 +84,20 @@
   }
   #game {
     display: grid;
-    grid-template-columns: repeat(10, 50px);
+    grid-template-columns: repeat(10, 1fr);
     grid-gap: 5px;
     padding: 10px;
     background-color: #0E756D;
     border-radius: 12px;
+    width: 400px;
+    height: 400px;
+    box-sizing: border-box;
+    flex-shrink: 0;
   }
   .cell {
-    width: 50px;
-    height: 50px;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1 / 1;
     background-color: #CFF9FF;
     color: #0A6A79;
     display: flex;
@@ -78,6 +115,9 @@
   .revealed.clover {
     background-color: #d0f5d0;
     font-size: 1.5em;
+  }
+  .revealed.clover span {
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
   }
   .word-owned-user {
     background-color: #fff9c4;
@@ -103,24 +143,72 @@
     background-color: #1baf8f;
     color: #fff;
   }
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2.5em;
+      margin: 15px 0 5px;
+    }
+    p.rule {
+      font-size: 0.9em;
+      margin: 0 10px 15px;
+    }
+    .container {
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+    #game {
+      width: 95%;
+      max-width: 400px;
+      height: auto;
+      aspect-ratio: 1 / 1;
+    }
+    .btn-container {
+      margin: 10px;
+      width: 95%;
+      max-width: 400px;
+      justify-content: center;
+    }
+    button {
+      font-size: 1em;
+      padding: 12px 25px;
+      flex: 1;
+      max-width: 150px;
+    }
+    .score-container {
+      display: flex !important;
+    }
+    #npcScore, #userScore {
+      display: none !important;
+    }
+  }
 </style>
 </head>
 <body>
 
 <h1>WORPUZZ B1</h1>
 <p class="rule">
-Find the words hidden horizontally →,vertically ↓, or diagonally ↘. <br>
-If you spot a four-leaf clover 🍀, you earn an extra turn! <br>
+Find the words hidden horizontally →,  vertically ↓, or diagonally ↘.<br>
+If you spot a four-leaf clover <span style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;">🍀</span>, you earn an extra turn!<br>
 Compete against the computer — whoever finds the most wins!
 </p>
 
 <div class="container">
   <div id="npcScore">
-    <h2>computer:</h2>
+    <h2>COMPUTER:</h2>
   </div>
   <div id="game"></div>
   <div id="userScore">
-    <h2>user:</h2>
+    <h2>USER:</h2>
+  </div>
+</div>
+
+<div class="score-container">
+  <div id="npcScore-mobile">
+    <h2>COMPUTER:</h2>
+  </div>
+  <div id="userScore-mobile">
+    <h2>USER:</h2>
   </div>
 </div>
 
@@ -149,11 +237,13 @@ const totalCells = gridSize * gridSize;
 let board, revealed, wordMap, foundWords, currentPlayer, foundBy, words, usedIndexes;
 let resultShown = false;
 let clovers = new Set();
-let npcTimeoutId = null; // NPC 타이머 ID 추가
+let npcTimeoutId = null;
 
 const gameEl = document.getElementById('game');
 const userScoreEl = document.getElementById('userScore');
 const npcScoreEl = document.getElementById('npcScore');
+const userScoreMobileEl = document.getElementById('userScore-mobile');
+const npcScoreMobileEl = document.getElementById('npcScore-mobile');
 const retryBtn = document.getElementById('retryBtn');
 
 function shuffle(arr) {
@@ -170,9 +260,7 @@ function getRandomWords(n) {
 }
 
 function getRandomDirection() {
-  const dirs = [
-    { x: 1, y: 0 },
-  ];
+  const dirs = [{ x: 1, y: 0 }, { x: 0, y: 1 },{ x: 1, y: 1 }];
   return dirs[Math.floor(Math.random() * dirs.length)];
 }
 
@@ -219,26 +307,63 @@ function placeClovers(count) {
 }
 
 function fillEmptyCells() {
-  const alphabet = [];
-  for (let i = 0; i < 26; i++) {
-    alphabet.push(String.fromCharCode(65 + i));
-  }
-  for (let i = alphabet.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [alphabet[i], alphabet[j]] = [alphabet[j], alphabet[i]];
-  }
-  let alphabetIndex = 0;
+  const alphabet = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i));
+  shuffle(alphabet);
+  let index = 0;
   for (let i = 0; i < totalCells; i++) {
     if (!board[i]) {
-      board[i] = alphabet[alphabetIndex % 26];
-      alphabetIndex++;
+      board[i] = alphabet[index % 26];
+      index++;
     }
   }
 }
 
 function updateScore() {
-  userScoreEl.innerHTML = "<h2>USER:</h2>" + foundBy.user.map(w => `<p>${w}</p>`).join("");
-  npcScoreEl.innerHTML = "<h2>COMPUTER:</h2>" + foundBy.npc.map(w => `<p>${w}</p>`).join("");
+  const userContent = "<h2>USER:</h2>" + foundBy.user.map(w => `<p>${w}</p>`).join("");
+  const npcContent = "<h2>COMPUTER:</h2>" + foundBy.npc.map(w => `<p>${w}</p>`).join("");
+  userScoreEl.innerHTML = userContent;
+  npcScoreEl.innerHTML = npcContent;
+  if (userScoreMobileEl && npcScoreMobileEl) {
+    userScoreMobileEl.innerHTML = userContent;
+    npcScoreMobileEl.innerHTML = npcContent;
+  }
+}
+
+function checkWords() {
+  for (let word of words) {
+    if (foundWords.has(word)) continue;
+    const positions = wordMap[word];
+    if (positions.every(i => revealed[i])) {
+      foundWords.add(word);
+      const owner = currentPlayer === 'user' ? 'user' : 'npc';
+      foundBy[owner].push(word);
+      positions.forEach(i => gameEl.children[i].classList.add(owner === 'user' ? 'word-owned-user' : 'word-owned-npc'));
+      updateScore();
+    }
+  }
+  if (foundWords.size === words.length && !resultShown) {
+    resultShown = true;
+    clearTimeout(npcTimeoutId);
+    const userCount = foundBy.user.length;
+    const npcCount = foundBy.npc.length;
+    let userMessage = '';
+    let npcMessage = '';
+    if (userCount > npcCount) {
+      userMessage = "<span style='font-family:\"Apple Color Emoji\", \"Segoe UI Emoji\", sans-serif;'>🏆</span> [WIN!!]";
+      npcMessage = "<span style='font-family:\"Apple Color Emoji\", \"Segoe UI Emoji\", sans-serif;'>🥈</span> [LOSE~]";
+    } else if (npcCount > userCount) {
+      userMessage = "<span style='font-family:\"Apple Color Emoji\", \"Segoe UI Emoji\", sans-serif;'>🥈</span> [LOSE~]";
+      npcMessage = "<span style='font-family:\"Apple Color Emoji\", \"Segoe UI Emoji\", sans-serif;'>🏆</span> [WIN!!]";
+    }
+    if (userMessage && npcMessage) {
+      userScoreEl.innerHTML += `<p style='font-size:1.3em; margin-top:10px; color:#FFD700; font-weight:bold;'>${userMessage}</p>`;
+      npcScoreEl.innerHTML += `<p style='font-size:1.3em; margin-top:10px; color:#FFD700; font-weight:bold;'>${npcMessage}</p>`;
+      if (userScoreMobileEl && npcScoreMobileEl) {
+        userScoreMobileEl.innerHTML += `<p style='font-size:1.1em; margin-top:10px; color:#FFD700; font-weight:bold;'>${userMessage}</p>`;
+        npcScoreMobileEl.innerHTML += `<p style='font-size:1.1em; margin-top:10px; color:#FFD700; font-weight:bold;'>${npcMessage}</p>`;
+      }
+    }
+  }
 }
 
 function reveal(index) {
@@ -249,88 +374,31 @@ function reveal(index) {
   cell.textContent = board[index];
 }
 
-function checkWords() {
-  for (let word of words) {
-    if (foundWords.has(word)) continue;
-    const positions = wordMap[word];
-    if (positions.every(i => revealed[i])) {
-      foundWords.add(word);
-      let owner = currentPlayer === 'user' ? 'user' : 'npc';
-      foundBy[owner].push(word);
-      for (let i of positions) {
-        gameEl.children[i].classList.add(owner === 'user' ? 'word-owned-user' : 'word-owned-npc');
-      }
-      updateScore();
-    }
-  }
-
-  // 게임 종료 조건 체크
-  if (foundWords.size === words.length && !resultShown) {
-    resultShown = true;
-    clearTimeout(npcTimeoutId); // NPC 타이머 정리
-    
-    let userCount = foundBy.user.length;
-    let npcCount = foundBy.npc.length;
-    if (userCount > npcCount) {
-      userScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>🎉 승리</p>";
-      npcScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>😢 패배</p>";
-    } else if (npcCount > userCount) {
-      npcScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>🎉 승리</p>";
-      userScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>😢 패배</p>";
-    } else {
-      userScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>🤝 무승부</p>";
-      npcScoreEl.innerHTML += "<p style='font-size:1.3em; margin-top:10px;'>🤝 무승부</p>";
-    }
-  }
-}
-
 function switchTurn() {
-  if (resultShown) return; // 게임 종료시 턴 전환 방지
-  
+  if (resultShown) return;
   currentPlayer = currentPlayer === 'user' ? 'npc' : 'user';
-  
   if (currentPlayer === 'npc') {
-    npcTimeoutId = setTimeout(() => {
-      npcTurn();
-    }, 800);
+    npcTimeoutId = setTimeout(npcTurn, 800);
   }
 }
 
 function npcTurn() {
-  if (resultShown || currentPlayer !== 'npc') {
-    return;
-  }
-  
-  let options = [];
-  for (let i = 0; i < revealed.length; i++) {
-    if (!revealed[i]) {
-      options.push(i);
-    }
-  }
-  
-  if (options.length === 0) {
-    return;
-  }
-  
-  let choice = options[Math.floor(Math.random() * options.length)];
+  if (resultShown || currentPlayer !== 'npc') return;
+  const options = revealed.reduce((acc, r, i) => (!r ? [...acc, i] : acc), []);
+  if (options.length === 0) return;
+  const choice = options[Math.floor(Math.random() * options.length)];
   handleClick(choice);
 }
 
 function handleClick(index) {
-  if (revealed[index] || resultShown) {
-    return;
-  }
-
+  if (revealed[index] || resultShown) return;
   let wasClover = false;
-
   if (clovers.has(index)) {
     wasClover = true;
     const cell = gameEl.children[index];
     cell.classList.add('revealed', 'clover');
     cell.textContent = '🍀';
     revealed[index] = true;
-
-    // 클로버 주변 셀들도 공개
     const dx = [0, 0, -1, 1, 0];
     const dy = [-1, 1, 0, 0, 0];
     for (let d = 0; d < dx.length; d++) {
@@ -344,24 +412,16 @@ function handleClick(index) {
   } else {
     reveal(index);
   }
-
   checkWords();
-
-  // 클로버를 찾았으면 같은 플레이어가 계속, 아니면 턴 교체
   if (!wasClover && !resultShown) {
     switchTurn();
   } else if (wasClover && currentPlayer === 'npc' && !resultShown) {
-    // 클로버 발견으로 NPC가 추가 턴을 얻었을 때
-    npcTimeoutId = setTimeout(() => {
-      npcTurn();
-    }, 800);
+    npcTimeoutId = setTimeout(npcTurn, 800);
   }
 }
 
 function init() {
-  // 기존 타이머 정리
   clearTimeout(npcTimeoutId);
-  
   board = Array(totalCells).fill(null);
   revealed = Array(totalCells).fill(false);
   wordMap = {};
@@ -373,19 +433,14 @@ function init() {
   resultShown = false;
   clovers.clear();
 
-  // 단어 배치 시도
   let placedWords = 0;
   let attempts = 0;
   while (placedWords < words.length && attempts < 50) {
-    if (placeWord(words[placedWords])) {
-      placedWords++;
-    }
+    if (placeWord(words[placedWords])) placedWords++;
     attempts++;
   }
-  
-  // 실제로 배치된 단어들만 사용
   words = words.slice(0, placedWords);
-  
+
   placeClovers(5);
   fillEmptyCells();
   updateScore();
@@ -395,15 +450,27 @@ function init() {
     const cell = document.createElement('div');
     cell.className = 'cell';
     cell.addEventListener('click', () => {
-      if (currentPlayer === 'user' && !resultShown) {
-        handleClick(i);
-      }
+      if (currentPlayer === 'user' && !resultShown) handleClick(i);
     });
     gameEl.appendChild(cell);
   }
 }
 
 retryBtn.addEventListener('click', init);
+window.addEventListener('resize', updateLayout);
+function updateLayout() {
+  const isMobile = window.innerWidth <= 768;
+  if (isMobile) {
+    npcScoreEl.style.display = 'none';
+    userScoreEl.style.display = 'none';
+    document.querySelector('.score-container').style.display = 'flex';
+  } else {
+    npcScoreEl.style.display = 'block';
+    userScoreEl.style.display = 'block';
+    document.querySelector('.score-container').style.display = 'none';
+  }
+}
+updateLayout();
 init();
 </script>
 </body>
