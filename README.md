@@ -12,6 +12,7 @@ The game will continue to be improved and upgraded.
 - Words are hidden horizontally, vertically, and diagonally within a grid.  
 - Click a cell to reveal one letter at a time and find the hidden words.  
 - 🍀 If you click on a clover, the surrounding tiles open and you get an extra turn.  
+- 🌼 If you click on a daisy, the surrounding tiles open and you get an extra turn.  
 - Take turns with the computer, each revealing a cell.  
 - The player who finds more words wins!  
 - Enjoy expanding your vocabulary and learning new words!
