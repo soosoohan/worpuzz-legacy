@@ -109,9 +109,12 @@
     user-select: none;
     border-radius: 4px;
   }
-  .revealed {
+
+.revealed {
     background-color: #fff;
   }
+  
+
   .revealed.clover {
     background-color: #d0f5d0;
     font-size: 1.5em;
@@ -119,6 +122,17 @@
   .revealed.clover span {
     font-family: "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
   }
+
+
+.revealed.daisy {
+  background-color: #fff4e0; /* 밝은 데이지 느낌의 배경 */
+  font-size: 1.5em;
+}
+.revealed.daisy span {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+}
+
+
   .word-owned-user {
     background-color: #fff9c4;
   }
@@ -189,7 +203,10 @@
 <h1>워퍼즈 고사성어/ 사자성어</h1>
 <p class="rule">
 가로→, 세로↓, 대각선↘으로 고사성어와 사자성어를 찾으세요.<br>
-🍀 네잎클로버를 찾으면 주변이 열리고, 한 번 더 기회를 얻습니다.<br>
+🍀 네잎클로버를 찾으면 주변 상하좌우 칸이 함께 열리고, 한 번 더 턴을 가집니다.<br>
+🌼 데이지꽃을 찾으면 대각선을 포함한 주변 8칸이 열리며, 역시 한 번 더 턴을 가집니다.<br>
+
+
 컴퓨터와 대결하여 더 많은 단어를 찾으면 이깁니다 !
 </p>
 
@@ -216,11 +233,11 @@
   <button id="retryBtn">다시 하기</button>
   <button onclick="location.href='index.html'">초기화면</button>
 </div>
-  
 <script>
 
 const two_letter_words = [
 ];
+
 
 const three_letter_words = [
 "계륵","기우","백미","불혹","역린","지음","효시",
@@ -233,7 +250,6 @@ const five_or_more_letter_words = ["가화만사성","신성불가침","오십�
 "공수래공수거","맹모삼천지교","백문불여일견","불가근불가원","이현령비현령","일거수일투족","진인사대천명","천부당만부당",
 "정신일도하사불성",];
 
-
 // 각 길이별 단어 개수 설정
 const num_two = 0;
 const num_three = 1;
@@ -245,7 +261,10 @@ const totalCells = gridSize * gridSize;
 let board, revealed, wordMap, foundWords, currentPlayer, foundBy, words, usedIndexes;
 let resultShown = false;
 let clovers = new Set();
+let daisies = new Set(); // 🌼 데이지 Set 추가
 let npcTimeoutId = null;
+
+
 
 const gameEl = document.getElementById('game');
 const userScoreEl = document.getElementById('userScore');
@@ -324,17 +343,30 @@ function placeClovers(count) {
   }
 }
 
-function fillEmptyCells() {
-  const filler = '가각간값같갛개거건걸검것게곁고골공괴교구국궁그근글금기긴길까깜깨꺾껴꼼꽁꾸끔나난날낮낯내넘넣네년놀놈누눈뉴는니님다닥달담대댄더던덩데도동두드득든듣들등디딜딱때땡똑뚫뛰라락란람랐랑래랜러레려력렸로롭르른를리린림마막만말맘맛맞매맨머먹먼멀멋메멘며면모목몰무문묻물뭘미민밀바박반받발밤밥방뱅버벅번법벼별보복볼봐봤부북분불붙브블비빈빌빔빛빠빡빨빼뻥뿔사살상새색생서선섬섭섰세셋소속솜수숙순숲쉬슴시신실싶쌍쓰씌씻아악안알았앞애야양어얼엄업없었엉에여열영옛오온올옴옷옹와왔왜우운울원위유윤으은을음의이익인일잃임입있잊자작잖잘장재저적전정제져졸좀좋주줄중줬지진집짜짝찍차착참창채책척천청체쳤초촌출췄취치친카켜코콜크큰테토트튼파판폭폼핀필하학한할해햄했행현형호혼화환히힘'.split('');
-  shuffle(filler);
-  let iFiller = 0;
-  for (let i = 0; i < totalCells; i++) {
-    if (!board[i] && !clovers.has(i)) {
-      board[i] = filler[iFiller++ % filler.length];
+function placeDaisy() {
+  daisies.clear();
+  while (daisies.size < 1) { // 데이지는 하나만
+    const idx = Math.floor(Math.random() * totalCells);
+    if (!usedIndexes.has(idx) && !clovers.has(idx)) {
+      daisies.add(idx);
     }
   }
 }
 
+function fillEmptyCells() {
+
+const filler = '가각간값같갛개거건걸검것게곁고골공괴교구국궁그근글금기긴길까깜깨꺾껴꼼꽁꾸끔나난날낮낯내넘넣네년놀놈누눈뉴는니님다닥달담대댄더던덩데도동두드득든듣들등디딜딱때땡똑뚫뛰라락란람랐랑래랜러레려력렸로롭르른를리린림마막만말맘맛맞매맨머먹먼멀멋메멘며면모목몰무문묻물뭘미민밀바박반받발밤밥방뱅버벅번법벼별보복볼봐봤부북분불붙브블비빈빌빔빛빠빡빨빼뻥뿔사살상새색생서선섬섭섰세셋소속솜수숙순숲쉬슴시신실싶쌍쓰씌씻아악안알았앞애야양어얼엄업없었엉에여열영옛오온올옴옷옹와왔왜우운울원위유윤으은을음의이익인일잃임입있잊자작잖잘장재저적전정제져졸좀좋주줄중줬지진집짜짝찍차착참창채책척천청체쳤초촌출췄취치친카켜코콜크큰테토트튼파판폭폼핀필하학한할해햄했행현형호혼화환히힘'.split('');
+  
+  shuffle(filler);
+  let iFiller = 0;
+  for (let i = 0; i < totalCells; i++) {
+    if (!board[i] && !clovers.has(i) && !daisies.has(i)) {
+  board[i] = filler[iFiller++ % filler.length];
+}
+  }
+}
+
+   
 function updateScore() {
   const userContent = "<h2>사용자:</h2>" + foundBy.user.map(w => `<p>${w}</p>`).join("");
   const npcContent = "<h2>컴퓨터:</h2>" + foundBy.npc.map(w => `<p>${w}</p>`).join("");
@@ -372,6 +404,8 @@ function checkWords() {
       userMessage = "<span style='font-family:\"Apple Color Emoji\", \"Segoe UI Emoji\", sans-serif;'>🥈</span> [패배~]";
       npcMessage = "<span style='font-family:\"Apple Color Emoji\", \"Segoe UI Emoji\", sans-serif;'>🏆</span> [승리!!]";
     }
+ 
+
     if (userMessage && npcMessage) {
       userScoreEl.innerHTML += `<p style='font-size:1.3em; margin-top:10px; color:#FFD700; font-weight:bold;'>${userMessage}</p>`;
       npcScoreEl.innerHTML += `<p style='font-size:1.3em; margin-top:10px; color:#FFD700; font-weight:bold;'>${npcMessage}</p>`;
@@ -410,14 +444,19 @@ function npcTurn() {
 function handleClick(index) {
   if (revealed[index] || resultShown) return;
   let wasClover = false;
+  let wasDaisy = false;
+
+  const cell = gameEl.children[index];
+
   if (clovers.has(index)) {
     wasClover = true;
-    const cell = gameEl.children[index];
     cell.classList.add('revealed', 'clover');
     cell.innerHTML = '<span>🍀</span>';
     revealed[index] = true;
+
     const dx = [0, 0, -1, 1, 0];
     const dy = [-1, 1, 0, 0, 0];
+
     for (let d = 0; d < dx.length; d++) {
       const nx = index % gridSize + dx[d];
       const ny = Math.floor(index / gridSize) + dy[d];
@@ -426,17 +465,38 @@ function handleClick(index) {
         reveal(nIdx);
       }
     }
+
+  } else if (daisies.has(index)) {
+    wasDaisy = true;
+    cell.classList.add('revealed', 'daisy');
+    cell.innerHTML = '<span>🌼</span>';
+    revealed[index] = true;
+
+    for (let dx = -1; dx <= 1; dx++) {
+      for (let dy = -1; dy <= 1; dy++) {
+        const nx = index % gridSize + dx;
+        const ny = Math.floor(index / gridSize) + dy;
+        if (nx >= 0 && nx < gridSize && ny >= 0 && ny < gridSize) {
+          const nIdx = ny * gridSize + nx;
+          reveal(nIdx);
+        }
+      }
+    }
+
   } else {
     reveal(index);
   }
+
   checkWords();
-  if (!wasClover && !resultShown) {
+
+  if ((!wasClover && !wasDaisy) && !resultShown) {
     switchTurn();
-  } else if (wasClover && currentPlayer === 'npc' && !resultShown) {
+  } else if ((wasClover || wasDaisy) && currentPlayer === 'npc' && !resultShown) {
     npcTimeoutId = setTimeout(npcTurn, 800);
   }
 }
 
+  
 function init() {
   clearTimeout(npcTimeoutId);
   board = Array(totalCells).fill(null);
@@ -449,7 +509,7 @@ function init() {
   words = getRandomWords();
   resultShown = false;
   clovers.clear();
-
+daisies.clear()
   let placedWords = 0;
   let attempts = 0;
   while (placedWords < words.length && attempts < 50) {
@@ -459,6 +519,7 @@ function init() {
   words = words.slice(0, placedWords);
 
   placeClovers(5);
+placeDaisy(1); 
   fillEmptyCells();
   updateScore();
 
@@ -471,6 +532,7 @@ function init() {
     });
     gameEl.appendChild(cell);
   }
+
   
   console.log('게임에 배치된 단어들:', words);
 }
@@ -496,3 +558,7 @@ init();
 </script>
 </body>
 </html>
+
+
+
+
