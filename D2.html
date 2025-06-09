@@ -109,9 +109,12 @@
     user-select: none;
     border-radius: 4px;
   }
-  .revealed {
+
+.revealed {
     background-color: #fff;
   }
+  
+
   .revealed.clover {
     background-color: #d0f5d0;
     font-size: 1.5em;
@@ -119,6 +122,17 @@
   .revealed.clover span {
     font-family: "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
   }
+
+
+.revealed.daisy {
+  background-color: #fff4e0; /* 밝은 데이지 느낌의 배경 */
+  font-size: 1.5em;
+}
+.revealed.daisy span {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+}
+
+
   .word-owned-user {
     background-color: #fff9c4;
   }
@@ -190,6 +204,7 @@
 <p class="rule">
 Find the names of the organisms hidden in rows, columns, and diagonals.<br>
 If you spot a four-leaf clover <span style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;">🍀</span>, you earn an extra turn!<br>
+If you spot a daisy <span style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;">🌼</span>, you earn an extra turn!<br>
 Compete against the computer — whoever finds the most wins!
 </p>
 
@@ -216,27 +231,55 @@ Compete against the computer — whoever finds the most wins!
   <button id="retryBtn">RETRY</button>
   <button onclick="location.href='index.html'">HOME</button>
 </div>
-
 <script>
-const wordList = [
 
+
+const three_to_four_letter_words = [
 "ASH","CAT","COD","COW","DOG","EEL","ELK","ELM","EMU","EWE","FIG","FIR","FOX","HEN","HOG","IVY","OAK","OWL","PIG","RAM","SOW","YAK","YAM","YEW",
 "ALOE","BEAR","BEET","BOAR","BULL","CALF","CARP","CLAM","CRAB","CROW","DATE","DEER","DILL","DODO","DUCK","FERN","FOAL","FROG","GOAT","HARE","HAWK","IRIS","KALE","KELP","KIWI","LAMB","LARK","LEEK","LILY","LIME","LION","MARE","MINT","MOLE","MOSS","MULE","NEWT","ORCA","PALM","PEAR","PINE","PLUM","PONY","PUMA","REED","ROSE","SAGE","SEAL","SWAN","TEAK","TOAD","TUNA","VOLE","WOLF",
+
+];
+
+const five_letter_words = [
+
 "ALGAE","APPLE","ASPEN","BASIL","BEECH","BIRCH","BISON","CAMEL","CEDAR","CHICK","CLOVE","COBRA","CONCH","CORAL","CRANE","DAISY","DINGO","DRAKE","EAGLE","GOOSE","GRAPE","GRASS","GUAVA","HAZEL","HERON","HORSE","HYENA","KOALA","KRILL","LARCH","LAVER","LEMON","LILAC","LLAMA","MANGO","MAPLE","MELON","MOOSE","MOUSE","OLIVE","ONION","OTTER","PANDA","PANSY","PEACH","PEONY","PERCH","POPPY","PRAWN","QUAIL","RAVEN","ROBIN","SHARK","SHEEP","SKINK","SKUNK","SLOTH","SNAIL","SNAKE","SQUID","THYME","TIGER","TROUT","TULIP","WHALE","ZEBRA",
+];
+
+const six_letter_words =  [
 "ALPACA","AMOEBA","AMTOAD","AZALEA","BAMBOO","BANANA","BANYAN","BAOBAB","BEAVER","CACTUS","CANARY","CARROT","CELERY","CHERRY","COSMOS","COYOTE","DIATOM","DONKEY","FENNEL","FERRET","GANDER","GARLIC","GINGER","GINKGO","GOPHER","JACKAL","JAGUAR","LICHEN","LIZARD","LYCHEE","MAGPIE","MARIMO","MARMOT","MONKEY","MUSSEL","NUTRIA","ORANGE","ORIOLE","OSPREY","OYSTER","PAPAYA","PARROT","PIGEON","PIGLET","POPLAR","POTATO","PUFFIN","QUOKKA","RABBIT","RADISH","SALMON","SHRIMP","SIRENS","SPONGE","SPRUCE","TOMATO","TOUCAN","TURKEY","TURNIP","TURTLE","URCHIN","VIOLET","WAKAME","WALNUT","WALRUS","WEASEL","WILLOW","WOMBAT","YARROW","ZINNIA",
+];
+
+
+const seven_letter_words =  [
 "ABALONE","ANCHOVY","ANEMONE","APRICOT","AVOCADO","AXOLOTL","BEGONIA","BLUEJAY","BUFFALO","BULRUSH","BURDOCK","CABBAGE","CAPELIN","CATFISH","CHEETAH","CHICKEN","COCONUT","CYPRESS","DOGWOOD","DOLPHIN","GINSENG","GIRAFFE","GORILLA","GOSLING","HADDOCK","HALIBUT","HAMSTER","HEMLOCK","HICKORY","JASMINE","JUNIPER","LEOPARD","LETTUCE","LOBSTER","MAMMOTH","MANATEE","MEERKAT","MOORHEN","MUGWORT","NARWHAL","OCTOPUS","OPOSSUM","OREGANO","OSTRICH","PAPRIKA","PARSLEY","PEACOCK","PELICAN","PENGUIN","PETUNIA","PIRANHA","POLLACK","PUMPKIN","RACCOON","REDWOOD","ROEDEER","ROOSTER","SAPLING","SARDINE","SCALLOP","SEAGULL","SEALION","SEAWEED","SEQUOIA","SNAPPER","SPARROW","SPINACH","SWALLOW","TRUFFLE","TYRANNO","WALLABY","WILDCAT",
+
+];
+
+const eight_or_more_letter_words =  [
 "ALOEVERA","ANACONDA","ANTEATER","BARNACLE","BROCCOLI","BULLFROG","CAMELLIA","CANETOAD","CAPYBARA","CARDINAL","CHESTNUT","CILANTRO","CINNAMON","CRAYFISH","CUCUMBER","DUCKLING","DUCKWEED","EGGPLANT","ELEPHANT","FINWHALE","FLAMINGO","FLOUNDER","GERANIUM","GOLDFISH","HEDGEHOG","HIBISCUS","HORNWORT","HYACINTH","KANGAROO","KIWIBIRD","LAVENDER","LOVEBIRD","MACKEREL","MAGNOLIA","MAHOGANY","MANGROVE","MARIGOLD","MUDPUPPY","MULBERRY","MUSHROOM","NAUTILUS","PLANKTON","PLATANUS","PORPOISE","REDPANDA","REINDEER","ROSEMARY","SEAGRASS","SEAHORSE","SEAOTTER","SEIWHALE","SIKADEER","SNOWCRAB","SOURDOCK","SQUIRREL","STALLION","STARFISH","STURGEON","SURFCLAM","SYCAMORE","TORTOISE","TURMERIC","VALERIAN","WILDBOAR","ZUCCHINI",
 "ALBATROSS","ANGELFISH","APPLEMINT","ARCTICFOX","BALDEAGLE","BLUEBERRY","BLUEWHALE","BUTTERFLY","CAECILIAN","CALENDULA","CARNATION","CHAMELEON","CHAMOMILE","CHRYSANTH","CLOWNFISH","CROCODILE","DANDELION","DRAGONFLY","ECHINACEA","EUREGLOWL","FENNECFOX","FIRESALAM","GLADIOLUS","GRAYWHALE","HOLYBASIL","HYDRANGEA","JELLYFISH","LEMONBALM","MOURNDOVE","NANNYGOAT","NARCISSUS","NECTARINE","ORANGUTAN","PERSIMMON","PINEAPPLE","PLANETREE","POLARBEAR","PORCUPINE","RASPBERRY","RHIZOBIUM","SAGEBRUSH","SEASQUIRT","SEAURCHIN","SUNFLOWER","TANGERINE","WATERLILY","WATERWEED",
 "BRYDESWHALE",
 
 ];
 
+
+// 각 길이별 단어 개수 설정
+
+const num_three_to_four = 1;
+const num_five = 2;
+const num_six = 3;
+const num_seven = 3;
+const num_eight_or_more = 4;
+
 const gridSize = 10;
 const totalCells = gridSize * gridSize;
 let board, revealed, wordMap, foundWords, currentPlayer, foundBy, words, usedIndexes;
 let resultShown = false;
 let clovers = new Set();
+let daisies = new Set(); // 🌼 데이지 Set 추가
 let npcTimeoutId = null;
+
+
 
 const gameEl = document.getElementById('game');
 const userScoreEl = document.getElementById('userScore');
@@ -252,14 +295,27 @@ function shuffle(arr) {
   }
 }
 
-function getRandomWords(n) {
-  const temp = [...wordList];
-  shuffle(temp);
-  return temp.slice(0, n);
+function getRandomSample(array, count) {
+  const shuffled = [...array];
+  shuffle(shuffled);
+  return shuffled.slice(0, Math.min(count, array.length));
 }
 
+
+function getRandomWords() {
+  let selectedWords = []
+    .concat(getRandomSample(three_to_four_letter_words, num_three_to_four)) // ✅ 수정된 부분
+    .concat(getRandomSample(five_letter_words, num_five))
+    .concat(getRandomSample(six_letter_words, num_six))
+    .concat(getRandomSample(seven_letter_words, num_seven))
+    .concat(getRandomSample(eight_or_more_letter_words, num_eight_or_more));
+  shuffle(selectedWords);
+  return selectedWords;
+}
+
+
 function getRandomDirection() {
-  const dirs = [{ x: 1, y: 0 }, { x: 0, y: 1 },{ x: 1, y: 1 }];
+  const dirs = [{ x: 1, y: 0 }, { x: 0, y: 1 }, { x: 1, y: 1 }];
   return dirs[Math.floor(Math.random() * dirs.length)];
 }
 
@@ -305,6 +361,16 @@ function placeClovers(count) {
   }
 }
 
+function placeDaisy() {
+  daisies.clear();
+  while (daisies.size < 1) { // 데이지는 하나만
+    const idx = Math.floor(Math.random() * totalCells);
+    if (!usedIndexes.has(idx) && !clovers.has(idx)) {
+      daisies.add(idx);
+    }
+  }
+}
+
 function fillEmptyCells() {
   const alphabet = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i));
   shuffle(alphabet);
@@ -317,6 +383,7 @@ function fillEmptyCells() {
   }
 }
 
+   
 function updateScore() {
   const userContent = "<h2>USER:</h2>" + foundBy.user.map(w => `<p>${w}</p>`).join("");
   const npcContent = "<h2>COMPUTER:</h2>" + foundBy.npc.map(w => `<p>${w}</p>`).join("");
@@ -350,10 +417,12 @@ function checkWords() {
     if (userCount > npcCount) {
       userMessage = "<span style='font-family:\"Apple Color Emoji\", \"Segoe UI Emoji\", sans-serif;'>🏆</span> [WIN!!]";
       npcMessage = "<span style='font-family:\"Apple Color Emoji\", \"Segoe UI Emoji\", sans-serif;'>🥈</span> [LOSE~]";
-    } else if (npcCount > userCount) {
+    } else {
       userMessage = "<span style='font-family:\"Apple Color Emoji\", \"Segoe UI Emoji\", sans-serif;'>🥈</span> [LOSE~]";
-      npcMessage = "<span style='font-family:\"Apple Color Emoji\", \"Segoe UI Emoji\", sans-serif;'>🏆</span> [WIN!!]";
+      npcMessage = "<span style='font-family:\"Apple Color Emoji\", \"Segoe UI Emoji\", sans-serif;'>🏆</span> [WIN!]";
     }
+ 
+
     if (userMessage && npcMessage) {
       userScoreEl.innerHTML += `<p style='font-size:1.3em; margin-top:10px; color:#FFD700; font-weight:bold;'>${userMessage}</p>`;
       npcScoreEl.innerHTML += `<p style='font-size:1.3em; margin-top:10px; color:#FFD700; font-weight:bold;'>${npcMessage}</p>`;
@@ -392,14 +461,19 @@ function npcTurn() {
 function handleClick(index) {
   if (revealed[index] || resultShown) return;
   let wasClover = false;
+  let wasDaisy = false;
+
+  const cell = gameEl.children[index];
+
   if (clovers.has(index)) {
     wasClover = true;
-    const cell = gameEl.children[index];
     cell.classList.add('revealed', 'clover');
-    cell.textContent = '🍀';
+    cell.innerHTML = '<span>🍀</span>';
     revealed[index] = true;
+
     const dx = [0, 0, -1, 1, 0];
     const dy = [-1, 1, 0, 0, 0];
+
     for (let d = 0; d < dx.length; d++) {
       const nx = index % gridSize + dx[d];
       const ny = Math.floor(index / gridSize) + dy[d];
@@ -408,17 +482,38 @@ function handleClick(index) {
         reveal(nIdx);
       }
     }
+
+  } else if (daisies.has(index)) {
+    wasDaisy = true;
+    cell.classList.add('revealed', 'daisy');
+    cell.innerHTML = '<span>🌼</span>';
+    revealed[index] = true;
+
+    for (let dx = -1; dx <= 1; dx++) {
+      for (let dy = -1; dy <= 1; dy++) {
+        const nx = index % gridSize + dx;
+        const ny = Math.floor(index / gridSize) + dy;
+        if (nx >= 0 && nx < gridSize && ny >= 0 && ny < gridSize) {
+          const nIdx = ny * gridSize + nx;
+          reveal(nIdx);
+        }
+      }
+    }
+
   } else {
     reveal(index);
   }
+
   checkWords();
-  if (!wasClover && !resultShown) {
+
+  if ((!wasClover && !wasDaisy) && !resultShown) {
     switchTurn();
-  } else if (wasClover && currentPlayer === 'npc' && !resultShown) {
+  } else if ((wasClover || wasDaisy) && currentPlayer === 'npc' && !resultShown) {
     npcTimeoutId = setTimeout(npcTurn, 800);
   }
 }
 
+  
 function init() {
   clearTimeout(npcTimeoutId);
   board = Array(totalCells).fill(null);
@@ -428,10 +523,10 @@ function init() {
   foundBy = { user: [], npc: [] };
   currentPlayer = 'user';
   usedIndexes = new Set();
-  words = getRandomWords(13);
+  words = getRandomWords();
   resultShown = false;
   clovers.clear();
-
+daisies.clear()
   let placedWords = 0;
   let attempts = 0;
   while (placedWords < words.length && attempts < 50) {
@@ -441,6 +536,7 @@ function init() {
   words = words.slice(0, placedWords);
 
   placeClovers(5);
+placeDaisy(1); 
   fillEmptyCells();
   updateScore();
 
@@ -453,10 +549,14 @@ function init() {
     });
     gameEl.appendChild(cell);
   }
+
+  
+  console.log('게임에 배치된 단어들:', words);
 }
 
 retryBtn.addEventListener('click', init);
 window.addEventListener('resize', updateLayout);
+
 function updateLayout() {
   const isMobile = window.innerWidth <= 768;
   if (isMobile) {
@@ -469,8 +569,13 @@ function updateLayout() {
     document.querySelector('.score-container').style.display = 'none';
   }
 }
+
 updateLayout();
 init();
 </script>
 </body>
 </html>
+
+
+
+
