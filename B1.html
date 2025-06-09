@@ -109,9 +109,12 @@
     user-select: none;
     border-radius: 4px;
   }
-  .revealed {
+
+.revealed {
     background-color: #fff;
   }
+  
+
   .revealed.clover {
     background-color: #d0f5d0;
     font-size: 1.5em;
@@ -119,6 +122,17 @@
   .revealed.clover span {
     font-family: "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
   }
+
+
+.revealed.daisy {
+  background-color: #fff4e0; /* 밝은 데이지 느낌의 배경 */
+  font-size: 1.5em;
+}
+.revealed.daisy span {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+}
+
+
   .word-owned-user {
     background-color: #fff9c4;
   }
@@ -188,8 +202,9 @@
 
 <h1>WORPUZZ B1</h1>
 <p class="rule">
-Find the words hidden horizontally →,  vertically ↓, or diagonally ↘.<br>
+Find the words hidden horizontally →,vertically ↓, or diagonally ↘. <br>
 If you spot a four-leaf clover <span style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;">🍀</span>, you earn an extra turn!<br>
+If you spot a daisy <span style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;">🌼</span>, you earn an extra turn!<br>
 Compete against the computer — whoever finds the most wins!
 </p>
 
@@ -216,28 +231,51 @@ Compete against the computer — whoever finds the most wins!
   <button id="retryBtn">RETRY</button>
   <button onclick="location.href='index.html'">HOME</button>
 </div>
-
 <script>
-const wordList = [
 
-"ACT","AGE","AIM","BAN","BEE","CAP","CUT","DUE","FAR","FRY","FUR","KEY","LAY","LIE","LIP","MAD","MIX","MUD","NET","NOR","NOW","ODD","PAN","PIN","POT","PRO","ROW","SET","SEX","SHY","TAX","TIN","TIP","TOE","WIN",
+
+const three_to_four_letter_words = ["ACT","AGE","AIM","BAN","BEE","CAP","CUT","DUE","FAR","FRY","FUR","KEY","LAY","LIE","LIP","MAD","MIX","MUD","NET","NOR","NOW","ODD","PAN","PIN","POT","PRO","ROW","SET","SEX","SHY","TAX","TIN","TIP","TOE","WIN",
 "AGED","BAKE","BASE","BELL","BEND","BITE","BOMB","BURY","CALM","CLUE","COAL","COIN","COOL","DEAL","DEEP","DIRT","DROP","DRUM","DUST","DUTY","EDGE","FACE","FEAR","FILE","FIRE","FLAG","FLOW","FOLD","FOLK","FUEL","GLAD","HAND","HANG","HATE","HEAD","HIRE","HOST","HUNT","IRON","KEEN","KICK","KIND","KISS","LACK","LEAD","LEAF","LIKE","LIVE","LOSS","MALL","MESS","MILD","MINE","MOOD","MOVE","NAIL","NEED","NEXT","NOTE","ONCE","OURS","PACK","PALE","PASS","PATH","PIPE","PLOT","PLUS","POEM","POET","PORT","POUR","PRAY","PULL","PUSH","QUIT","RARE","RENT","RISE","RISK","ROLL","ROPE","RULE","SAIL","SAND","SCAN","SEED","SINK","SLOW","SOIL","SORT","SPOT","SUIT","SWIM","TAIL","TAPE","TEND","TENT","THAT","THIS","TILL","TINY","TOUR","TUBE","TYPE","TYRE","UGLY","UPON","USED","VIEW","VOTE","WARM","WARN","WAVE","WILL","WING","WOOL","YARD",
+];
+
+const five_letter_words = [
 "ADMIT","AGENT","AHEAD","ALARM","ALBUM","ANNOY","APART","AWARD","AWARE","BASIC","BASIS","BLOCK","BOARD","BRAND","BRAVE","BRIDE","CHAIN","CHEAP","CHEAT","CHEST","CLAIM","CLEAR","CLICK","CLIMB","CLOSE","CLOTH","COACH","COUNT","COURT","COVER","CREAM","CRUEL","DAILY","DOUBT","DRUNK","EMPTY","ENEMY","ENTRY","EQUAL","EXTRA","FANCY","FENCE","FIXED","FLOOD","FLOUR","FORCE","FRAME","GHOST","GIANT","GLOVE","GOODS","GRADE","GRAIN","GUARD","HURRY","ISSUE","JUDGE","KNOCK","LABEL","LAYER","LEGAL","LEVEL","LIMIT","LOCAL","MAGIC","MODAL","OCCUR","OUGHT","PLACE","POINT","PRESS","PROUD","PROVE","QUEUE","QUOTE","RANGE","ROBOT","ROUGH","ROYAL","RUGBY","SHAKE","SHARE","SHARP","SHELF","SHELL","SHIFT","SHINE","SHINY","SHOOT","SIGHT","SILLY","SINCE","SLICE","SMART","SOLID","SPICY","STAFF","STATE","STICK","STILL","STORE","STUFF","THEME","TIGHT","TOTAL","TOUCH","TRADE","TREAT","TREND","TRICK","TRUTH","UNION","UPSET","VALUE","WASTE","WATER","WEIGH","WHILE","WHOLE","WORRY","WORSE","WORST","WORTH","WRONG","YOUNG","YOUTH",
+];
+
+const six_letter_words =  [
 "ACCESS","ADMIRE","ADVISE","AFFORD","AMAZED","ARREST","ASSIST","ATTACH","BATTLE","BEAUTY","BELIEF","BETTER","BORDER","BOTHER","BRANCH","BREATH","BUBBLE","CAMPUS","CENTRE","CHARGE","CLAUSE","CLIENT","COMMIT","COTTON","CUSTOM","DAMAGE","DECADE","DEFINE","DIRECT","DIVIDE","DONATE","DOUBLE","EDITOR","EFFORT","ESCAPE","EXCEPT","EXPAND","EXPORT","FAIRLY","FASTEN","FAVOUR","FREEZE","FROZEN","GARAGE","GATHER","GENTLE","GLOBAL","GROWTH","GUILTY","HARDLY","HIGHLY","HONEST","HORROR","IGNORE","IMPACT","IMPORT","INDEED","INDOOR","INJURE","INTEND","INVEST","LATEST","LENGTH","LIQUID","LIVING","LOCATE","LONELY","LUXURY","MAINLY","MARKET","MEDIUM","MENTAL","MURDER","MUSCLE","NATION","NATIVE","NEEDLE","NORMAL","PLENTY","POETRY","POISON","POLICY","POWDER","PRAYER","PRIEST","PRINCE","PROFIT","PROPER","PUNISH","RACING","RARELY","REJECT","RELATE","REMAIN","REMIND","REMOTE","REPAIR","REPEAT","RESULT","RETIRE","REVISE","SAFETY","SAILOR","SAMPLE","SCRIPT","SEXUAL","SIGNAL","SILENT","SIMPLY","SMOOTH","SPIRIT","SPOKEN","SPREAD","STATUE","STRING","STUDIO","SUDDEN","SUFFER","SUPPLY","SURELY","SWITCH","TALENT","THEIRS","THEORY","THOUGH","THROAT","TONGUE","UNABLE","UNFAIR","UNLESS","UNLIKE","UPDATE","VICTIM","VIEWER","WEAPON","WITHIN","WONDER",
+];
+
+
+const seven_letter_words =  [
 "ACCOUNT","ALCOHOL","ANALYSE","ANNOYED","ARRIVAL","ATTRACT","AVERAGE","BALANCE","BATTERY","BENEFIT","BREATHE","CAPTAIN","CEILING","CENTRAL","CHANNEL","CHAPTER","COMBINE","COMMENT","COMPLEX","CONFIRM","CONFUSE","CONSIST","CONSUME","CONTACT","CONTENT","COSTUME","COTTAGE","COVERED","CURRENT","CURTAIN","DELIVER","DESPITE","DIAGRAM","DIAMOND","DISLIKE","DRESSED","EASTERN","ECONOMY","EDUCATE","ELEMENT","EMOTION","ENGAGED","EPISODE","EQUALLY","EXAMINE","EXPLODE","EXPLORE","FEATURE","FITNESS","FOREVER","FURTHER","HEATING","HEAVILY","ILLEGAL","INDOORS","INJURED","JOURNAL","KILLING","LEADING","LEATHER","LEISURE","LOCATED","MEASURE","MENTION","MIXTURE","MUSICAL","MYSTERY","NEITHER","NUCLEAR","OBVIOUS","OUTDOOR","PACKAGE","PAINFUL","PASSION","PAYMENT","POVERTY","PRETEND","PRIMARY","PRIVATE","PROGRAM","PROMOTE","PROTEST","QUALIFY","REALITY","RECEIPT","REFLECT","RELATED","RELAXED","RELEASE","REQUEST","REQUIRE","RESPECT","RETIRED","SERVANT","SETTING","STADIUM","SUMMARY","SURFACE","SURVIVE","SYMPTOM","TOTALLY","VARIOUS","VERSION","VIOLENT","WARNING","WESTERN","WHETHER","WRITTEN",
+];
+
+const eight_or_more_letter_words =  [
 "ACADEMIC","ADDITION","ADVANCED","AMBITION","ANALYSIS","ANNOUNCE","ANNOYING","ATTITUDE","CAMPAIGN","CARELESS","CATEGORY","CEREMONY","CHAMPION","CHEERFUL","CHEMICAL","COLOURED","CONCLUDE","CONFUSED","CONSUMER","CONTRAST","CONVINCE","CRIMINAL","CULTURAL","CURRENCY","DECORATE","DEFINITE","DIRECTLY","DISCOUNT","ECONOMIC","EDUCATED","ELECTION","ENTRANCE","EXCHANGE","EXPECTED","FAMILIAR","FIGHTING","FRIGHTEN","FUNCTION","GENEROUS","GRADUATE","GRATEFUL","HEADLINE","HISTORIC","HORRIBLE","IDENTITY","INDICATE","INDIRECT","INNOCENT","INVOLVED","KEYBOARD","LOCATION","MARRIAGE","NORTHERN","OCCASION","OFFICIAL","ORIGINAL","OUTDOORS","PEACEFUL","PERSUADE","PLANNING","PLEASANT","PLEASURE","POLITICS","PORTRAIT","POSSIBLY","POWERFUL","PREPARED","PRESSURE","PREVIOUS","PRINCESS","PRINTING","PRISONER","PRODUCER","PROPERLY","PROPERTY","REACTION","RELATION","RELATIVE","RELAXING","RELIABLE","RELIGION","REPEATED","RESOURCE","ROMANTIC","SECURITY","SENSIBLE","SEPARATE","SLIGHTLY","SOFTWARE","SOUTHERN","SPENDING","STANDARD","STRANGER","STRENGTH","STRONGLY","SUITABLE","TALENTED","UNLIKELY","VALUABLE","WHATEVER","WHENEVER",
 "AGREEMENT","ALCOHOLIC","AMBITIOUS","APOLOGIZE","AUTHORITY","BACKWARDS","BREATHING","CANDIDATE","CHALLENGE","CHILDHOOD","COMPLAINT","CONFIDENT","CONTAINER","CURRENTLY","DEPARTURE","DETERMINE","EFFECTIVE","EMERGENCY","ENCOURAGE","ENTERTAIN","ESSENTIAL","EXPLOSION","FINANCIAL","FOLLOWING","GENERALLY","GENTLEMAN","HAPPINESS","HIGHLIGHT","HURRICANE","IMAGINARY","IMMEDIATE","IMMIGRANT","INFLUENCE","INTENTION","MARKETING","MEANWHILE","NARRATIVE","NATURALLY","OBVIOUSLY","OPERATION","ORGANIZED","ORGANIZER","PERFECTLY","POISONOUS","POLITICAL","PRACTICAL","QUALIFIED","QUOTATION","REFERENCE","REGULARLY","RELIGIOUS","REPRESENT","SCULPTURE","SECONDARY","SERIOUSLY","SIMILARLY","STATISTIC","SUBSTANCE","SUMMARIZE","SUPPORTER","TECHNICAL","TECHNIQUE","THEREFORE","TRANSLATE","TRANSPORT","TREATMENT","TYPICALLY","UNDERWEAR","VOLUNTEER","WORLDWIDE",
 "ABSOLUTELY","APPRECIATE","ASSIGNMENT","ATMOSPHERE","ATTRACTION","COLLECTION","COMMERCIAL","COMPARISON","COMPETITOR","CONCLUSION","CONNECTION","CONTINUOUS","CONVENIENT","DEFINITION","DETERMINED","DIFFICULTY","EARTHQUAKE","EMPLOYMENT","EVENTUALLY","EXCITEMENT","EXHIBITION","EXPEDITION","EXPERIENCE","EXPERIMENT","FREQUENTLY","FRIENDSHIP","FRIGHTENED","GENERATION","HELICOPTER","HISTORICAL","IMPORTANCE","IMPRESSION","IMPRESSIVE","INCREDIBLY","INGREDIENT","LABORATORY","LITERATURE","MANAGEMENT","ORIGINALLY","PERCENTAGE","PERSONALLY","POLITICIAN","PREDICTION","PREVIOUSLY","PRODUCTION","PROFESSION","PUNISHMENT","SCIENTIFIC","SIMILARITY","THROUGHOUT","UNEMPLOYED","UNPLEASANT",
-
-
 ];
+
+
+
+// 각 길이별 단어 개수 설정
+
+const num_three_to_four = 2;
+const num_five = 2;
+const num_six = 2;
+const num_seven = 2;
+const num_eight_or_more = 3;
 
 const gridSize = 10;
 const totalCells = gridSize * gridSize;
 let board, revealed, wordMap, foundWords, currentPlayer, foundBy, words, usedIndexes;
 let resultShown = false;
 let clovers = new Set();
+let daisies = new Set(); // 🌼 데이지 Set 추가
 let npcTimeoutId = null;
+
+
 
 const gameEl = document.getElementById('game');
 const userScoreEl = document.getElementById('userScore');
@@ -253,14 +291,27 @@ function shuffle(arr) {
   }
 }
 
-function getRandomWords(n) {
-  const temp = [...wordList];
-  shuffle(temp);
-  return temp.slice(0, n);
+function getRandomSample(array, count) {
+  const shuffled = [...array];
+  shuffle(shuffled);
+  return shuffled.slice(0, Math.min(count, array.length));
 }
 
+
+function getRandomWords() {
+  let selectedWords = []
+    .concat(getRandomSample(three_to_four_letter_words, num_three_to_four)) // ✅ 수정된 부분
+    .concat(getRandomSample(five_letter_words, num_five))
+    .concat(getRandomSample(six_letter_words, num_six))
+    .concat(getRandomSample(seven_letter_words, num_seven))
+    .concat(getRandomSample(eight_or_more_letter_words, num_eight_or_more));
+  shuffle(selectedWords);
+  return selectedWords;
+}
+
+
 function getRandomDirection() {
-  const dirs = [{ x: 1, y: 0 }, { x: 0, y: 1 },{ x: 1, y: 1 }];
+  const dirs = [{ x: 1, y: 0 }, { x: 0, y: 1 }, { x: 1, y: 1 }];
   return dirs[Math.floor(Math.random() * dirs.length)];
 }
 
@@ -306,6 +357,16 @@ function placeClovers(count) {
   }
 }
 
+function placeDaisy() {
+  daisies.clear();
+  while (daisies.size < 1) { // 데이지는 하나만
+    const idx = Math.floor(Math.random() * totalCells);
+    if (!usedIndexes.has(idx) && !clovers.has(idx)) {
+      daisies.add(idx);
+    }
+  }
+}
+
 function fillEmptyCells() {
   const alphabet = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i));
   shuffle(alphabet);
@@ -318,6 +379,7 @@ function fillEmptyCells() {
   }
 }
 
+   
 function updateScore() {
   const userContent = "<h2>USER:</h2>" + foundBy.user.map(w => `<p>${w}</p>`).join("");
   const npcContent = "<h2>COMPUTER:</h2>" + foundBy.npc.map(w => `<p>${w}</p>`).join("");
@@ -351,10 +413,12 @@ function checkWords() {
     if (userCount > npcCount) {
       userMessage = "<span style='font-family:\"Apple Color Emoji\", \"Segoe UI Emoji\", sans-serif;'>🏆</span> [WIN!!]";
       npcMessage = "<span style='font-family:\"Apple Color Emoji\", \"Segoe UI Emoji\", sans-serif;'>🥈</span> [LOSE~]";
-    } else if (npcCount > userCount) {
+    } else {
       userMessage = "<span style='font-family:\"Apple Color Emoji\", \"Segoe UI Emoji\", sans-serif;'>🥈</span> [LOSE~]";
-      npcMessage = "<span style='font-family:\"Apple Color Emoji\", \"Segoe UI Emoji\", sans-serif;'>🏆</span> [WIN!!]";
+      npcMessage = "<span style='font-family:\"Apple Color Emoji\", \"Segoe UI Emoji\", sans-serif;'>🏆</span> [WIN!]";
     }
+ 
+
     if (userMessage && npcMessage) {
       userScoreEl.innerHTML += `<p style='font-size:1.3em; margin-top:10px; color:#FFD700; font-weight:bold;'>${userMessage}</p>`;
       npcScoreEl.innerHTML += `<p style='font-size:1.3em; margin-top:10px; color:#FFD700; font-weight:bold;'>${npcMessage}</p>`;
@@ -393,14 +457,19 @@ function npcTurn() {
 function handleClick(index) {
   if (revealed[index] || resultShown) return;
   let wasClover = false;
+  let wasDaisy = false;
+
+  const cell = gameEl.children[index];
+
   if (clovers.has(index)) {
     wasClover = true;
-    const cell = gameEl.children[index];
     cell.classList.add('revealed', 'clover');
-    cell.textContent = '🍀';
+    cell.innerHTML = '<span>🍀</span>';
     revealed[index] = true;
+
     const dx = [0, 0, -1, 1, 0];
     const dy = [-1, 1, 0, 0, 0];
+
     for (let d = 0; d < dx.length; d++) {
       const nx = index % gridSize + dx[d];
       const ny = Math.floor(index / gridSize) + dy[d];
@@ -409,17 +478,38 @@ function handleClick(index) {
         reveal(nIdx);
       }
     }
+
+  } else if (daisies.has(index)) {
+    wasDaisy = true;
+    cell.classList.add('revealed', 'daisy');
+    cell.innerHTML = '<span>🌼</span>';
+    revealed[index] = true;
+
+    for (let dx = -1; dx <= 1; dx++) {
+      for (let dy = -1; dy <= 1; dy++) {
+        const nx = index % gridSize + dx;
+        const ny = Math.floor(index / gridSize) + dy;
+        if (nx >= 0 && nx < gridSize && ny >= 0 && ny < gridSize) {
+          const nIdx = ny * gridSize + nx;
+          reveal(nIdx);
+        }
+      }
+    }
+
   } else {
     reveal(index);
   }
+
   checkWords();
-  if (!wasClover && !resultShown) {
+
+  if ((!wasClover && !wasDaisy) && !resultShown) {
     switchTurn();
-  } else if (wasClover && currentPlayer === 'npc' && !resultShown) {
+  } else if ((wasClover || wasDaisy) && currentPlayer === 'npc' && !resultShown) {
     npcTimeoutId = setTimeout(npcTurn, 800);
   }
 }
 
+  
 function init() {
   clearTimeout(npcTimeoutId);
   board = Array(totalCells).fill(null);
@@ -429,10 +519,10 @@ function init() {
   foundBy = { user: [], npc: [] };
   currentPlayer = 'user';
   usedIndexes = new Set();
-  words = getRandomWords(13);
+  words = getRandomWords();
   resultShown = false;
   clovers.clear();
-
+daisies.clear()
   let placedWords = 0;
   let attempts = 0;
   while (placedWords < words.length && attempts < 50) {
@@ -442,6 +532,7 @@ function init() {
   words = words.slice(0, placedWords);
 
   placeClovers(5);
+placeDaisy(1); 
   fillEmptyCells();
   updateScore();
 
@@ -454,10 +545,14 @@ function init() {
     });
     gameEl.appendChild(cell);
   }
+
+  
+  console.log('게임에 배치된 단어들:', words);
 }
 
 retryBtn.addEventListener('click', init);
 window.addEventListener('resize', updateLayout);
+
 function updateLayout() {
   const isMobile = window.innerWidth <= 768;
   if (isMobile) {
@@ -470,8 +565,13 @@ function updateLayout() {
     document.querySelector('.score-container').style.display = 'none';
   }
 }
+
 updateLayout();
 init();
 </script>
 </body>
 </html>
+
+
+
+
