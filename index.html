@@ -1,10 +1,9 @@
-
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<title>Worpuzz (워퍼즈) 초기화면</title>
+  <meta charset="UTF-8">
+  <title>Worpuzz (워퍼즈) 초기화면</title>
+  
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -12,87 +11,119 @@
     text-align: center;
     padding: 30px;
   }
+
   h1 { font-size: 3em; margin-bottom:0; color: #EF0; }
   h2 { font-size:1.2em; color: #EF0; }
-  header>div { color:#fff; line-height: 140%; margin:30px auto; }
-  header { height:320px; }
 
-  .game_container { background-color: #0E756D; border-radius: 22px; color:#fff; width:70%; margin: auto; }
-  .game_section { width:50%; margin: 30px auto; }
-  .game-buttons button {
-    width:90%; margin:10px auto; padding: 16px 0;
-    font-size: 1.2em; cursor: pointer; border: none;
-    background-color: #CFF9FF; color: #0A6A79; border-radius: 12px;
+  header > div {
+    color:#fff;
+    line-height: 140%;
+    margin:30px auto;
   }
-  .game-buttons button:hover { background-color: #1baf8f; color:#fff; }
 
-  .credits { font-size: 0.8em; margin-top: 40px; color: #e3e3e3; max-width: 800px; margin: 40px auto; line-height: 1.5; }
+  header {
+    min-height: 380px;
+    margin-bottom: 40px;
+  }
+
+  .game_container {
+    background-color: #0E756D;
+    border-radius: 22px;
+    color:#fff;
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 0;
+    flex-wrap: wrap;
+  }
+
+  .game_section {
+    width: 40%;
+    min-width: 280px;
+  }
+
+  .game-buttons button {
+    width: 90%;
+    margin: 10px auto;
+    padding: 16px 0;
+    font-size: 1.1em;
+    cursor: pointer;
+    border: none;
+    background-color: #CFF9FF;
+    color: #0A6A79;
+    border-radius: 12px;
+  }
+
+  .game-buttons button:hover {
+    background-color: #1baf8f;
+    color: #fff;
+  }
+
+  .credits {
+    font-size: 0.8em;
+    margin-top: 40px;
+    color: #e3e3e3;
+    max-width: 800px;
+    margin: 40px auto;
+    line-height: 1.5;
+  }
 </style>
 </head>
 <body>
-<header> 
-  <h1>WORPUZZ</h1>
-  <h2>워퍼즈</h2>
-  <div>
-    워퍼즈(WORPUZZ)는 '워드(word)'와 '퍼즐(puzzle)'을 합성한 이름입니다.<br>
-    지뢰찾기에서 영감을 받아 만들었지만, 지뢰 대신 네잎클로버가 숨겨져 있어요.<br>
-    가로, 세로, 대각선으로 숨겨진 단어를 찾으세요.  <br>
-🍀네잎클로버와 🌼데이지를 찾으면 주변이 열리고, 한 번 더 기회를 얻습니다.<br>
-재미있게 학습하면서 어휘력을 키워보세요!<br>
-    Worpuzz is a name combining "word" and "puzzle."<br>
-    Inspired by Minesweeper, but instead of mines, there are lucky four-leaf clovers!<br>
-Find hidden words in horizontal, vertical, and diagonal directions.<br>
- If you click on a 🍀clover  or  🌼daisy , the surrounding tiles open and you get an extra click.<br>
- Enjoy learning and expanding your vocabulary!
-
-  </div>
-</header>
-
-<div class="game_container">
-
-  <div class="game_section">
-    <h3>영어 ENGLISH</h3>
-    <div class="game-buttons">
-      <button onclick="location.href='A1.html'">A1 Oxford Beginner</button>
-      <button onclick="location.href='A2.html'">A2 Oxford Elementary</button>
-      <button onclick="location.href='B1.html'">B1 Oxford Intermediate</button>
-      <button onclick="location.href='B2.html'">B2 Oxford Upper-Intermediate</button>
-      <button onclick="location.href='C1.html'">C1 Oxford Advanced</button>
-<button onclick="location.href='D1.html'"> Tour</button>
-<button onclick="location.href='D2.html'"> Organism</button>
+  <header>
+    <h1>WORPUZZ</h1>
+    <h2>워퍼즈</h2>
+    <div>
+      워퍼즈(WORPUZZ)는 '워드(word)'와 '퍼즐(puzzle)'을 합성한 이름입니다.<br>
+      지뢰찾기에서 영감을 받아 만들었지만, 지뢰 대신 네잎클로버가 숨겨져 있어요.<br>
+      가로, 세로, 대각선으로 숨겨진 단어를 찾으세요. <br>
+      🍀네잎클로버와 🌼데이지를 찾으면 주변이 열리고, 한 번 더 기회를 얻습니다.<br>
+      재미있게 학습하면서 어휘력을 키워보세요!<br><br>
+      Worpuzz is a name combining "word" and "puzzle."<br>
+      Inspired by Minesweeper, but instead of mines, there are lucky four-leaf clovers!<br>
+      Find hidden words in horizontal, vertical, and diagonal directions.<br>
+      If you click on a 🍀clover or 🌼daisy, the surrounding tiles open and you get an extra click.<br>
+      Enjoy learning and expanding your vocabulary!
     </div>
-    <p>This game uses words from the Oxford Dictionary,<br>
-      Categorized by CEFR levels (A1 to C1)</p>
-  </div>
+  </header>
 
-  <div class="game_section">
-    <h3>한국어 KOREAN</h3>
-    <div class="game-buttons">
-      <button onclick="location.href='K1.html'">사자성어 / 고사성어</button>
-      <button onclick="location.href='K2.html'">음성 상징어 (의성어 / 의태어)</button>
-<button onclick="location.href='K3.html'">여행</button>
-<button onclick="location.href='K4.html'">생명</button>
+  <div class="game_container">
+    <div class="game_section">
+      <h3>영어 ENGLISH</h3>
+      <div class="game-buttons">
+        <button onclick="location.href='A1.html'">A1 Oxford Beginner</button>
+        <button onclick="location.href='A2.html'">A2 Oxford Elementary</button>
+        <button onclick="location.href='B1.html'">B1 Oxford Intermediate</button>
+        <button onclick="location.href='B2.html'">B2 Oxford Upper-Intermediate</button>
+        <button onclick="location.href='C1.html'">C1 Oxford Advanced</button>
+        <button onclick="location.href='D1.html'">Tour</button>
+        <button onclick="location.href='D2.html'">Organism</button>
+      </div>
+      <p>This game uses words from the Oxford Dictionary,<br>
+        categorized by CEFR levels (A1 to C1)</p>
+    </div>
+
+    <div class="game_section">
+      <h3>한국어 KOREAN</h3>
+      <div class="game-buttons">
+        <button onclick="location.href='K1.html'">사자성어 / 고사성어</button>
+        <button onclick="location.href='K2.html'">음성 상징어 (의성어 / 의태어)</button>
+        <button onclick="location.href='K3.html'">여행</button>
+        <button onclick="location.href='K4.html'">생명</button>
+      </div>
     </div>
   </div>
-</div>
 
-
-<div class="credits">
-
-<p>만든 사람: 한수수<br>
-     코딩 도움: ChatGPT , 클라우드<br>
-     고마운 분들: 네이처리, 주주, 콕슨</p>
-  <p>ⓒ 2025 한수수. 이 게임의 모든 권리는 제작자인 한수수에게 있습니다.<br>
-     무단 복제, 배포, 2차 창작을 금합니다.</p>
-  <p>Created by: Soosoo Han<br>
-     Coding Support: ChatGPT and Claude<br>
-     Special thanks to: Nature Lee, Juju, Coxon</p>
-  <p>© 2025 Soosoo Han. All rights reserved.<br>
-     No part of this game may be copied, distributed, or modified without permission.</p>
-
-  <br><br>
+  <div class="credits">
+    <p>만든 사람: 한수수<br>
+    코딩 도움: ChatGPT</p>
+    <p>ⓒ 2025 한수수. 이 게임의 모든 권리는 제작자인 한수수에게 있습니다.<br>
+    무단 복제, 배포, 2차 창작을 금합니다.</p>
+    <p>Created by: Soosoo Han<br>
+    Coding Support: ChatGPT</p>
+    <p>© 2025 Soosoo Han. All rights reserved.<br>
+    No part of this game may be copied, distributed, or modified without permission.</p>
   </div>
 </body>
 </html>
-
-
