@@ -26,7 +26,7 @@ The game will continue to be improved and upgraded.
 ### 👤 만든 사람 | Credits
 
 - 제작 | Developed by: **한수수 (Soosoo Han)**  
-- 코딩 지원 | Coding Support: **ChatGPT & Claude**
+- 코딩 지원 | Coding Support: **ChatGPT ,재치, 네이처리, Claude**
 
 ⓒ 2025 한수수.  
 이 게임의 모든 권리는 제작자에게 있으며,  
