@@ -5,12 +5,17 @@
   <title>Worpuzz (워퍼즈) 초기화면</title>
   
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #209087;
-    text-align: center;
-    padding: 30px;
-  }
+  * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #209087;
+      text-align: center;
+      padding: 30px;
+      margin: 0;
+    }
 
   h1 { font-size: 3em; margin-bottom:0; color: #EF0; }
   h2 { font-size:1.2em; color: #EF0; }
@@ -20,54 +25,114 @@
     line-height: 140%;
     margin:30px auto;
   }
+    header > div {
+      color: #fff;
+      line-height: 140%;
+      margin: 30px auto;
+    }
 
-  header {
-    min-height: 380px;
-    margin-bottom: 40px;
-  }
+    header {
+      min-height: 380px;
+      margin-bottom: 40px;
+    }
 
-  .game_container {
-    background-color: #0E756D;
-    border-radius: 22px;
-    color:#fff;
-    width: 90%;
-    margin: auto;
-    display: flex;
-    justify-content: space-around;
-    padding: 20px 0;
-    flex-wrap: wrap;
-  }
+    h1 {
+      font-size: 3em;
+      margin-bottom: 0;
+      color: #EF0;
+    }
+
+    h2 {
+      font-size: 1.2em;
+      color: #EF0;
+    }
+
+    .game_container {
+      background-color: #0E756D;
+      color: #fff;
+      width: 90%;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      gap: 20px;
+      border-radius: 0;
+      flex-wrap: wrap;
+    }
+
+    .sagol {
+      flex: 3;
+      min-width: 280px;
+      text-align: left;
+    }
+
+    .gomtang {
+      flex: 1;
+      min-width: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
   .game_section {
     width: 40%;
     min-width: 280px;
   }
+ 
+    .game-buttons button {
+      width: 100%;
+      margin: 10px auto;
+      padding: 16px 0;
+      font-size: 1.1em;
+      cursor: pointer;
+      border: none;
+      background-color: #CFF9FF;
+      color: #0A6A79;
+      border-radius: 12px;
+    }
 
-  .game-buttons button {
-    width: 90%;
-    margin: 10px auto;
-    padding: 16px 0;
-    font-size: 1.1em;
-    cursor: pointer;
-    border: none;
-    background-color: #CFF9FF;
-    color: #0A6A79;
-    border-radius: 12px;
-  }
+    .game-buttons button:hover {
+      background-color: #1baf8f;
+      color: #fff;
+    }
+/* 사골-곰탕 구조 안의 버튼만 따로 설정 */
+.gomtang .game-buttons button {
+  width: 200px;
+  height: 52px; /* 높이도 통일 */
+  font-size: 1.3em;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 10px auto;
+}
 
-  .game-buttons button:hover {
-    background-color: #1baf8f;
-    color: #fff;
-  }
+.gomtang-buttons button:hover {
+      background-color: #1baf8f;
+      color: #fff;
+    }
+    .credits {
+      font-size: 0.8em;
+      margin-top: 40px;
+      color: #e3e3e3;
+      max-width: 800px;
+      margin: 40px auto;
+      line-height: 1.5;
+    }
 
-  .credits {
-    font-size: 0.8em;
-    margin-top: 40px;
-    color: #e3e3e3;
-    max-width: 800px;
-    margin: 40px auto;
-    line-height: 1.5;
-  }
+    @media (max-width: 600px) {
+      .game_container {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .sagol, .gomtang {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
 </style>
 </head>
 <body>
@@ -75,7 +140,7 @@
     <h1>WORPUZZ</h1>
     <h2>워퍼즈</h2>
     <div>
-      워퍼즈(WORPUZZ)는 '워드(word)'와 '퍼즐(puzzle)'을 합성한 이름입니다.<br>
+      <p>워퍼즈(WORPUZZ)는 '워드(word)'와 '퍼즐(puzzle)'을 합성한 이름입니다.<br>
       지뢰찾기에서 영감을 받아 만들었지만, 지뢰 대신 네잎클로버가 숨겨져 있어요.<br>
       가로, 세로, 대각선으로 숨겨진 단어를 찾으세요. <br>
       🍀네잎클로버와 🌼데이지를 찾으면 주변이 열리고, 한 번 더 기회를 얻습니다.<br>
@@ -83,10 +148,9 @@
       Worpuzz is a name combining "word" and "puzzle."<br>
       Inspired by Minesweeper, but instead of mines, there are lucky four-leaf clovers!<br>
       Find hidden words in horizontal, vertical, and diagonal directions.<br>
-      If you click on a 🍀clover or 🌼daisy, the surrounding tiles open and you get an extra click.<br>
-      Enjoy learning and expanding your vocabulary!
-      This game uses words from the Oxford Dictionary,categorized by CEFR levels. (A1 to C1)
-
+      If you click on a 🍀clover or 🌼daisy, the surrounding tiles open and you get an extra click.<br>This game uses words from the Oxford Dictionary,<br>
+        categorized by CEFR levels (A1 to C1)
+      Enjoy learning and expanding your vocabulary!</p>
     </div>
   </header>
 
@@ -102,7 +166,8 @@
         <button onclick="location.href='D1.html'">Tour</button>
         <button onclick="location.href='D2.html'">Organism</button>
       </div>
-         </div>
+      
+    </div>
 
     <div class="game_section">
       <h3>한국어 KOREAN</h3>
@@ -114,52 +179,94 @@
       </div>
     </div>
   </div>
-<br><br>  
-  <div class="game_container">
-    <div class="game-buttons">
+<br>
 
-<strong>워퍼즈 클래식</strong>
+<div class="game_container">
+    <div class="sagol">
+  <strong>워퍼즈 클래식</strong>
     격자 속에 숨어있는 단어 찾기 게임. 마음의 평화 보장.<br>
-    <em>Worpuzz Classic:</em> For the calm-hearted. A low-stimulus, original word puzzle experience.<br>
+    <em>Worpuzz Classic:</em> For the calm-hearted. A low-stimulus, original word puzzle experience.</p>
+    </div>
+    <div class="gomtang">
+      <div class="game-buttons">
     <button onclick="location.href='https://soosoohan.github.io/worpuzz/'">워퍼즈 클래식</button>
-  </p>
+  </div>
+    </div>
+  </div>
 
+<div class="game_container">
+    <div class="sagol">
   <p>
     <strong>워퍼즈 메이트</strong>
     친구와 같이 하는 단어 찾기 게임! 두근두근 보장!<br>
-    <em>Worpuzz Mate:</em> A word puzzle game to play with a friend! Thrills guaranteed!<br>
+    <em>Worpuzz Mate:</em> A word puzzle game to play with a friend! Thrills guaranteed!</p>
+    </div>
+    <div class="gomtang">
+      <div class="game-buttons">
     <button onclick="location.href='https://soosoohan.github.io/worpuzzmate/'">워퍼즈 메이트</button>
-  </p>
+  
+</div>
+    </div>
+  </div>
 
-  <p>
-    <strong>넘즐</strong>
+  
+<div class="game_container">
+    <div class="sagol">
+  <p>  <strong>넘즐</strong>
     숫자 카드로 목표값에 가까운 수식을 만드는 수학 게임! 두뇌 개발 보장!<br>
-    <em>Numzzle:</em> A math card game to build formulas close to the target number! Brain power guaranteed!<br>
+    <em>Numzzle:</em> A math card game to build formulas close to the target number! Brain power guaranteed!</p>
+    </div>
+    <div class="gomtang">
+      <div class="game-buttons">
     <button onclick="location.href='https://soosoohan.github.io/numzzle/'">넘즐</button>
-  </p>
+  
+</div>
+    </div>
+  </div>
 
-  <p>
-    <strong>트링클</strong>
+  
+<div class="game_container">
+    <div class="sagol">
+  
+<p>  <strong>트링클</strong>
     별을 이어 삼각형을 만드는 우주 땅따먹기 전략 게임! 재미 보장!<br>
-    <em>Trinkle:</em> A space strategy game where you connect stars to make triangles! Fun guaranteed!<br>
+    <em>Trinkle:</em> A space strategy game where you connect stars to make triangles! Fun guaranteed!</p>
+    </div>
+    <div class="gomtang">
+      <div class="game-buttons">
     <button onclick="location.href='https://soosoohan.github.io/trinkle/'">트링클</button>
-  </p>
 
-  <p>
-    <strong>워퍼즈봇</strong>
+</div>
+    </div>
+  </div>
+<div class="game_container">
+    <div class="sagol">
+  <p>  <strong>워퍼즈봇</strong>
     똑똑해진 컴퓨터와 퍼즐 대결! 재미와 어휘력 두 마리 토끼 잡기 보장!<br>
-    <em>Worpuzz Bot:</em> Battle a smarter computer! Boost your vocabulary and enjoy the challenge!<br>
+    <em>Worpuzz Bot:</em> Battle a smarter computer! Boost your vocabulary and enjoy the challenge!<br></p>
+
+    </div>
+    <div class="gomtang">
+      <div class="game-buttons">
     <button onclick="location.href='https://soosoohan.github.io/worpuzz-bot/'">워퍼즈봇</button>
-  </p>
-<p>
-<strong>모음퀴즈</strong>
+  
+</div>
+    </div>
+  </div>
+<div class="game_container">
+    <div class="sagol">
+
+<p>    <strong>모음퀴즈</strong>
     모음만 있는 문장에서 힌트를 보고 자음을 넣어  문장을 완성하는 게임 . 웃음 보장!<br>
-    <em>Moeum - Quiz:</em> A Korean puzzle game where vowels guide you to the answer!<br>
-    <button onclick="location.href='https://soosoohan.github.io/worpuzz-bot/'">모음 게임</button>
-  </p>
-</div> 
-      </div> 
-    
+    <em>Moeum - Quiz:</em> A Korean puzzle game where vowels guide you to the answer!</p></div>
+    <div class="gomtang">
+      <div class="game-buttons">
+    <button onclick="location.href='https://soosoohan.github.io/worpuzz-bot/'">모음 퀴즈</button>
+  
+</div>
+</div>
+</div>
+
 
   <div class="credits">
     <p>만든 사람: 한수수<br>
