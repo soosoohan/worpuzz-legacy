@@ -46,13 +46,13 @@ The game will continue to be improved and upgraded.
   👉 http://soosoohan.github.io/worpuzzmate
 
 - **워퍼즈봇 (Worpuzz Bot)**  
-  격자 속에 숨어있는 단어를 찾으며 어휘력을 키우는 게임. 워퍼즈의 업그레이드 버전  
+  격자 속에 숨어있는 단어를 찾으며 어휘력을 키우는 게임. 워퍼즈의 업그레이드 버전   
   *Compete to guess or uncover words hidden in the grid*  
   👉 http://soosoohan.github.io/worpuzz-bot
 
 - **모음 퀴즈(Moeum Quiz)**  
-    모음과 힌트를 보고 자음을 맞추어 단어나 구절이나 문장을 완성하는 퍼즐 게임
-  *Guess the missing consonants to complete words, phrases, or sentences using vowels and hints
+    모음과 힌트를 보고 자음을 맞추어 단어나 구절이나 문장을 완성하는 퍼즐 게임  
+  *Guess the missing consonants to complete words, phrases, or sentences using vowels and hint  
   👉 http://soosoohan.github.io/moeum-quiz
 
 
