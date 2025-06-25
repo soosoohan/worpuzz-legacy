@@ -59,3 +59,8 @@ All rights reserved.
   격자를 열거나 단어를 추측하며 겨루는 어휘력 대결 게임  
   *Compete to guess or uncover words hidden in the grid*  
   👉 http://soosoohan.github.io/worpuzzmate
+
+- **워퍼즈봇 (Worpuzz bot)**  
+  격자를 열거나 단어를 추측하며 겨루는 어휘력 대결 게임  
+  *Compete to guess or uncover words hidden in the grid*  
+  👉 http://soosoohan.github.io/worpuzzmate
