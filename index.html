@@ -50,10 +50,10 @@
     .game_container {
       background-color: #0E756D;
       color: #fff;
-      width: 80%;
+      width: 90%;
       margin: auto;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
       padding: 20px;
       gap: 20px;
@@ -63,20 +63,20 @@
 
     .sagol {
       flex: 3;
-      min-width: 250px;
+      min-width: 280px;
       text-align: left;
     }
 
     .gomtang {
       flex: 1;
-      min-width: 160px;
+      min-width: 180px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
   .game_section {
-    width: 35%;
+    width: 40%;
     min-width: 280px;
   }
  
@@ -90,10 +90,6 @@
       background-color: #CFF9FF;
       color: #0A6A79;
       border-radius: 12px;
-   display: flex;
-  flex-direction: column;
-  justify-content: flex-start; /* 자식 요소를 위로 정렬 */
-
     }
 
     .game-buttons button:hover {
@@ -141,21 +137,19 @@
 </head>
 <body>
   <header>
-    <h1>WORPUZZ CLASSIC</h1>
-    <h2>워퍼즈 클래식 </h2>
+    <h1>WORPUZZ</h1>
+    <h2>워퍼즈</h2>
     <div>
       <p>워퍼즈(WORPUZZ)는 '워드(word)'와 '퍼즐(puzzle)'을 합성한 이름입니다.<br>
       지뢰찾기에서 영감을 받아 만들었지만, 지뢰 대신 네잎클로버가 숨겨져 있어요.<br>
       가로, 세로, 대각선으로 숨겨진 단어를 찾으세요. <br>
       🍀네잎클로버와 🌼데이지를 찾으면 주변이 열리고, 한 번 더 기회를 얻습니다.<br>
-      재미있게 학습하면서 어휘력을 키워보세요!<br>
-      워퍼즈 클래식의 업그레이드 버전인 워퍼즈봇이나 워퍼즈메이트를 많이 이용해주세요.  <br>
+      재미있게 학습하면서 어휘력을 키워보세요!<br><br>
       Worpuzz is a name combining "word" and "puzzle."<br>
       Inspired by Minesweeper, but instead of mines, there are lucky four-leaf clovers!<br>
       Find hidden words in horizontal, vertical, and diagonal directions.<br>
       If you click on a 🍀clover or 🌼daisy, the surrounding tiles open and you get an extra click.<br>This game uses words from the Oxford Dictionary,<br>
-        categorized by CEFR levels (A1 to C1)<br>
-        We hope you enjoy the upgraded versions of Worpuzz Classic — Worpuzz Bot and Worpuzz Mate!<br>
+        categorized by CEFR levels (A1 to C1)
       Enjoy learning and expanding your vocabulary!</p>
     </div>
   </header>
@@ -168,12 +162,13 @@
         <button onclick="location.href='A2.html'">A2 Oxford Elementary</button>
         <button onclick="location.href='B1.html'">B1 Oxford Intermediate</button>
         <button onclick="location.href='B2.html'">B2 Oxford Upper-Intermediate</button>
-        <button onclick="location.href='C1.html'">B2 Oxford Advanced</button>
-        <button onclick="location.href='D1.html'">Travel</button>
+        <button onclick="location.href='C1.html'">C1 Oxford Advanced</button>
+        <button onclick="location.href='D1.html'">Tour</button>
         <button onclick="location.href='D2.html'">Organism</button>
-       
-      </div> 
+      </div>
+      
     </div>
+
     <div class="game_section">
       <h3>한국어 KOREAN</h3>
       <div class="game-buttons">
@@ -189,9 +184,20 @@
 <br>
 
 <div class="game_container">
-  <p>한수수가 만든 다른 게임도 보고 가세요.   Check out other games created by Hansoo before you go!  </p> </div>
+    <div class="sagol">
+  <strong>워퍼즈 클래식</strong>
+    격자 속에 숨어있는 단어 찾기 게임. 마음의 평화 보장.<br>
+    <em>Worpuzz Classic:</em> For the calm-hearted. A low-stimulus, original word puzzle experience.</p>
+    </div>
+    <div class="gomtang">
+      <div class="game-buttons">
+    <button onclick="location.href='https://soosoohan.github.io/worpuzz/'">워퍼즈 클래식</button>
+  </div>
+    </div>
+  </div>
+
 <div class="game_container">
-  <div class="sagol">
+    <div class="sagol">
   <p>
     <strong>워퍼즈 메이트</strong>
     친구와 같이 하는 단어 찾기 게임! 두근두근 보장!<br>
@@ -253,11 +259,11 @@
     <div class="sagol">
 
 <p>    <strong>모음퀴즈</strong>
-    모음만 있는 문장에서 힌트를 보고 자음을 넣어  단어, 구절,문장을 완성하는 게임 . 웃음 보장!<br>
+    모음만 있는 문장에서 힌트를 보고 자음을 넣어  문장을 완성하는 게임 . 웃음 보장!<br>
     <em>Moeum - Quiz:</em> A Korean puzzle game where vowels guide you to the answer!</p></div>
     <div class="gomtang">
       <div class="game-buttons">
-    <button onclick="location.href='https://soosoohan.github.io/moeum-quiz/'">모음 퀴즈</button>
+    <button onclick="location.href='https://soosoohan.github.io/worpuzz-bot/'">모음 퀴즈</button>
   
 </div>
 </div>
