@@ -1,4 +1,4 @@
-## 🧩 Worpuzz  
+## 🧩 Worpuzz-legacy
 
 **Worpuzz** is a word puzzle game inspired by Minesweeper, where you explore a grid to uncover hidden words!  
 (The name “Worpuzz” is a combination of “Word” and “Puzzle.”)  
@@ -40,8 +40,8 @@ The game will continue to be improved and upgraded.
   *Compete to guess or uncover words hidden in the grid*  
   👉 http://soosoohan.github.io/worpuzzmate
 
-- **워퍼즈봇 (Worpuzz Bot)**  
-  격자 속에 숨어있는 단어를 찾으며 어휘력을 키우는 게임. 워퍼즈의 업그레이드 버전   
+- **워퍼즈 (Worpuzz Bot)**  
+  격자 속에 숨어있는 단어를 찾으며 어휘력을 키우는 게임.    
   *Compete to guess or uncover words hidden in the grid*  
   👉 http://soosoohan.github.io/worpuzz
 
