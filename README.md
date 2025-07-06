@@ -53,19 +53,18 @@ The game will continue to be improved and upgraded.
 
 ### 👤 만든 사람 | Credits
 
-- 기획 : 한수수  
-- 개발 보조 : 재치  
+- 기획·개발: 한수수  
+- 개발 보조 : 챗지피티  
 - 코딩 도움 : 클라우드  
-- 디자인 : 네이처리
+- 디자인 도움: 네이처리
 - Planning: Soosoo Han  
-- Development Assistant: Jaechi  
+- Development Assistant: ChatGPT  
 - Coding Support: Claude  
 - Design: Nature Lee
 
 ⓒ 2025 한수수.  
 이 게임의 모든 권리는 제작자에게 있으며,  
 **무단 복제, 배포, 2차 창작을 금지합니다.**
-
 © 2025 Soosoo Han.  
 All rights reserved.  
 **Do not copy, distribute, or create derivative works without permission.**
