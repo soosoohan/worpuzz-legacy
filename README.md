@@ -23,14 +23,12 @@ First prototype completed and uploaded to the [worpuzz-legacy](http://worpuzz-le
 
 - **2025-06-14**  
 두 사용자가 대결하는 형태의 워퍼즈메이트를 만들어 [worpuzzmate](http://soosoohan.github.io/worpuzzmate)에 업로드함.  
-Created a two-player competitive version of Worpuzz called WorpuzzMate and uploaded it to [worpuzzmate](http://soosoohan.github.io/worpuzzmate).
+Created a two-player competitive version of Worpuzz called WorpuzzMate and uploaded it to [worpuzzmate](http://soosoohan.github.io/worpuzzmate).  
 
 - **2025-06-17**  
 컴퓨터와 대결하는 기존 게임을 파스텔 컬러로 리디자인하여 [worpuzz](http://soosoohan.github.io/worpuzz)에 업로드함.  
-Redesigned the original game with pastel colors and uploaded it to [worpuzz](http://soosoohan.github.io/worpuzz).- **2025-05-01**
-*챗GPT의 도움으로 코딩을 몰라도 게임을 만들 수 있다는 희망을 가지고 개발 시작. *
-*오랫동안 생각만 했던 아이디어를 직접 구현해보기로 결심함.*
-*Began development with the help of ChatGPT, turning a long-held idea into a playable game without needing to code from scratch.
+Redesigned the original game with pastel colors and uploaded it to [worpuzz](http://soosoohan.github.io/worpuzz).
+
  
 ### 🔎 How to Play  
 - Words are hidden horizontally, vertically, and diagonally within a grid.  
