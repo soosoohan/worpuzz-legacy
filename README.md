@@ -5,9 +5,6 @@
 It’s playable in both Korean and English!  
 The game will continue to be improved and upgraded.  
 
-### 📅 Release Date  
-- **May 31, 2025**  
-
 ### 📅 개발 타임라인 / Development Timeline
 
 - **2025-05-01**  
