@@ -15,7 +15,7 @@ Began development with the help of ChatGPT, turning a long-held idea into a play
 - **2025-05-31**  
 내가 만든 첫번째 컴퓨터 게임 워퍼즈 탄생  
 The Birth of Worpuzz — My Very First Computer Game  
-워퍼즈는 컴퓨터와 대결하는 형태로 완성 후 [worpuzz-legacy](http://worpuzz-legacy) 레포에 업로드.  
+워퍼즈는 컴퓨터와 대결하는 형태로 완성 후 ['worpuzz-legacy'](http://soosoohan.github.io/worpuzz-legacy) 레포에 업로드.  
 First prototype completed and uploaded to the [worpuzz-legacy](http://worpuzz-legacy) repository.
 
 - **2025-06-14**  
