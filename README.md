@@ -11,21 +11,21 @@ The game will continue to be improved and upgraded.
 ### 📅 개발 타임라인 / Development Timeline
 
 - **2025-05-01**
-챗GPT의 도움으로 코딩을 몰라도 게임을 만들 수 있다는 희망을 가지고 개발 시작. 
-*오랫동안 생각만 했던 아이디어를 직접 구현해보기로 결심함.
+*챗GPT의 도움으로 코딩을 몰라도 게임을 만들 수 있다는 희망을 가지고 개발 시작. *
+*오랫동안 생각만 했던 아이디어를 직접 구현해보기로 결심함.*
 *Began development with the help of ChatGPT, turning a long-held idea into a playable game without needing to code from scratch.
  
 - **2025-05-31**
-내가 만든 첫번째 컴퓨터 게임 워퍼즈 탄생
-*The Birth of Worpuzz — My Very First Computer Game
+내가 만든 첫번째 컴퓨터 게임 워퍼즈 탄생*
+*The Birth of Worpuzz — My Very First Computer Game*
 *워퍼즈는 컴퓨터와 대결하는 형태로  완성 후 worpuzz-legacy(http://worpuzz-legacy)레포에 업로드.  First prototype completed and uploaded to the worpuzz-legacy(http://worpuzz-legacy)repository.
 
--	**2025-06-14**
-두 사용자가 대결하는 형태의 워퍼즈메이트를 만들어 /worpuzzmate에 업로드함.
+-	**2025-06-14**8
+두 사용자가 대결하는 형태의 워퍼즈메이트를 만들어 /worpuzzmate에 업로드함.*
 *Created a two-player competitive version of Worpuzz called WorpuzzMate and uploaded it to /worpuzzmate.
 
 -	**2025-06-17**
-컴퓨터와 대결하는 기존 게임을 파스텔 컬러로 리디자인하여 /worpuzz에 업로드함.
+컴퓨터와 대결하는 기존 게임을 파스텔 컬러로 리디자인하여 /worpuzz에 업로드함.*
 *Redesigned the original game with pastel colors and uploaded it to /worpuzz.
 
 ### 🔎 How to Play  
