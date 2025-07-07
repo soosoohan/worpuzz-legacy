@@ -8,7 +8,7 @@ The game will continue to be improved and upgraded.
 ### 📅 Release Date  
 - **May 31, 2025**  
 
-###📅 개발 타임라인 / Development Timeline
+### 📅 개발 타임라인 / Development Timeline
 
 - **	2025-05-01 **
 챗GPT의 도움으로 코딩을 몰라도 게임을 만들 수 있다는 희망을 가지고 개발 시작. 
