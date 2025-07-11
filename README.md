@@ -42,7 +42,7 @@ Redesigned the original game with pastel colors and uploaded it to ['worpuzz'](h
 ✅ Uses the Oxford dictionary’s word difficulty levels for an engaging challenge.  
 ✅ Playable in both Korean and English!
 
-### 🧪 한수수의 다른 게임들 | Other Games by Soosoo Han
+### 🧪 한수수의  게임들 |  Games by Soosoo Han
 
 - **넘즐 (Numzzle)**  
   수학을 재미있게! 목표 숫자에 가까운 수식을 만드는 게임  
