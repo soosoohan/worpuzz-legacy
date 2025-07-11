@@ -69,11 +69,16 @@ Redesigned the original game with pastel colors and uploaded it to ['worpuzz'](h
   *Guess the missing consonants to complete words, phrases, or sentences using vowels and hint  
   👉 http://soosoohan.github.io/moeum-quiz
 
+- **넘즐 X(Numzzle X)**  
+    수학 공부를 재미있게! 주어진  숫자카드와 연산기호 카드로 최대값을 만드는 게임  
+   *Make math fun! Create formulas to muximum number*  
+  👉 http://soosoohan.github.io/numzzlex
+
 
 ### 👤 만든 사람 | Credits
 - 기획·개발 : 한수수  
 - 개발 보조 : 챗GPT
-- 코딩 도움 : 클라우드  
+- 코딩 도움 : 클로드  
 - 디자인 도움: 네이처 리
 
 <p>ⓒ 2025 한수수. 이 게임의 모든 권리는 제작자인 한수수에게 있습니다.<br>
@@ -81,7 +86,7 @@ Redesigned the original game with pastel colors and uploaded it to ['worpuzz'](h
 
 - Created and Developed by Soosoo Han  
 - Development Assistant: ChatGPT  
-- Coding Support: Cloud  
+- Coding Support: Claude  
 - Design Support: Nature Lee
 
 <p>© 2025 Soosoo Han. All rights reserved.<br>
